@@ -65,11 +65,12 @@ def city_list(request):
 def city_selector(request):
     if request.method == 'GET':
         country = request.query_params.get('country', None)
+        country_pl = request.query_params.get('country_pl', None)
         name = request.query_params.get('name', None)
         name_pl = request.query_params.get('name_pl', None)
 
         try:
-            cities = CityUtils.get_cities(name, name_pl, country)
+            cities = CityUtils.get_cities(name, name_pl, country, country_pl)
             serializer = CitySerializer(cities, many=True)
             return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
         except NotFoundError:

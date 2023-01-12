@@ -24,6 +24,7 @@ class City(models.Model):
     name = models.CharField(max_length=100, null=False)
     name_pl = models.CharField(max_length=100, null=True)
     country = models.CharField(max_length=100, null=False)
+    country_pl = models.CharField(max_length=100, null=True)
     region = models.CharField(max_length=100, null=True)
     population = models.CharField(max_length=100, null=True)
     longitude = models.CharField(max_length=100, null=False)
