@@ -2,7 +2,7 @@ import requests, logging
 from platePlaceVisualizator.exceptions import *
 from platePlaceVisualizator.models import *
 
-api_url = 'https://restcountries.com/v3.1/'
+from platePlaceVisualizator.constants import country_api_url
 
 
 class CountryUtils:
@@ -10,16 +10,6 @@ class CountryUtils:
 
     def __init__(self):
         pass
-
-    @staticmethod
-    def refresh():
-        url = api_url + 'all'
-        response_list = requests.get(url)
-        for response in response_list.json():
-            print(response)
-            print("------")
-            #print(response.json())
-            #country = Country(name="AA")
 
     def get_country(self, name, language):
         if language not in self.possible_language:
@@ -31,7 +21,7 @@ class CountryUtils:
             return Country.objects.get(name_pl=name)
         else:
             if language == 'eng':
-                url = api_url + 'name/' + name
+                url = country_api_url + 'name/' + name
                 response = requests.get(url)
                 if response.status_code == 200:
                     country = Country(name=name,

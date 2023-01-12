@@ -19,3 +19,13 @@ class Country(models.Model):
     subregion = models.CharField(max_length=100)
     objects = models.Manager()
 
+
+class City(models.Model):
+    name = models.CharField(max_length=100, null=False)
+    name_pl = models.CharField(max_length=100, null=True)
+    country = models.CharField(max_length=100, null=False)
+    region = models.CharField(max_length=100, null=True)
+    population = models.CharField(max_length=100, null=True)
+    longitude = models.CharField(max_length=100, null=False)
+    latitude = models.CharField(max_length=100, null=False)
+    objects = models.Manager()

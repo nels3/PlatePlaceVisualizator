@@ -1,4 +1,5 @@
 import logging
+import json
 
 from django.http import JsonResponse
 from rest_framework import status
@@ -8,6 +9,7 @@ from .models import *
 from rest_framework.decorators import api_view
 
 from .utils.country.Country import CountryUtils
+from .utils.city.City import CityUtils
 from .exceptions import *
 
 
@@ -50,3 +52,44 @@ def country_selector(request):
             logging.info(f"Deleted country from database: {name}")
         return JsonResponse(status=status.HTTP_200_OK, data=None, safe=False)
 
+
+@api_view(['GET'])
+def city_list(request):
+    if request.method == 'GET':
+        cities = City.objects.all()
+        serializer = CitySerializer(cities, many=True)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
+@api_view(["GET", "POST", "DELETE"])
+def city_selector(request):
+    if request.method == 'GET':
+        country = request.query_params.get('country', None)
+        name = request.query_params.get('name', None)
+        name_pl = request.query_params.get('name_pl', None)
+
+        try:
+            cities = CityUtils.get_cities(name, name_pl, country)
+            serializer = CitySerializer(cities, many=True)
+            return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+        except NotFoundError:
+            logging.error(f"Not found city: {name}")
+            return JsonResponse(status=status.HTTP_400_BAD_REQUEST, data="Not found city", safe=False)
+
+    elif request.method == 'POST':
+        try:
+            CityUtils.save_city(request.POST)
+            return JsonResponse(status=status.HTTP_201_CREATED, data="Created", safe=False)
+        except AlreadyExistError:
+            return JsonResponse(status=status.HTTP_406_NOT_ACCEPTABLE, data="Already exists", safe=False)
+        except NotAllMandatoryFields:
+            return JsonResponse(status=status.HTTP_406_NOT_ACCEPTABLE, data="Not all mandatory fields provided", safe=False)
+        except Exception as exp:
+            logging.error(f"Error: {exp}")
+            return JsonResponse(status=status.HTTP_400_BAD_REQUEST, data=exp, safe=False)
+
+    elif request.method == 'DELETE':
+        name = request.query_params.get('name', None)
+        country = request.query_params.get('country', None)
+        CityUtils.delete_city(name, country)
+        return JsonResponse(status=status.HTTP_200_OK, data=None, safe=False)

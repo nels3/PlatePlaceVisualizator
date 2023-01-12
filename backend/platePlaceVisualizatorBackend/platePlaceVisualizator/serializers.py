@@ -13,3 +13,8 @@ class CountrySerializer(serializers.ModelSerializer):
         model = Country
         fields = '__all__'
 
+
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = '__all__'

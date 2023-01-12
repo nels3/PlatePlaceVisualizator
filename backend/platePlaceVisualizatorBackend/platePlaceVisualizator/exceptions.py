@@ -5,3 +5,10 @@ class NoConfiguredLanguage(Exception):
 class NotFoundError(Exception):
     pass
 
+
+class AlreadyExistError(Exception):
+    pass
+
+
+class NotAllMandatoryFields(Exception):
+    pass
