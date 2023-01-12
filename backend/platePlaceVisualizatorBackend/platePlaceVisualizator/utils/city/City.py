@@ -17,7 +17,15 @@ class CityUtils:
         pass
 
     @staticmethod
-    def get_cities(name, name_pl, country, country_pl):
+    def get_cities(name, name_pl, country, country_pl) -> [City]:
+        """
+        Returning cities list that match arguments from database or rest_api if any city exists in database
+        :param name: Name of city in english, possible option: prefix
+        :param name_pl: Name of city in polish
+        :param country: Name of country in english
+        :param country_pl: Name of country in polish
+        :return: Cities list from database or from rest_api
+        """
 
         if City.objects.filter((Q(name=name) & Q(name__isnull=False)) | ( Q(name_pl=name_pl)) & Q(name_pl__isnull=False)).exists():
             return City.objects.filter(Q(name=name) | Q(name_pl=name_pl))
@@ -62,6 +70,11 @@ class CityUtils:
 
     @staticmethod
     def save_city(data):
+        """
+        Saving City in database
+        :param data: dictionary with all necessary parameters
+        :return:
+        """
         city = City(name=data.get("name", None),
                     name_pl=data.get("name_pl", None),
                     country=data.get("country", None),
@@ -84,6 +97,12 @@ class CityUtils:
 
     @staticmethod
     def delete_city(city, country):
+        """
+        Deleting City in database
+        :param city: City in english
+        :param country: Country in english
+        :return:
+        """
         if City.objects.filter(Q(name=city) | Q(country=country)).exists():
             Country.objects.get(Q(name=city) | Q(country=country)).delete()
             logging.info(f"Deleted country from database: {city}")

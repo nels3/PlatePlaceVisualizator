@@ -12,7 +12,13 @@ class CountryUtils:
     def __init__(self):
         pass
 
-    def get_country(self, name, language):
+    def get_country(self, name, language) -> Country:
+        """
+        Returning existing Country object or using rest api
+        :param name: name of country in language
+        :param language: language of name, possible: self.possible_languaage
+        :return: Country object
+        """
         if language not in self.possible_language:
             raise NoConfiguredLanguage()
 
