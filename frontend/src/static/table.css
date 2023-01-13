@@ -2,7 +2,8 @@ table {
   empty-cells: show;
   position: initial;
   border-collapse: collapse;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+    font-size: 16px;
 }
 
 table a:link,
@@ -28,20 +29,22 @@ th {
 }
 
 th {
-  background-color: #4393c3;
+  background-color: var(--middle-blue);
 }
 
 td {
-  background-color: #92c5de;
+  background-color: var(--light-blue);
 }
 
-tr {
-  background-color: #92c5de;
+.selected td {
+  
+  background-color: var(--light-red) !important;
 }
+
 
 tr:hover td {
-  background-color: #e3c4e6;
+  background-color: var(--light-pink);
 }
 tr:hover tr {
-  background-color: #e3c4e6;
+  background-color: var(--light-pink);
 }

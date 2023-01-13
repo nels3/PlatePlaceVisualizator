@@ -1,1 +1,1 @@
-export const backendPath = 'http://localhost:8080/main'
+export const backendPath = 'http://localhost:8080/main/'

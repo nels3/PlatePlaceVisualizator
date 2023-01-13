@@ -1,0 +1,77 @@
+.form-box *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0 solid var(--hard-blue);
+}
+
+.form-box{
+    min-width: 100%;
+    border: solid var(--hard-blue) 3px;
+    margin: 0vw;
+    padding: 1vw ;
+    position:relative; 
+}
+
+.form-box h5{
+    font-size: 20px ;
+    text-align: center;
+    color: var(--hard-blue);
+    margin: 0 0 .5vh 0;
+}
+
+.form-box label{
+    text-align: center;
+    font-size: 16px;
+    padding: .5rem .8rem .5rem .8rem;
+    margin: .9vw 0 .9vw 10px ;
+}
+
+.form-box input, textarea{
+    display: block;
+    width: 50%;
+    padding: .5rem .8rem .5rem .8rem;
+    margin: .9vw 0 ;
+    border:0;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: lightgray;
+}
+
+.form-box textarea{
+    height: 15vh;
+}
+
+.button{
+    display: inline-block;
+    width: 30%;
+    height: 2rem;
+    color: var(--hard-blue);
+    border: 0;
+    bottom: 0;
+    cursor: pointer;
+    font-size: 16px;
+
+}
+
+.button{
+    margin: 1rem ;
+    border-radius: 20px; 
+
+}
+
+.button{    
+     margin: 1rem; 
+}
+
+.form-box .row {
+    display: table;
+    width: 100%; 
+    table-layout: fixed; 
+}
+.form-box .column {
+    display: table-cell;
+    border: 0;
+    float: left;
+    width: 48%;
+}
