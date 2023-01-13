@@ -1,0 +1,47 @@
+table {
+  empty-cells: show;
+  position: initial;
+  border-collapse: collapse;
+  margin-bottom: 5px;
+}
+
+table a:link,
+a:visited {
+  text-decoration: none;
+}
+
+table a:hover,
+a:active {
+  text-decoration: underline;
+}
+
+table,
+tr {
+  border: 1px solid black;
+}
+
+td,
+th {
+  padding: 5px;
+  text-align: center;
+  height: 20px;
+}
+
+th {
+  background-color: #4393c3;
+}
+
+td {
+  background-color: #92c5de;
+}
+
+tr {
+  background-color: #92c5de;
+}
+
+tr:hover td {
+  background-color: #e3c4e6;
+}
+tr:hover tr {
+  background-color: #e3c4e6;
+}

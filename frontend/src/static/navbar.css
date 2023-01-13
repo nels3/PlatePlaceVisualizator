@@ -1,0 +1,42 @@
+.navbar a:not(.active):hover {
+  color: #e3c4e6;
+}
+.navbar a.active:hover {
+  color: #000000;
+}
+
+.navbar a {
+  color: #808080;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  color: #ffffff;
+}
+
+.navbar a:not(.active):visited {
+  color: white;
+}
+
+.navbar .active{
+  color: #000000;
+  background-color: #7cb6f0;
+}
+
+.navbar div{
+  display: flex;
+  align-items: center;
+  margin-right: -24px;
+  white-space: nowrap;
+}
+
+nav{
+  background: #00376e;
+  height: 45px;
+  font-size: 19px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  z-index: 12;
+}
