@@ -8,15 +8,60 @@ from .serializers import *
 from .models import *
 from rest_framework.decorators import api_view
 
+from .utils.plate.Plate import PlateUtils
 from .utils.country.Country import CountryUtils
 from .utils.city.City import CityUtils
 from .exceptions import *
+
+
+@api_view(['GET', 'POST', 'DELETE'])
+def plate_detail(request):
+    if request.method == 'GET':
+        id = request.query_params.get('id', None)
+        if id is None:
+            return JsonResponse(status=status.HTTP_404_NOT_FOUND, safe=False, data=None)
+        try:
+            plate = PlateUtils.get_plate_by_id(id)
+        except Exception:
+            return JsonResponse(status=status.HTTP_404_NOT_FOUND, safe=False, data=None)
+
+        serializer = PlateSerializer(plate, many=False)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+    elif request.method == 'POST':
+        PlateUtils.save_plate(request.POST)
+        return JsonResponse(status=status.HTTP_200_OK, safe=False, data="Created")
+
+    elif request.method == 'DELETE':
+        id = request.query_params.get('id', None)
+        PlateUtils.delete_plate(id)
+        return JsonResponse(status=status.HTTP_200_OK, safe=False, data="Deleted")
 
 
 @api_view(['GET'])
 def plate_list(request):
     if request.method == 'GET':
         plates = Plate.objects.all()
+        serializer = PlateSerializer(plates, many=True)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
+@api_view(['GET'])
+def plate_list_by_city(request):
+    if request.method == 'GET':
+        city = request.query_params.get('city', None)
+        city_pl = request.query_params.get('city_pl', None)
+        plates = PlateUtils.get_plates_from_city(city, city_pl)
+        serializer = PlateSerializer(plates, many=True)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
+@api_view(['GET'])
+def plate_list_by_county(request):
+    if request.method == 'GET':
+        country = request.query_params.get('country', None)
+        country_pl = request.query_params.get('country_pl', None)
+        plates = PlateUtils.get_plates_from_country(country, country_pl)
         serializer = PlateSerializer(plates, many=True)
         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 

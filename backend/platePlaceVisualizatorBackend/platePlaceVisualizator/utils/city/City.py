@@ -105,4 +105,4 @@ class CityUtils:
         """
         if City.objects.filter(Q(name=city) | Q(country=country)).exists():
             Country.objects.get(Q(name=city) | Q(country=country)).delete()
-            logging.info(f"Deleted country from database: {city}")
+            logging.info(f"Deleted city from database: {city}")
