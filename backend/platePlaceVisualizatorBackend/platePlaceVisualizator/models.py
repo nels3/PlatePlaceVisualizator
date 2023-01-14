@@ -8,6 +8,7 @@ class Plate(models.Model):
     city_pl = models.CharField(max_length=100, blank=True)
     longitude = models.CharField(max_length=100)
     latitude = models.CharField(max_length=100)
+    info = models.CharField(max_length=1000, blank=True)
     objects = models.Manager()
 
 

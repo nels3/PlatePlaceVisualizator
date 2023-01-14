@@ -10,3 +10,19 @@ export const fetchPlatesList = createAsyncThunk(
     });
   }
 );
+
+export const updatePlate = createAsyncThunk(
+  "plates/updatePlate",
+  async (args, thunkAPI) => {
+    return await axios.post(backendPath + "plate/", {
+      id: args.id,
+      city: args.city,
+      city_pl: args.city_pl,
+      country: args.country,
+      country_pl: args.country_pl,
+      latitude: args.latitude,
+      longitude: args.longitude,
+      info: args.info,
+    });
+  }
+);

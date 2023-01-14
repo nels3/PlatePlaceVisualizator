@@ -37,7 +37,10 @@ class PlateUtils:
                       country_pl=data.get("country_pl", None),
                       city_pl=data.get("city_pl", None),
                       longitude=data.get("longitude", None),
-                      latitude=data.get("latitude", None))
+                      latitude=data.get("latitude", None),
+                      info=data.get("info", None))
+        if data.get("id", None) is not None:
+            plate.id = data.get("id", None)
 
         try:
             plate.save()
@@ -49,7 +52,7 @@ class PlateUtils:
         pass
 
     @staticmethod
-    def save_plate(id):
+    def delete_plate(id):
         if Plate.objects.filter(id=id).exists():
             Country.objects.get(id.id).delete()
             logging.info(f"Deleted plate from database with id: {id}")

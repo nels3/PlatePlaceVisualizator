@@ -50,7 +50,6 @@ export default function PlatesList() {
   ];
 
   const onRowClickAction = (rowDetails, rowIndex) => {
-    console.log(rowDetails);
     dispatch(setSelectedPlate(rowDetails));
     dispatch(setSelectedRowIndex(rowIndex));
   };

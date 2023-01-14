@@ -1,16 +1,33 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
-import Table from "src/components/common/Table";
 import Details from "src/components/common/Details";
 
 import { RootState } from "src/store/store";
 
+import {
+  updateSelectedPlate,
+  setLoadingDetail,
+} from "src/store/slices/plates/platesSlice";
+import {
+  updatePlate,
+  fetchPlatesList,
+} from "src/store/slices/plates/platesThunk";
+
 export default function PlateDetails() {
   const plate = useSelector((state: RootState) => state.plates.selectedPlate);
+  const loadingDetail = useSelector(
+    (state: RootState) => state.plates.loadingDetail
+  );
 
   const dispatch = useDispatch();
-  console.log(plate);
+
+  useEffect(() => {
+    if (loadingDetail == "fulfilled") {
+      dispatch(fetchPlatesList());
+      dispatch(setLoadingDetail("idle"));
+    }
+  }, [loadingDetail]);
 
   const fields = [
     {
@@ -50,11 +67,29 @@ export default function PlateDetails() {
     },
   ];
 
+  const updatePlateFun = () => {
+    dispatch(updatePlate(plate));
+    dispatch(fetchPlatesList(plate));
+  };
+  const deletePlateFun = () => {
+    console.log("TODO: Delete plate");
+  };
+  const updateFieldFun = (e, field) => {
+    dispatch(updateSelectedPlate({ field: field, value: e.target.value }));
+  };
+
   return (
     <>
       {plate ? (
         <div style={{ padding: "5px" }}>
-          <Details data={plate} fields={fields} />
+          <Details
+            id="plate_details"
+            data={plate}
+            fields={fields}
+            updateField={updateFieldFun}
+            updatePlate={updatePlateFun}
+            deletePlate={deletePlateFun}
+          />
         </div>
       ) : (
         <></>

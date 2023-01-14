@@ -29,7 +29,7 @@ def plate_detail(request):
         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
     elif request.method == 'POST':
-        PlateUtils.save_plate(request.POST)
+        PlateUtils.save_plate(request.data)
         return JsonResponse(status=status.HTTP_200_OK, safe=False, data="Created")
 
     elif request.method == 'DELETE':
