@@ -18,13 +18,12 @@ export default function Detail({
         <textarea
           className="column"
           name={title}
-          value={data["accessor"]}
+          value={data[accessor]}
           onChange={(e) => updateField(e, accessor)}
         />
       </div>
     );
   } else if (type === "image") {
-    console.log(data[accessor]);
     return (
       <div className="row">
         <label className="column">{title}</label>
@@ -51,7 +50,7 @@ export default function Detail({
         <input
           className="column"
           name={title}
-          value={data["accessor"]}
+          value={data[accessor]}
           onChange={(e) => updateField(e, accessor)}
         />
       </div>

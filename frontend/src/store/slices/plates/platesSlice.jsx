@@ -60,7 +60,6 @@ export const {
   setLoadingDetail,
   setSelectedRowIndex,
   updateSelectedPlate,
-  updateSelectedPlateImage,
 } = platesSlice.actions;
 
 export default platesSlice.reducer;

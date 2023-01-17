@@ -8,12 +8,10 @@ import { RootState } from "src/store/store";
 
 import {
   updateSelectedPlate,
-  updateSelectedPlateImage,
   setLoadingDetail,
 } from "src/store/slices/plates/platesSlice";
 import {
   updatePlate,
-  updatePlateImage,
   fetchPlatesList,
 } from "src/store/slices/plates/platesThunk";
 
@@ -82,18 +80,17 @@ export default function PlateDetails() {
   ];
 
   const updatePlateFun = () => {
-    dispatch(updatePlate(plate));
-    dispatch(fetchPlatesList(plate));
-  };
-  const updatePlateImageFun = () => {
-    dispatch(updatePlateImage({ file: file, id: plate.id }));
+    let plateEnhanced = { ...plate };
+    plateEnhanced["file"] = file;
+    dispatch(updatePlate(plateEnhanced));
+    dispatch(fetchPlatesList());
   };
 
   const deletePlateFun = () => {
     console.log("TODO: Delete plate");
   };
   const updateFieldFun = (e, field) => {
-    if (field == "img") {
+    if (field == "image_url") {
       setFile(e.target.files[0]);
       dispatch(
         updateSelectedPlate({
@@ -117,7 +114,6 @@ export default function PlateDetails() {
             fields={fields}
             updateField={updateFieldFun}
             updatePlate={updatePlateFun}
-            updatePlateImage={updatePlateImageFun}
             deletePlate={deletePlateFun}
           />
         </div>
