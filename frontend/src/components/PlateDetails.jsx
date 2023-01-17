@@ -3,13 +3,12 @@ import { useEffect } from "react";
 
 import Details from "src/components/common/Details";
 import React, { useState } from "react";
-
+import { LoadingState } from "src/utils/constants";
 import { RootState } from "src/store/store";
 
 import {
   updateSelectedPlate,
   setLoadingDetail,
-  setLoadingImage,
 } from "src/store/slices/plates/platesSlice";
 import {
   updatePlate,
@@ -32,15 +31,15 @@ export default function PlateDetails() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loadingImage == "pending") {
+    if (loadingImage === LoadingState.pending) {
       dispatch(fetchPlateImage(plate.id));
     }
   }, [loadingImage]);
 
   useEffect(() => {
-    if (loadingDetail == "fulfilled") {
+    if (loadingDetail === LoadingState.fulfilled) {
       dispatch(fetchPlatesList());
-      dispatch(setLoadingDetail("idle"));
+      dispatch(setLoadingDetail(LoadingState.idle));
     }
   }, [plate, loadingDetail]);
 
@@ -98,7 +97,7 @@ export default function PlateDetails() {
     console.log("TODO: Delete plate");
   };
   const updateFieldFun = (e, field) => {
-    if (field == "image_url") {
+    if (field === "image_url") {
       setFile(e.target.files[0]);
       dispatch(
         updateSelectedPlate({

@@ -1,22 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchPlatesList, fetchPlateImage, updatePlate } from "./platesThunk";
 
+import { LoadingState } from "src/utils/constants";
+
 export interface PlatesSlice {
   list: [];
   selectedRowIndex: Integer;
   selectedPlate: {};
-  loadingImage: String;
-  loadingDetail: String;
-  loadingList: Boolean;
+  loadingImage: LoadingState;
+  loadingDetail: LoadingState;
+  loadingList: LoadingState;
 }
 
 const initialState: PlatesSlice = {
   list: [],
   selectedRowIndex: null,
   selectedPlate: null,
-  loadingImage: "idle",
-  loadingDetail: "idle",
-  loadingList: false,
+  loadingImage: LoadingState.idle,
+  loadingDetail: LoadingState.idle,
+  loadingList: LoadingState.idle,
 };
 
 export const platesSlice = createSlice({
@@ -25,7 +27,7 @@ export const platesSlice = createSlice({
   reducers: {
     setSelectedPlate(state, action) {
       state.selectedPlate = action.payload;
-      state.loadingImage = "pending";
+      state.loadingImage = LoadingState.pending;
       return state;
     },
     setSelectedRowIndex(state, action) {
@@ -48,20 +50,20 @@ export const platesSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchPlateImage.fulfilled, (state, action) => {
       state.selectedPlate.image_url = action.payload;
-      state.loadingImage = "fulfilled";
+      state.loadingImage = LoadingState.fulfilled;
     });
     builder.addCase(updatePlate.pending, (state, action) => {
-      state.loadingDetail = "pending";
+      state.loadingDetail = LoadingState.pending;
     });
     builder.addCase(updatePlate.fulfilled, (state, action) => {
-      state.loadingDetail = "fulfilled";
+      state.loadingDetail = LoadingState.fulfilled;
     });
     builder.addCase(fetchPlatesList.pending, (state, action) => {
-      state.loadingList = true;
+      state.loadingList = LoadingState.pending;
     });
     builder.addCase(fetchPlatesList.fulfilled, (state, action) => {
       state.list = action.payload;
-      state.loadingList = false;
+      state.loadingList = LoadingState.fulfilled;
     });
   },
 });
