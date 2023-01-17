@@ -75,7 +75,8 @@ export default function PlateDetails() {
     },
     {
       title: "Image",
-      accessor: "img",
+      accessor: "image_url",
+
       type: "image",
     },
   ];
@@ -92,16 +93,19 @@ export default function PlateDetails() {
     console.log("TODO: Delete plate");
   };
   const updateFieldFun = (e, field) => {
-    dispatch(updateSelectedPlate({ field: field, value: e.target.value }));
+    if (field == "img") {
+      setFile(e.target.files[0]);
+      dispatch(
+        updateSelectedPlate({
+          field: field,
+          value: URL.createObjectURL(e.target.files[0]),
+        })
+      );
+    } else {
+      dispatch(updateSelectedPlate({ field: field, value: e.target.value }));
+    }
   };
-  const updateImageField = (e, field) => {
-    setFile(e.target.files[0]);
-    dispatch(
-      updateSelectedPlateImage({
-        value: URL.createObjectURL(e.target.files[0]),
-      })
-    );
-  };
+
   return (
     <>
       {plate ? (
@@ -109,10 +113,9 @@ export default function PlateDetails() {
           <Details
             id="plate_details"
             data={plate}
-            data_add={plateImg}
+            data_add={file}
             fields={fields}
             updateField={updateFieldFun}
-            updateImageField={updateImageField}
             updatePlate={updatePlateFun}
             updatePlateImage={updatePlateImageFun}
             deletePlate={deletePlateFun}

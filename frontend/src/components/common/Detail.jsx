@@ -6,8 +6,7 @@ import "src/static/table.css";
 export default function Detail({
   title,
   accessor,
-  value,
-  value_add = null,
+  data,
   type,
   updateField,
   updateImageField = () => {},
@@ -19,12 +18,13 @@ export default function Detail({
         <textarea
           className="column"
           name={title}
-          value={value}
+          value={data["accessor"]}
           onChange={(e) => updateField(e, accessor)}
         />
       </div>
     );
   } else if (type === "image") {
+    console.log(data[accessor]);
     return (
       <div className="row">
         <label className="column">{title}</label>
@@ -33,13 +33,13 @@ export default function Detail({
           name="image_url"
           accept="image/jpeg,image/png,image/gif"
           onChange={(e) => {
-            updateImageField(e, accessor);
+            updateField(e, accessor);
           }}
         />
-        {value_add && value_add["imageUrl"] && (
+        {data[accessor] && (
           <div>
             <label className="column"></label>
-            <img className="preview" src={value_add["imageUrl"]} alt="" />
+            <img className="preview" src={data[accessor]} alt="" />
           </div>
         )}
       </div>
@@ -51,7 +51,7 @@ export default function Detail({
         <input
           className="column"
           name={title}
-          value={value}
+          value={data["accessor"]}
           onChange={(e) => updateField(e, accessor)}
         />
       </div>
