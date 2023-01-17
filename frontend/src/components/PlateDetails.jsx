@@ -18,6 +18,9 @@ import {
 
 export default function PlateDetails() {
   const plate = useSelector((state: RootState) => state.plates.selectedPlate);
+  const shouldUpdate = useSelector(
+    (state: RootState) => state.plates.shouldUpdate
+  );
 
   const [file, setFile] = useState({});
 
@@ -122,6 +125,7 @@ export default function PlateDetails() {
             updateField={updateFieldFun}
             updatePlate={updatePlateFun}
             deletePlate={deletePlateFun}
+            shouldUpdate={shouldUpdate}
           />
         </div>
       ) : (

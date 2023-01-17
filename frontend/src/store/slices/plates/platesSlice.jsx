@@ -10,6 +10,7 @@ export interface PlatesSlice {
   loadingImage: LoadingState;
   loadingDetail: LoadingState;
   loadingList: LoadingState;
+  shouldUpdate: Boolean;
 }
 
 const initialState: PlatesSlice = {
@@ -19,6 +20,7 @@ const initialState: PlatesSlice = {
   loadingImage: LoadingState.idle,
   loadingDetail: LoadingState.idle,
   loadingList: LoadingState.idle,
+  shouldUpdate: false,
 };
 
 export const platesSlice = createSlice({
@@ -28,6 +30,7 @@ export const platesSlice = createSlice({
     setSelectedPlate(state, action) {
       state.selectedPlate = action.payload;
       state.loadingImage = LoadingState.pending;
+      state.shouldUpdate = false;
       return state;
     },
     setSelectedRowIndex(state, action) {
@@ -36,6 +39,7 @@ export const platesSlice = createSlice({
     },
     updateSelectedPlate(state, action) {
       state.selectedPlate[action.payload.field] = action.payload.value;
+      state.shouldUpdate = true;
       return state;
     },
     setLoadingDetail(state, action) {
@@ -44,6 +48,10 @@ export const platesSlice = createSlice({
     },
     setLoadingImage(state, action) {
       state.loadingImage = action.payload;
+      return state;
+    },
+    setShouldUpdate(state, action) {
+      state.shouldUpdate = action.payload;
       return state;
     },
   },
@@ -57,6 +65,7 @@ export const platesSlice = createSlice({
     });
     builder.addCase(updatePlate.fulfilled, (state, action) => {
       state.loadingDetail = LoadingState.fulfilled;
+      state.shouldUpdate = false;
     });
     builder.addCase(fetchPlatesList.pending, (state, action) => {
       state.loadingList = LoadingState.pending;
@@ -74,6 +83,7 @@ export const {
   setSelectedRowIndex,
   updateSelectedPlate,
   setLoadingImage,
+  setShouldUpdate,
 } = platesSlice.actions;
 
 export default platesSlice.reducer;

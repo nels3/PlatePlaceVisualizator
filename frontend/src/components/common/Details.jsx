@@ -7,6 +7,7 @@ import "src/static/form.css";
 export default function Details({
   fields,
   data,
+  shouldUpdate = null,
   updateField = () => {},
   updatePlate = () => {},
   deletePlate = () => {},
@@ -30,7 +31,11 @@ export default function Details({
         })}
       </form>
       <div style={{ width: "100%" }}>
-        <button className="button" onClick={updatePlate}>
+        <button
+          className="button"
+          onClick={updatePlate}
+          disabled={!shouldUpdate}
+        >
           Update
         </button>
         <button
