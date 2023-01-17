@@ -26,3 +26,20 @@ export const updatePlate = createAsyncThunk(
     });
   }
 );
+
+export const updatePlateImage = createAsyncThunk(
+  "plates/updatePlateImage",
+  async (args, thunkAPI) => {
+    let formData = new FormData();
+
+    formData.append("file", args.file);
+    formData.append("id", args.id);
+
+    return await axios.post(backendPath + "plate/image", formData, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  }
+);

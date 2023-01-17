@@ -1,8 +1,12 @@
 from rest_framework import serializers
 from .models import *
 
+from rest_framework.parsers import MultiPartParser, FormParser
+
 
 class PlateSerializer(serializers.ModelSerializer):
+    parser_classes = (MultiPartParser, FormParser)
+
     class Meta:
         model = Plate
         fields = '__all__'

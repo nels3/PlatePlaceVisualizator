@@ -7,6 +7,7 @@ export interface PlatesSlice {
   selectedPlate: {};
   loadingDetail: String;
   loadingList: Boolean;
+  selectedPlateImg: {};
 }
 
 const initialState: PlatesSlice = {
@@ -15,6 +16,10 @@ const initialState: PlatesSlice = {
   selectedPlate: null,
   loadingDetail: "idle",
   loadingList: false,
+  selectedPlateImg: {
+    id: "",
+    imageUrl: "",
+  },
 };
 
 export const platesSlice = createSlice({
@@ -23,6 +28,7 @@ export const platesSlice = createSlice({
   reducers: {
     setSelectedPlate(state, action) {
       state.selectedPlate = action.payload;
+      state.selectedPlateImg.id = action.payload.id;
       return state;
     },
     setSelectedRowIndex(state, action) {
@@ -31,6 +37,10 @@ export const platesSlice = createSlice({
     },
     updateSelectedPlate(state, action) {
       state.selectedPlate[action.payload.field] = action.payload.value;
+      return state;
+    },
+    updateSelectedPlateImage(state, action) {
+      state.selectedPlateImg.imageUrl = action.payload.value;
       return state;
     },
     setLoadingDetail(state, action) {
@@ -60,6 +70,7 @@ export const {
   setLoadingDetail,
   setSelectedRowIndex,
   updateSelectedPlate,
+  updateSelectedPlateImage,
 } = platesSlice.actions;
 
 export default platesSlice.reducer;

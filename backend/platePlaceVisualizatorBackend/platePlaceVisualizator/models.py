@@ -9,6 +9,7 @@ class Plate(models.Model):
     longitude = models.CharField(max_length=100)
     latitude = models.CharField(max_length=100)
     info = models.CharField(max_length=1000, blank=True)
+    img = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     objects = models.Manager()
 
 

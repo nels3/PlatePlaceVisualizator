@@ -49,10 +49,30 @@ class PlateUtils:
             raise NotAllMandatoryFields(exp)
         except Exception as exp:
             raise exp
-        pass
+
+    @staticmethod
+    def save_plate_image(data):
+        plate_id = data.get("id")
+        file = data.get('file')
+
+        if not Plate.objects.filter(id=plate_id).exists():
+            raise NotFoundError()
+
+        plate = Plate.objects.get(id=plate_id)
+        plate.img = file
+        plate.save()
+        logging.info(f"Saved plate image:: {plate.id}")
 
     @staticmethod
     def delete_plate(id):
         if Plate.objects.filter(id=id).exists():
-            Country.objects.get(id.id).delete()
+            Plate.objects.get(id.id).delete()
             logging.info(f"Deleted plate from database with id: {id}")
+
+    @staticmethod
+    def delete_plate_image(id):
+        if Plate.objects.filter(id=id).exists():
+            plate = Plate.objects.get(id.id)
+            plate.image = None
+            plate.save()
+            logging.info(f"Deleted plate image from database with id: {id}")

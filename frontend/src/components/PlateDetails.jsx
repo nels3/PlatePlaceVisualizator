@@ -2,20 +2,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 import Details from "src/components/common/Details";
+import React, { useState } from "react";
 
 import { RootState } from "src/store/store";
 
 import {
   updateSelectedPlate,
+  updateSelectedPlateImage,
   setLoadingDetail,
 } from "src/store/slices/plates/platesSlice";
 import {
   updatePlate,
+  updatePlateImage,
   fetchPlatesList,
 } from "src/store/slices/plates/platesThunk";
 
 export default function PlateDetails() {
   const plate = useSelector((state: RootState) => state.plates.selectedPlate);
+  const plateImg = useSelector(
+    (state: RootState) => state.plates.selectedPlateImg
+  );
+  const [file, setFile] = useState({});
+
   const loadingDetail = useSelector(
     (state: RootState) => state.plates.loadingDetail
   );
@@ -65,19 +73,35 @@ export default function PlateDetails() {
       accessor: "info",
       type: "textarea",
     },
+    {
+      title: "Image",
+      accessor: "img",
+      type: "image",
+    },
   ];
 
   const updatePlateFun = () => {
     dispatch(updatePlate(plate));
     dispatch(fetchPlatesList(plate));
   };
+  const updatePlateImageFun = () => {
+    dispatch(updatePlateImage({ file: file, id: plate.id }));
+  };
+
   const deletePlateFun = () => {
     console.log("TODO: Delete plate");
   };
   const updateFieldFun = (e, field) => {
     dispatch(updateSelectedPlate({ field: field, value: e.target.value }));
   };
-
+  const updateImageField = (e, field) => {
+    setFile(e.target.files[0]);
+    dispatch(
+      updateSelectedPlateImage({
+        value: URL.createObjectURL(e.target.files[0]),
+      })
+    );
+  };
   return (
     <>
       {plate ? (
@@ -85,9 +109,12 @@ export default function PlateDetails() {
           <Details
             id="plate_details"
             data={plate}
+            data_add={plateImg}
             fields={fields}
             updateField={updateFieldFun}
+            updateImageField={updateImageField}
             updatePlate={updatePlateFun}
+            updatePlateImage={updatePlateImageFun}
             deletePlate={deletePlateFun}
           />
         </div>
