@@ -1,5 +1,7 @@
 .idea/
 __pycache__/
+media/
+secret.py
 
 db.sqlite3
 migrations/
