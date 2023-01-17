@@ -1,5 +1,8 @@
 import React from "react";
-import { useTable } from "react-table";
+
+import TextAreaDetail from "src/components/common/detail/TextAreaDetail";
+import ImageDetail from "src/components/common/detail/ImageDetail";
+import InputDetail from "src/components/common/detail/InputDetail";
 
 import "src/static/table.css";
 
@@ -13,47 +16,34 @@ export default function Detail({
 }) {
   if (type === "textarea") {
     return (
-      <div className="row">
-        <label className="column">{title}</label>
-        <textarea
-          className="column"
-          name={title}
-          value={data[accessor]}
-          onChange={(e) => updateField(e, accessor)}
-        />
-      </div>
+      <TextAreaDetail
+        title={title}
+        accessor={accessor}
+        data={data}
+        type={type}
+        updateField={updateField}
+      />
     );
   } else if (type === "image") {
     return (
-      <div className="row">
-        <label className="column">{title}</label>
-        <input
-          type="file"
-          name="image_url"
-          accept="image/jpeg,image/png,image/gif"
-          onChange={(e) => {
-            updateField(e, accessor);
-          }}
-        />
-        {data[accessor] && (
-          <div>
-            <label className="column"></label>
-            <img className="preview" src={data[accessor]} alt="" />
-          </div>
-        )}
-      </div>
+      <ImageDetail
+        title={title}
+        accessor={accessor}
+        data={data}
+        type={type}
+        updateField={updateField}
+        updateImageField={updateImageField}
+      />
     );
   } else {
     return (
-      <div className="row">
-        <label className="column">{title}</label>
-        <input
-          className="column"
-          name={title}
-          value={data[accessor]}
-          onChange={(e) => updateField(e, accessor)}
-        />
-      </div>
+      <InputDetail
+        title={title}
+        accessor={accessor}
+        data={data}
+        type={type}
+        updateField={updateField}
+      />
     );
   }
 }

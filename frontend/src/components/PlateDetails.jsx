@@ -47,32 +47,32 @@ export default function PlateDetails() {
     {
       title: "Country",
       accessor: "country",
-      type: "label",
+      type: "input",
     },
     {
       title: "Country pl",
       accessor: "country_pl",
-      type: "label",
+      type: "input",
     },
     {
       title: "City",
       accessor: "city",
-      type: "label",
+      type: "input",
     },
     {
       title: "City pl",
       accessor: "city_pl",
-      type: "label",
+      type: "input",
     },
     {
       title: "Longitude",
       accessor: "longitude",
-      type: "label",
+      type: "input",
     },
     {
       title: "Latitude",
       accessor: "latitude",
-      type: "label",
+      type: "input",
     },
     {
       title: "Info",
