@@ -1,5 +1,6 @@
 import logging
 import json
+from django.http import FileResponse
 
 from django.http import JsonResponse
 from rest_framework import status
@@ -38,9 +39,22 @@ def plate_detail(request):
         return JsonResponse(status=status.HTTP_200_OK, safe=False, data="Deleted")
 
 
-@api_view(['DELETE'])
+@api_view(['GET', 'DELETE'])
 def plate_image_detail(request):
-    if request.method == 'DELETE':
+    if request.method == 'GET':
+        try:
+            id = request.query_params.get('id', None)
+            plate = Plate.objects.get(id=id)
+            if not plate.img:
+                return JsonResponse(status=status.HTTP_200_OK, safe=False, data="No image")
+            else:
+                img = open('media/' + str(plate.img), 'rb')
+                response = FileResponse(img)
+                return response
+        except:
+            return JsonResponse(status=status.HTTP_404_NOT_FOUND, safe=False, data="Error")
+
+    elif request.method == 'DELETE':
         plate_id = request.query_params.get('id', None)
         PlateUtils.delete_plate_image(plate_id)
         return JsonResponse(status=status.HTTP_404_NOT_FOUND, safe=False, data="Deleted")

@@ -10,6 +10,19 @@ export const fetchPlatesList = createAsyncThunk(
     });
   }
 );
+export const fetchPlateImage = createAsyncThunk(
+  "plates/fetchPlateImage",
+  async (args, thunkAPI) => {
+    return await axios
+      .get(backendPath + "plate/image", {
+        params: { id: args },
+        responseType: "blob",
+      })
+      .then((res) => {
+        return URL.createObjectURL(res.data);
+      });
+  }
+);
 
 export const updatePlate = createAsyncThunk(
   "plates/updatePlate",

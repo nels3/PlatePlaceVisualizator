@@ -9,19 +9,22 @@ import { RootState } from "src/store/store";
 import {
   updateSelectedPlate,
   setLoadingDetail,
+  setLoadingImage,
 } from "src/store/slices/plates/platesSlice";
 import {
   updatePlate,
   fetchPlatesList,
+  fetchPlateImage,
 } from "src/store/slices/plates/platesThunk";
 
 export default function PlateDetails() {
   const plate = useSelector((state: RootState) => state.plates.selectedPlate);
-  const plateImg = useSelector(
-    (state: RootState) => state.plates.selectedPlateImg
-  );
+
   const [file, setFile] = useState({});
 
+  const loadingImage = useSelector(
+    (state: RootState) => state.plates.loadingImage
+  );
   const loadingDetail = useSelector(
     (state: RootState) => state.plates.loadingDetail
   );
@@ -29,11 +32,17 @@ export default function PlateDetails() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (loadingImage == "pending") {
+      dispatch(fetchPlateImage(plate.id));
+    }
+  }, [loadingImage]);
+
+  useEffect(() => {
     if (loadingDetail == "fulfilled") {
       dispatch(fetchPlatesList());
       dispatch(setLoadingDetail("idle"));
     }
-  }, [loadingDetail]);
+  }, [plate, loadingDetail]);
 
   const fields = [
     {
@@ -74,7 +83,6 @@ export default function PlateDetails() {
     {
       title: "Image",
       accessor: "image_url",
-
       type: "image",
     },
   ];

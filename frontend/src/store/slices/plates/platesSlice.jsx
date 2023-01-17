@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPlatesList, updatePlate } from "./platesThunk";
+import { fetchPlatesList, fetchPlateImage, updatePlate } from "./platesThunk";
 
 export interface PlatesSlice {
   list: [];
   selectedRowIndex: Integer;
   selectedPlate: {};
+  loadingImage: String;
   loadingDetail: String;
   loadingList: Boolean;
 }
@@ -13,6 +14,7 @@ const initialState: PlatesSlice = {
   list: [],
   selectedRowIndex: null,
   selectedPlate: null,
+  loadingImage: "idle",
   loadingDetail: "idle",
   loadingList: false,
 };
@@ -23,6 +25,7 @@ export const platesSlice = createSlice({
   reducers: {
     setSelectedPlate(state, action) {
       state.selectedPlate = action.payload;
+      state.loadingImage = "pending";
       return state;
     },
     setSelectedRowIndex(state, action) {
@@ -37,8 +40,16 @@ export const platesSlice = createSlice({
       state.loadingDetail = action.payload;
       return state;
     },
+    setLoadingImage(state, action) {
+      state.loadingImage = action.payload;
+      return state;
+    },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchPlateImage.fulfilled, (state, action) => {
+      state.selectedPlate.image_url = action.payload;
+      state.loadingImage = "fulfilled";
+    });
     builder.addCase(updatePlate.pending, (state, action) => {
       state.loadingDetail = "pending";
     });
@@ -60,6 +71,7 @@ export const {
   setLoadingDetail,
   setSelectedRowIndex,
   updateSelectedPlate,
+  setLoadingImage,
 } = platesSlice.actions;
 
 export default platesSlice.reducer;
