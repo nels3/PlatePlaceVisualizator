@@ -7,10 +7,9 @@ import "src/static/form.css";
 export default function Details({
   fields,
   data,
-  data_add = null,
+  shouldUpdate = null,
   updateField = () => {},
   updatePlate = () => {},
-  updatePlateImage = () => {},
   deletePlate = () => {},
   updateImageField = () => {},
 }) {
@@ -23,22 +22,21 @@ export default function Details({
             <Detail
               key={i}
               title={field.title}
-              value={data[field.accessor]}
-              value_add={data_add}
+              data={data}
               accessor={field.accessor}
               type={field.type}
               updateField={updateField}
-              updateImageField={updateImageField}
             />
           );
         })}
       </form>
       <div style={{ width: "100%" }}>
-        <button className="button" onClick={updatePlate}>
+        <button
+          className="button"
+          onClick={updatePlate}
+          disabled={!shouldUpdate}
+        >
           Update
-        </button>
-        <button className="button" onClick={updatePlateImage}>
-          Update Image
         </button>
         <button
           className="button"

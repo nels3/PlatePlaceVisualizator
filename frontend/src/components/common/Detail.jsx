@@ -1,60 +1,49 @@
 import React from "react";
-import { useTable } from "react-table";
+
+import TextAreaDetail from "src/components/common/detail/TextAreaDetail";
+import ImageDetail from "src/components/common/detail/ImageDetail";
+import InputDetail from "src/components/common/detail/InputDetail";
 
 import "src/static/table.css";
 
 export default function Detail({
   title,
   accessor,
-  value,
-  value_add = null,
+  data,
   type,
   updateField,
   updateImageField = () => {},
 }) {
   if (type === "textarea") {
     return (
-      <div className="row">
-        <label className="column">{title}</label>
-        <textarea
-          className="column"
-          name={title}
-          value={value}
-          onChange={(e) => updateField(e, accessor)}
-        />
-      </div>
+      <TextAreaDetail
+        title={title}
+        accessor={accessor}
+        data={data}
+        type={type}
+        updateField={updateField}
+      />
     );
   } else if (type === "image") {
     return (
-      <div className="row">
-        <label className="column">{title}</label>
-        <input
-          type="file"
-          name="image_url"
-          accept="image/jpeg,image/png,image/gif"
-          onChange={(e) => {
-            updateImageField(e, accessor);
-          }}
-        />
-        {value_add && value_add["imageUrl"] && (
-          <div>
-            <label className="column"></label>
-            <img className="preview" src={value_add["imageUrl"]} alt="" />
-          </div>
-        )}
-      </div>
+      <ImageDetail
+        title={title}
+        accessor={accessor}
+        data={data}
+        type={type}
+        updateField={updateField}
+        updateImageField={updateImageField}
+      />
     );
   } else {
     return (
-      <div className="row">
-        <label className="column">{title}</label>
-        <input
-          className="column"
-          name={title}
-          value={value}
-          onChange={(e) => updateField(e, accessor)}
-        />
-      </div>
+      <InputDetail
+        title={title}
+        accessor={accessor}
+        data={data}
+        type={type}
+        updateField={updateField}
+      />
     );
   }
 }

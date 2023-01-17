@@ -40,11 +40,16 @@ export default function PlatesList() {
     {
       Header: "City",
       accessor: "city",
-      width: 80,
+      width: 150,
     },
     {
       Header: "City pl",
       accessor: "city_pl",
+      width: 150,
+    },
+    {
+      Header: "Image?",
+      accessor: "image_present",
       width: 80,
     },
   ];

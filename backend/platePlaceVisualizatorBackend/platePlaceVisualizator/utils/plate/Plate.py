@@ -38,7 +38,8 @@ class PlateUtils:
                       city_pl=data.get("city_pl", None),
                       longitude=data.get("longitude", None),
                       latitude=data.get("latitude", None),
-                      info=data.get("info", None))
+                      info=data.get("info", None),
+                      img=data.get('file', None))
         if data.get("id", None) is not None:
             plate.id = data.get("id", None)
 
@@ -49,19 +50,6 @@ class PlateUtils:
             raise NotAllMandatoryFields(exp)
         except Exception as exp:
             raise exp
-
-    @staticmethod
-    def save_plate_image(data):
-        plate_id = data.get("id")
-        file = data.get('file')
-
-        if not Plate.objects.filter(id=plate_id).exists():
-            raise NotFoundError()
-
-        plate = Plate.objects.get(id=plate_id)
-        plate.img = file
-        plate.save()
-        logging.info(f"Saved plate image:: {plate.id}")
 
     @staticmethod
     def delete_plate(id):

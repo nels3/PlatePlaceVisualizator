@@ -12,6 +12,10 @@ class Plate(models.Model):
     img = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
     objects = models.Manager()
 
+    @property
+    def image_present(self):
+        return 'x' if self.img else ''
+
 
 class Country(models.Model):
     name = models.CharField(max_length=100)

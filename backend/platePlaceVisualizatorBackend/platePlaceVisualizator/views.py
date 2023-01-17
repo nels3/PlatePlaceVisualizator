@@ -1,5 +1,6 @@
 import logging
 import json
+from django.http import FileResponse
 
 from django.http import JsonResponse
 from rest_framework import status
@@ -38,26 +39,20 @@ def plate_detail(request):
         return JsonResponse(status=status.HTTP_200_OK, safe=False, data="Deleted")
 
 
-@api_view(['GET', 'POST', 'DELETE'])
+@api_view(['GET', 'DELETE'])
 def plate_image_detail(request):
     if request.method == 'GET':
-        return JsonResponse(status=status.HTTP_404_NOT_FOUND, safe=False, data=None)
-        '''id = request.query_params.get('id', None)
-        if id is None:
         try:
-            plate = PlateUtils.get_plate_by_id(id)
-        except Exception:
-            return JsonResponse(status=status.HTTP_404_NOT_FOUND, safe=False, data=None)
-
-        serializer = PlateSerializer(plate, many=False)
-        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)'''
-
-    elif request.method == 'POST':
-        try:
-            PlateUtils.save_plate_image(request.data)
-            return JsonResponse(status=status.HTTP_200_OK, safe=False, data="Added image")
-        except NotFoundError:
-            return JsonResponse(status=status.HTTP_404_NOT_FOUND, safe=False, data=None)
+            id = request.query_params.get('id', None)
+            plate = Plate.objects.get(id=id)
+            if not plate.img:
+                return JsonResponse(status=status.HTTP_200_OK, safe=False, data="No image")
+            else:
+                img = open('media/' + str(plate.img), 'rb')
+                response = FileResponse(img)
+                return response
+        except:
+            return JsonResponse(status=status.HTTP_404_NOT_FOUND, safe=False, data="Error")
 
     elif request.method == 'DELETE':
         plate_id = request.query_params.get('id', None)

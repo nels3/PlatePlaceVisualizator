@@ -1,25 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPlatesList, updatePlate } from "./platesThunk";
+import { fetchPlatesList, fetchPlateImage, updatePlate } from "./platesThunk";
+
+import { LoadingState } from "src/utils/constants";
 
 export interface PlatesSlice {
   list: [];
   selectedRowIndex: Integer;
   selectedPlate: {};
-  loadingDetail: String;
-  loadingList: Boolean;
-  selectedPlateImg: {};
+  loadingImage: LoadingState;
+  loadingDetail: LoadingState;
+  loadingList: LoadingState;
+  shouldUpdate: Boolean;
 }
 
 const initialState: PlatesSlice = {
   list: [],
   selectedRowIndex: null,
   selectedPlate: null,
-  loadingDetail: "idle",
-  loadingList: false,
-  selectedPlateImg: {
-    id: "",
-    imageUrl: "",
-  },
+  loadingImage: LoadingState.idle,
+  loadingDetail: LoadingState.idle,
+  loadingList: LoadingState.idle,
+  shouldUpdate: false,
 };
 
 export const platesSlice = createSlice({
@@ -28,7 +29,8 @@ export const platesSlice = createSlice({
   reducers: {
     setSelectedPlate(state, action) {
       state.selectedPlate = action.payload;
-      state.selectedPlateImg.id = action.payload.id;
+      state.loadingImage = LoadingState.pending;
+      state.shouldUpdate = false;
       return state;
     },
     setSelectedRowIndex(state, action) {
@@ -37,30 +39,40 @@ export const platesSlice = createSlice({
     },
     updateSelectedPlate(state, action) {
       state.selectedPlate[action.payload.field] = action.payload.value;
-      return state;
-    },
-    updateSelectedPlateImage(state, action) {
-      state.selectedPlateImg.imageUrl = action.payload.value;
+      state.shouldUpdate = true;
       return state;
     },
     setLoadingDetail(state, action) {
       state.loadingDetail = action.payload;
       return state;
     },
+    setLoadingImage(state, action) {
+      state.loadingImage = action.payload;
+      return state;
+    },
+    setShouldUpdate(state, action) {
+      state.shouldUpdate = action.payload;
+      return state;
+    },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchPlateImage.fulfilled, (state, action) => {
+      state.selectedPlate.image_url = action.payload;
+      state.loadingImage = LoadingState.fulfilled;
+    });
     builder.addCase(updatePlate.pending, (state, action) => {
-      state.loadingDetail = "pending";
+      state.loadingDetail = LoadingState.pending;
     });
     builder.addCase(updatePlate.fulfilled, (state, action) => {
-      state.loadingDetail = "fulfilled";
+      state.loadingDetail = LoadingState.fulfilled;
+      state.shouldUpdate = false;
     });
     builder.addCase(fetchPlatesList.pending, (state, action) => {
-      state.loadingList = true;
+      state.loadingList = LoadingState.pending;
     });
     builder.addCase(fetchPlatesList.fulfilled, (state, action) => {
       state.list = action.payload;
-      state.loadingList = false;
+      state.loadingList = LoadingState.fulfilled;
     });
   },
 });
@@ -70,7 +82,8 @@ export const {
   setLoadingDetail,
   setSelectedRowIndex,
   updateSelectedPlate,
-  updateSelectedPlateImage,
+  setLoadingImage,
+  setShouldUpdate,
 } = platesSlice.actions;
 
 export default platesSlice.reducer;
