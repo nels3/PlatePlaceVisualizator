@@ -47,7 +47,9 @@ export default function MapFilters() {
 
   const changeWorld = (e) => {
     dispatch(setSelectedWorld());
-    dispatch(setMapGeoUrl(world));
+    let target = { ...world };
+    target.tribe = "world";
+    dispatch(setMapGeoUrl(target));
   };
 
   const changeContinent = (e) => {
@@ -63,7 +65,9 @@ export default function MapFilters() {
     }
 
     dispatch(setSelectedContinent(targetContinent));
-    dispatch(setMapGeoUrl(targetContinent));
+    let target = { ...targetContinent };
+    target.tribe = "continent";
+    dispatch(setMapGeoUrl(target));
   };
 
   const changeCountry = (e) => {
@@ -78,7 +82,9 @@ export default function MapFilters() {
     }
 
     dispatch(setSelectedCountry(targetCountry));
-    dispatch(setMapGeoUrl(targetCountry));
+    let target = { ...targetCountry };
+    target.tribe = "country";
+    dispatch(setMapGeoUrl(target));
   };
 
   return (

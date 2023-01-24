@@ -4,7 +4,7 @@ export const mapGeoConfig = {
     namePl: "Świat",
     geoUrl:
       "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json",
-    scale: 200,
+    scale: 100,
   },
   continents: [
     {
@@ -28,7 +28,7 @@ export const mapGeoConfig = {
       namePl: "Europa",
       geoUrl:
         "https://raw.githubusercontent.com/deldersveld/topojson/master/continents/europe.json",
-      scale: 500,
+      scale: 400,
       center: [20, 410],
     },
     {

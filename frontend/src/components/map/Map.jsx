@@ -61,8 +61,8 @@ export default function Map() {
               ))
             }
           </Geographies>
+          <Markers />
         </ZoomableGroup>
-        <Markers />
       </ComposableMap>
       <div className="controls">
         <button onClick={handleZoomIn}>
