@@ -1,0 +1,59 @@
+.filter-box *{
+    box-sizing: border-box;
+    border: 0 solid var(--hard-blue);
+}
+
+.filter-box{
+    border: solid var(--hard-blue) 3px;
+    margin: 20px !important;
+    padding: 1vw ;
+    max-width: 98% !important;
+}
+
+.filter-box h5{
+    font-size: 20px ;
+    text-align: center;
+    color: var(--hard-blue);
+}
+
+.filter-box .pair{
+    display: inline-block;
+    width: 30%
+}
+.filter-box .row {
+    display: table;
+    width: 100%; 
+    table-layout: fixed; 
+}
+.filter-box .column {
+    display: table-cell;
+    border: 0;
+}
+
+.filter-box label{
+    text-align: center;
+    font-size: 16px;
+    position: relative;
+    top: 7px;
+    width: 50%;
+}
+
+.filter-box .select{
+    font-size: 16px;
+    width: 200px;
+    position: relative;
+}
+
+.button{
+    display: inline-block;
+    width: 30%;
+    height: 2rem;
+    color: var(--hard-blue);
+    border: 0;
+    bottom: 0;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 1rem ;
+    border-radius: 20px; 
+
+}
