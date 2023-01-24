@@ -35,7 +35,7 @@ export default function Detail({
         updateImageField={updateImageField}
       />
     );
-  } else {
+  } else if (type === "input") {
     return (
       <InputDetail
         title={title}
@@ -45,5 +45,7 @@ export default function Detail({
         updateField={updateField}
       />
     );
+  } else {
+    return <></>;
   }
 }

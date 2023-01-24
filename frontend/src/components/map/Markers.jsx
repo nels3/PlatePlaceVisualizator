@@ -1,11 +1,13 @@
-import mapGeoConfig from "src/components/map/MapConfig";
-import { Marker } from "react-simple-maps";
-import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
+import { Marker } from "react-simple-maps";
+
+import { setSelectedPlate } from "src/store/slices/plates/platesSlice";
 import { fetchPlatesList } from "src/store/slices/plates/platesThunk";
 import { setMarkersList } from "src/store/slices/map/mapSlice";
-import { setSelectedPlate } from "src/store/slices/plates/platesSlice";
+
+import mapGeoConfig from "src/components/map/MapConfig";
 
 export default function Markers() {
   const [circleR, setCircleR] = useState(3);
@@ -17,8 +19,10 @@ export default function Markers() {
   const platesList = useSelector((state: RootState) => state.plates.list);
   const markersList = useSelector((state: RootState) => state.map.markersList);
   const tribe = useSelector((state: RootState) => state.map.mapGeoUrl.tribe);
+
   const dispatch = useDispatch();
 
+  // adjusting marker parameters according to map tribe
   const computeParams = () => {
     if (tribe == "world") {
       setCircleR(3);
@@ -32,11 +36,12 @@ export default function Markers() {
     }
   };
 
+  // creating list of markers from list of plates
   const createMarkersFromMap = () => {
     let markers = [];
     platesList.map((plate) => {
       const marker = {
-        markerOffset: -5,
+        markerOffset: -10,
         name: plate.city,
         coordinates: [plate.longitude, plate.latitude],
         original: plate,
@@ -47,17 +52,12 @@ export default function Markers() {
     dispatch(setMarkersList(markers));
   };
 
+  // fetching plates
   useEffect(() => {
     if (platesList.length === 0) {
       dispatch(fetchPlatesList());
-    } else {
-      createMarkersFromMap();
     }
   }, []);
-
-  useEffect(() => {
-    computeParams();
-  }, [tribe]);
 
   useEffect(() => {
     if (platesList.length > 0) {
@@ -65,6 +65,11 @@ export default function Markers() {
     }
   }, [platesList]);
 
+  useEffect(() => {
+    computeParams();
+  }, [tribe]);
+
+  // method executed when marker was clicked on
   const onMarkerClickEvent = (e, plate) => {
     dispatch(setSelectedPlate(plate));
   };

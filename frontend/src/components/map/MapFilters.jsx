@@ -1,10 +1,12 @@
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Container, Columns, Row, Col } from "react-grid";
+
 import FilterSelect from "src/components/common/FilterSelect";
 import FilterCheckbox from "src/components/common/FilterCheckbox";
 import Label from "src/components/common/Label";
+
 import { mapGeoConfig } from "src/components/map/MapConfig";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { Container, Columns, Row, Col } from "react-grid";
 
 import {
   setSelectedContinent,
@@ -45,6 +47,7 @@ export default function MapFilters() {
     }
   }, []);
 
+  // method executed when changing state of world checkbox
   const changeWorld = (e) => {
     dispatch(setSelectedWorld());
     let target = { ...world };
@@ -52,9 +55,11 @@ export default function MapFilters() {
     dispatch(setMapGeoUrl(target));
   };
 
+  // method executed when changing selected continent
   const changeContinent = (e) => {
     let targetContinent = {};
 
+    // handling clearable event
     if (!e) {
       targetContinent = "";
     } else {
@@ -70,8 +75,11 @@ export default function MapFilters() {
     dispatch(setMapGeoUrl(target));
   };
 
+  // method executed when changing selected country
   const changeCountry = (e) => {
     let targetCountry = {};
+
+    // handling clearable event
     if (!e) {
       targetCountry = "";
     } else {

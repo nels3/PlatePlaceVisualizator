@@ -1,11 +1,12 @@
-import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import Table from "src/components/common/Table";
 import PlateDetails from "src/components/PlateDetails";
 import Map from "src/components/map/Map";
 
 import { RootState } from "src/store/store";
+
 import {
   setSelectedPlate,
   setSelectedRowIndex,

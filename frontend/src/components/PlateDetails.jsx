@@ -1,9 +1,9 @@
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 
 import Details from "src/components/common/Details";
-import React, { useState } from "react";
 import { LoadingState } from "src/utils/constants";
+
 import { RootState } from "src/store/store";
 
 import {
@@ -17,13 +17,12 @@ import {
 } from "src/store/slices/plates/platesThunk";
 
 export default function PlateDetails() {
+  const [file, setFile] = useState({});
+
   const plate = useSelector((state: RootState) => state.plates.selectedPlate);
   const shouldUpdate = useSelector(
     (state: RootState) => state.plates.shouldUpdate
   );
-
-  const [file, setFile] = useState({});
-
   const loadingImage = useSelector(
     (state: RootState) => state.plates.loadingImage
   );
@@ -34,17 +33,18 @@ export default function PlateDetails() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (loadingImage === LoadingState.pending) {
-      dispatch(fetchPlateImage(plate.id));
-    }
-  }, [loadingImage]);
-
-  useEffect(() => {
     if (loadingDetail === LoadingState.fulfilled) {
       dispatch(fetchPlatesList());
       dispatch(setLoadingDetail(LoadingState.idle));
     }
   }, [plate, loadingDetail]);
+
+  // fetching image for current plate
+  useEffect(() => {
+    if (loadingImage === LoadingState.pending) {
+      dispatch(fetchPlateImage(plate.id));
+    }
+  }, [loadingImage]);
 
   const fields = [
     {
@@ -89,6 +89,7 @@ export default function PlateDetails() {
     },
   ];
 
+  // method executed when update plate button is used
   const updatePlateFun = () => {
     let plateEnhanced = { ...plate };
     plateEnhanced["file"] = file;
@@ -96,9 +97,12 @@ export default function PlateDetails() {
     dispatch(fetchPlatesList());
   };
 
+  // method executed when deleting plate button is used
   const deletePlateFun = () => {
     console.log("TODO: Delete plate");
   };
+
+  // method executed when there is change on field
   const updateFieldFun = (e, field) => {
     if (field === "image_url") {
       setFile(e.target.files[0]);

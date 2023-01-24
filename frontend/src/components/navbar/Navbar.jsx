@@ -11,7 +11,6 @@ const Navbar = () => {
           <NavLink to="/">Plates</NavLink>
           <NavLink to="/map">Map</NavLink>
           <NavLink to="/country">Country</NavLink>
-          <NavLink to="/city">City</NavLink>
         </div>
       </nav>
     </>

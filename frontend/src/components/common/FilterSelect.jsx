@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useTable } from "react-table";
-
 import Select from "react-select";
 
 import "src/static/table.css";
-
 import "bootstrap/dist/css/bootstrap.css";
+
 export default function FilterSelect({
   options,
   optionValue,
