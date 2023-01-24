@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Plate(models.Model):
+    id = models.AutoField(primary_key=True)
     country = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     country_pl = models.CharField(max_length=100, blank=True)
