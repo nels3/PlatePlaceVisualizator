@@ -41,10 +41,10 @@ export default function PlateDetails() {
 
   // fetching image for current plate
   useEffect(() => {
-    if (loadingImage === LoadingState.pending) {
+    if (loadingImage === LoadingState.pending && plate && plate.id) {
       dispatch(fetchPlateImage(plate.id));
     }
-  }, [loadingImage]);
+  }, [plate, loadingImage]);
 
   const fields = [
     {

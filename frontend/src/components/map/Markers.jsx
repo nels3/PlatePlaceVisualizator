@@ -71,7 +71,9 @@ export default function Markers() {
 
   // method executed when marker was clicked on
   const onMarkerClickEvent = (e, plate) => {
-    dispatch(setSelectedPlate(plate));
+    if (!selectedPlate || selectedPlate.id !== plate.id)
+      dispatch(setSelectedPlate(plate));
+    else dispatch(setSelectedPlate(null));
   };
 
   return markersList.map(({ name, coordinates, markerOffset, original }) => (
