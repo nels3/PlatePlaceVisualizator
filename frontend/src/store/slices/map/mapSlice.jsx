@@ -4,8 +4,10 @@ import { LoadingState } from "src/utils/constants";
 
 export interface MapSlice {
   markersList: [];
+  worldList: [];
   continentsList: [];
   countriesList: [];
+  mapGeoUrl: {};
   selectedWorldTribe: Boolean;
   selectedContinent: String;
   selectedCountry: String;
@@ -16,8 +18,10 @@ export interface MapSlice {
 
 const initialState: MapSlice = {
   markersList: [],
+  worldList: [],
   continentsList: [],
   countriesList: [],
+  mapGeoUrl: {},
   selectedWorldTribe: true,
   selectedContinent: null,
   selectedCountry: null,
@@ -30,8 +34,12 @@ export const mapSlice = createSlice({
   name: "map",
   initialState,
   reducers: {
+    setMapGeoUrl(state, action) {
+      state.mapGeoUrl = action.payload;
+      return state;
+    },
     setSelectedWorld(state, action) {
-      state.selectedWorldTribe = true;
+      state.selectedWorldTribe = !state.selectedWorldTribe;
       state.selectedContinent = "";
       state.selectedCountry = "";
       return state;
@@ -60,6 +68,14 @@ export const mapSlice = createSlice({
       state.countriesList = action.payload;
       return state;
     },
+    setWorldList(state, action) {
+      state.worldList = action.payload;
+      state.selectedWorldTribe = true;
+      state.selectedContinent = "";
+      state.selectedCountry = "";
+      state.mapGeoUrl = action.payload;
+      return state;
+    },
     setSelectedRowIndex(state, action) {
       state.selectedRowIndex = action.payload;
       return state;
@@ -81,6 +97,8 @@ export const {
   setCountriesList,
   setSelectedRowIndex,
   setLoadingMarkers,
+  setMapGeoUrl,
+  setWorldList,
 } = mapSlice.actions;
 
 export default mapSlice.reducer;

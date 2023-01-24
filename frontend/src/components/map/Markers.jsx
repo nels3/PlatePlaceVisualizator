@@ -1,7 +1,7 @@
 import mapGeoConfig from "src/components/map/MapConfig";
 import { Marker } from "react-simple-maps";
 
-const markers = [
+/*const markers = [
   {
     markerOffset: -15,
     name: "Buenos Aires1",
@@ -18,7 +18,8 @@ const markers = [
   { markerOffset: 25, name: "Montevideo", coordinates: [-56.1645, -34.9011] },
   { markerOffset: -15, name: "Caracas", coordinates: [-66.9036, 10.4806] },
   { markerOffset: -15, name: "Lima", coordinates: [-77.0428, -12.0464] },
-];
+];*/
+const markers = [];
 
 export default function Markers() {
   return markers.map(({ name, coordinates, markerOffset }) => (
