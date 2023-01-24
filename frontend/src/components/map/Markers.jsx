@@ -5,11 +5,15 @@ import { useEffect, useState } from "react";
 
 import { fetchPlatesList } from "src/store/slices/plates/platesThunk";
 import { setMarkersList } from "src/store/slices/map/mapSlice";
+import { setSelectedPlate } from "src/store/slices/plates/platesSlice";
 
 export default function Markers() {
-  const [circleR, setCircleR] = useState(5);
-  const [fontSize, setFontSize] = useState(16);
+  const [circleR, setCircleR] = useState(3);
+  const [fontSize, setFontSize] = useState(0);
 
+  const selectedPlate = useSelector(
+    (state: RootState) => state.plates.selectedPlate
+  );
   const platesList = useSelector((state: RootState) => state.plates.list);
   const markersList = useSelector((state: RootState) => state.map.markersList);
   const tribe = useSelector((state: RootState) => state.map.mapGeoUrl.tribe);
@@ -35,6 +39,7 @@ export default function Markers() {
         markerOffset: -5,
         name: plate.city,
         coordinates: [plate.longitude, plate.latitude],
+        original: plate,
       };
       markers.push(marker);
     });
@@ -60,13 +65,32 @@ export default function Markers() {
     }
   }, [platesList]);
 
-  return markersList.map(({ name, coordinates, markerOffset }) => (
-    <Marker key={name} coordinates={coordinates}>
-      <circle r={circleR} fill="#F00" stroke="#fff" strokeWidth={2} />
+  const onMarkerClickEvent = (e, plate) => {
+    dispatch(setSelectedPlate(plate));
+  };
+
+  return markersList.map(({ name, coordinates, markerOffset, original }) => (
+    <Marker
+      key={name}
+      coordinates={coordinates}
+      onClick={(e) => onMarkerClickEvent(e, original)}
+    >
+      <circle
+        r={circleR}
+        fill={
+          selectedPlate && name === selectedPlate.city ? "#00FF00" : "#FF0000"
+        }
+        stroke="#fff"
+        strokeWidth={2}
+      />
       <text
         textAnchor="middle"
         y={markerOffset}
-        fontSize={fontSize}
+        fontSize={
+          selectedPlate && name === selectedPlate.city
+            ? fontSize + 10
+            : fontSize
+        }
         style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
       >
         {name}

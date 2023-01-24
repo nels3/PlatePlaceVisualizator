@@ -12,8 +12,7 @@ import mapGeoConfig from "src/components/map/MapConfig";
 import Markers from "src/components/map/Markers";
 import MapFilters from "src/components/map/MapFilters";
 
-const geoUrl =
-  "https://raw.githubusercontent.com/deldersveld/topojson/master/world-continents.json";
+import PlateDetails from "src/components/PlateDetails";
 
 export default function Map() {
   const selectedMapGeo = useSelector((state: RootState) => state.map.mapGeoUrl);
@@ -91,6 +90,7 @@ export default function Map() {
           </svg>
         </button>
       </div>
+      <PlateDetails />
     </>
   );
 }
