@@ -29,6 +29,7 @@ export default function PlateDetails() {
   const loadingDetail = useSelector(
     (state: RootState) => state.plates.loadingDetail
   );
+  const language = useSelector((state: RootState) => state.language.language);
 
   const dispatch = useDispatch();
 
@@ -48,22 +49,22 @@ export default function PlateDetails() {
 
   const fields = [
     {
-      title: "Country",
+      title: language === "en" ? "Country (en)" : "Kraj (ang)",
       accessor: "country",
       type: "input",
     },
     {
-      title: "Country pl",
+      title: language === "en" ? "Country (pl)" : "Kraj (pl)",
       accessor: "country_pl",
       type: "input",
     },
     {
-      title: "City",
+      title: language === "en" ? "City (en)" : "Miasto (ang)",
       accessor: "city",
       type: "input",
     },
     {
-      title: "City pl",
+      title: language === "en" ? "City (pl)" : "Miasto (pl)",
       accessor: "city_pl",
       type: "input",
     },
@@ -83,7 +84,7 @@ export default function PlateDetails() {
       type: "textarea",
     },
     {
-      title: "Image",
+      title: language === "en" ? "Image" : "Zdjęcie",
       accessor: "image_url",
       type: "image",
     },
@@ -126,6 +127,7 @@ export default function PlateDetails() {
             data={plate}
             data_add={file}
             fields={fields}
+            title={language == "en" ? "Plate details" : "Dane talerzyka"}
             updateField={updateFieldFun}
             updatePlate={updatePlateFun}
             deletePlate={deletePlateFun}

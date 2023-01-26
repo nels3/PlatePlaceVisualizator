@@ -7,6 +7,7 @@ import "src/static/form.css";
 export default function Details({
   fields,
   data,
+  title = "",
   shouldUpdate = null,
   updateField = () => {},
   updatePlate = () => {},
@@ -15,7 +16,7 @@ export default function Details({
 }) {
   return (
     <div className="form-box">
-      <h5>Plate details</h5>
+      <h5>{title}</h5>
       <form>
         {fields.map((field, i) => {
           return (

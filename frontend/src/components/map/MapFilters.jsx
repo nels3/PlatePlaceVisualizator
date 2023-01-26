@@ -37,6 +37,8 @@ export default function MapFilters() {
     (state: RootState) => state.map.selectedCountry
   );
 
+  const language = useSelector((state: RootState) => state.language.language);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -100,10 +102,10 @@ export default function MapFilters() {
       <Container container spacing={2} className="filter-box row">
         <Row>
           <Col>
-            <h5>Filters:</h5>
+            <h5>{language === "en" ? "Filters" : "Filtry"} </h5>
           </Col>
           <Col>
-            <Label title="World:" />
+            <Label title={language === "en" ? "World:" : "Świat:"} />
           </Col>
           <Col>
             <FilterCheckbox
@@ -113,13 +115,13 @@ export default function MapFilters() {
             />
           </Col>
           <Col>
-            <Label title="Continent:" />
+            <Label title={language === "en" ? "Continent:" : "Kontynent:"} />
           </Col>
           <Col>
             <FilterSelect
               options={continents}
               optionValue={"name"}
-              optionLabel={"namePl"}
+              optionLabel={language === "en" ? "name" : "namePl"}
               value={
                 selectedContinent && selectedContinent.name
                   ? selectedContinent.name
@@ -129,13 +131,13 @@ export default function MapFilters() {
             />
           </Col>
           <Col>
-            <Label title="Country:" />
+            <Label title={language === "en" ? "Country:" : "Kraj:"} />
           </Col>
           <Col>
             <FilterSelect
               options={countries}
               optionValue={"name"}
-              optionLabel={"namePl"}
+              optionLabel={language === "en" ? "name" : "namePl"}
               value={
                 selectedCountry && selectedCountry.name
                   ? selectedCountry.name
@@ -147,11 +149,17 @@ export default function MapFilters() {
         </Row>
         <Row>
           <Col>
-            <h5>Selected:</h5>
+            <Label title={language === "en" ? "Selected:" : "Wybrane:"} />
           </Col>
           <Col>
             <Label
-              title={selectedMapGeo.namePl ? selectedMapGeo.namePl : "---"}
+              title={
+                selectedMapGeo
+                  ? language == "en"
+                    ? selectedMapGeo.name
+                    : selectedMapGeo.namePl
+                  : "---"
+              }
             />
           </Col>
           <Col></Col>

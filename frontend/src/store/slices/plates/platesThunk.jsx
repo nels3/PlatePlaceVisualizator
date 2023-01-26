@@ -51,8 +51,10 @@ export const updatePlate = createAsyncThunk(
 export const fetchStatistics = createAsyncThunk(
   "plates/fetchStatistics",
   async (args, thunkAPI) => {
-    return await axios.get(backendPath + "plate/statistics", {}).then((res) => {
-      return res.data;
-    });
+    return await axios
+      .get(backendPath + "plate/statistics", { params: { language: args } })
+      .then((res) => {
+        return res.data;
+      });
   }
 );

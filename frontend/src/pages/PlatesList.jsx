@@ -17,6 +17,7 @@ export default function PlatesList() {
   const selectedRowIndex = useSelector(
     (state: RootState) => state.plates.selectedRowIndex
   );
+  const language = useSelector((state: RootState) => state.language.language);
 
   const dispatch = useDispatch();
 
@@ -29,27 +30,17 @@ export default function PlatesList() {
 
   const columns = [
     {
-      Header: "Country",
-      accessor: "country",
+      Header: language === "pl" ? "Kraj" : "Country",
+      accessor: language === "pl" ? "country_pl" : "country",
       width: 150,
     },
     {
-      Header: "Country pl",
-      accessor: "country_pl",
+      Header: language === "pl" ? "Miasto" : "City",
+      accessor: language === "pl" ? "city_pl" : "city",
       width: 150,
     },
     {
-      Header: "City",
-      accessor: "city",
-      width: 150,
-    },
-    {
-      Header: "City pl",
-      accessor: "city_pl",
-      width: 150,
-    },
-    {
-      Header: "Image?",
+      Header: language === "pl" ? "Zdjęcie?" : "Image?",
       accessor: "image_present",
       width: 80,
     },

@@ -6,6 +6,7 @@ import Navbar from 'src/components/navbar/Navbar'
 import PlatesList from 'src/pages/PlatesList'
 import PlateMap from 'src/pages/PlateMap'
 import StatisticsList from 'src/pages/StatisticsList'
+import World from 'src/pages/World'
 
 import 'src/App.css'
 import 'src/static/common.css'
@@ -18,7 +19,8 @@ function App () {
       <Routes>
         <Route exact path='/' element={<PlatesList />} />;
         <Route exact path='/map' element={<PlateMap />} />;
-        <Route exact path='/stats' element={<StatisticsList />} />
+        <Route exact path='/stats' element={<StatisticsList />} />;
+        <Route exact path='/world' element={<World />} />
       </Routes>
     </BrowserRouter>
   )

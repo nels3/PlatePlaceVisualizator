@@ -42,7 +42,8 @@ def plate_detail(request):
 def plate_statistics(request):
     if request.method == 'GET':
         try:
-            plate = PlateUtils.get_statistics()
+            language = request.query_params.get('language', 'en')
+            plate = PlateUtils.get_statistics(language)
         except Exception:
             return JsonResponse(status=status.HTTP_404_NOT_FOUND, safe=False, data=None)
 

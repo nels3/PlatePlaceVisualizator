@@ -66,24 +66,25 @@ class PlateUtils:
             logging.info(f"Deleted plate image from database with id: {id}")
 
     @staticmethod
-    def get_statistics():
+    def get_statistics(language):
         stats = {}
         plate_list = Plate.objects.all()
+
         for plate in plate_list:
             if plate.country in stats:
                 stats[plate.country]["count"] += 1
                 stats[plate.country]["cities"] += "; " + plate.city
+                stats[plate.country]["cities_pl"] += "; " + plate.city_pl
                 if stats[plate.country]["country_pl"] == "" and plate.country_pl != "":
                     stats[plate.country]["country_pl"] = plate.country_pl
             else:
-                stats[plate.country] = {"count": 1, "country_pl": plate.country_pl, "cities": plate.city}
+                stats[plate.country] = {"count": 1, "country_pl": plate.country_pl, "cities": plate.city, "cities_pl": plate.city_pl}
 
         ret = []
         for key in stats:
-            plate_stats = PlateStatistics(country=key,
-                                          country_pl=stats[key]["country_pl"],
+            plate_stats = PlateStatistics(country=(key if language == "en" else stats[key]["country_pl"]),
                                           count=stats[key]["count"],
-                                          cities=stats[key]["cities"])
+                                          cities=stats[key]["cities"] if language == "en" else stats[key]["cities_pl"])
             ret.append(plate_stats)
 
         return ret

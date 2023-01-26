@@ -20,6 +20,8 @@ export default function Markers() {
   const markersList = useSelector((state: RootState) => state.map.markersList);
   const tribe = useSelector((state: RootState) => state.map.mapGeoUrl.tribe);
 
+  const language = useSelector((state: RootState) => state.language.language);
+
   const dispatch = useDispatch();
 
   // adjusting marker parameters according to map tribe
@@ -27,10 +29,10 @@ export default function Markers() {
     if (tribe == "world") {
       setCircleR(3);
       setFontSize(0);
-    } else if (tribe == "continent") {
+    } else if (tribe === "continent") {
       setCircleR(5);
       setFontSize(10);
-    } else if (tribe == "country") {
+    } else if (tribe === "country") {
       setCircleR(8);
       setFontSize(15);
     }
@@ -42,7 +44,7 @@ export default function Markers() {
     platesList.map((plate) => {
       const marker = {
         markerOffset: -10,
-        name: plate.city,
+        name: language === "en" ? plate.city : plate.city_pl,
         coordinates: [plate.longitude, plate.latitude],
         original: plate,
       };
@@ -63,7 +65,7 @@ export default function Markers() {
     if (platesList.length > 0) {
       createMarkersFromMap();
     }
-  }, [platesList]);
+  }, [platesList, language]);
 
   useEffect(() => {
     computeParams();
@@ -76,32 +78,40 @@ export default function Markers() {
     else dispatch(setSelectedPlate(null));
   };
 
-  return markersList.map(({ name, coordinates, markerOffset, original }) => (
-    <Marker
-      key={name}
-      coordinates={coordinates}
-      onClick={(e) => onMarkerClickEvent(e, original)}
-    >
-      <circle
-        r={circleR}
-        fill={
-          selectedPlate && name === selectedPlate.city ? "#00FF00" : "#FF0000"
-        }
-        stroke="#fff"
-        strokeWidth={2}
-      />
-      <text
-        textAnchor="middle"
-        y={markerOffset}
-        fontSize={
-          selectedPlate && name === selectedPlate.city
-            ? fontSize + 10
-            : fontSize
-        }
-        style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+  return markersList.map(
+    ({ name, coordinates, markerOffset, original }, id) => (
+      <Marker
+        key={id + name}
+        coordinates={coordinates}
+        onClick={(e) => onMarkerClickEvent(e, original)}
       >
-        {name}
-      </text>
-    </Marker>
-  ));
+        <circle
+          r={circleR}
+          fill={
+            selectedPlate &&
+            name ===
+              (language === "en" ? selectedPlate.city : selectedPlate.city_pl)
+              ? "#00FF00"
+              : "#FF0000"
+          }
+          stroke="#fff"
+          strokeWidth={2}
+        />
+        <text
+          textAnchor="middle"
+          y={markerOffset}
+          fontSize={
+            selectedPlate &&
+            name ===
+              (language === "en" ? selectedPlate.city : selectedPlate.city_pl)
+              ? fontSize + 10
+              : fontSize
+          }
+          style={{ fontFamily: "system-ui", fill: "#5D5A6D" }}
+        >
+          {name}
+        </text>
+      </Marker>
+    )
+  );
 }

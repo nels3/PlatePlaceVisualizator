@@ -20,7 +20,6 @@ class Plate(models.Model):
 
 class PlateStatistics(models.Model):
     country = models.CharField(max_length=100)
-    country_pl = models.CharField(max_length=100, blank=True)
     count = models.IntegerField()
     cities = models.CharField(max_length=6000, blank=True)
     objects = models.Manager()

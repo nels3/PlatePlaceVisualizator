@@ -44,3 +44,12 @@ nav{
   padding: 10px;
   z-index: 12;
 }
+
+.flag{
+  max-height: 16px;
+  margin: 5px;
+}
+
+.selected{
+  border: solid var(--light-blue) 3px;
+}

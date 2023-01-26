@@ -13,33 +13,29 @@ export default function StatisticsList() {
     (state: RootState) => state.plates.statistics
   );
 
+  const language = useSelector((state: RootState) => state.language.language);
   const dispatch = useDispatch();
 
   useEffect(() => {
     document.title = `Statistics`;
-    if (statisticsList.length === 0) {
-      dispatch(fetchStatistics());
-    }
   }, []);
+  useEffect(() => {
+    dispatch(fetchStatistics(language));
+  }, [language]);
 
   const columns = [
     {
-      Header: "Country",
+      Header: language === "en" ? "Country" : "Kraj",
       accessor: "country",
       width: 150,
     },
     {
-      Header: "Country pl",
-      accessor: "country_pl",
-      width: 150,
-    },
-    {
-      Header: "Count",
+      Header: language === "en" ? "Count" : "Liczba",
       accessor: "count",
       width: 80,
     },
     {
-      Header: "Cities",
+      Header: language === "en" ? "Cities" : "Kraje",
       accessor: "cities",
       width: 80,
     },
