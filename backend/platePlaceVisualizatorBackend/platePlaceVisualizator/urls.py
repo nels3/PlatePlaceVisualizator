@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path('plate/', views.plate_detail, name='plate_detail'),
     path('plate/image', views.plate_image_detail, name='plate_image_detail'),
+    path('plate/statistics', views.plate_statistics, name='plate_statistics'),
     path('plate/list/all', views.plate_list, name='plate_list'),
     path('plate/list/city/', views.plate_list_by_city, name='plate_list_by_city'),
     path('plate/list/country/', views.plate_list_by_county, name='plate_list_by_county'),

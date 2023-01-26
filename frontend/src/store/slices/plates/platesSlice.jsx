@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPlatesList, fetchPlateImage, updatePlate } from "./platesThunk";
+import {
+  fetchPlatesList,
+  fetchPlateImage,
+  updatePlate,
+  fetchStatistics,
+} from "./platesThunk";
 
 import { LoadingState } from "src/utils/constants";
 
@@ -11,6 +16,8 @@ export interface PlatesSlice {
   loadingDetail: LoadingState;
   loadingList: LoadingState;
   shouldUpdate: Boolean;
+  loadingStatistics: LoadingState;
+  statistics: [];
 }
 
 const initialState: PlatesSlice = {
@@ -21,6 +28,8 @@ const initialState: PlatesSlice = {
   loadingDetail: LoadingState.idle,
   loadingList: LoadingState.idle,
   shouldUpdate: false,
+  loadingStatistics: LoadingState.idle,
+  statistics: [],
 };
 
 export const platesSlice = createSlice({
@@ -72,6 +81,13 @@ export const platesSlice = createSlice({
     });
     builder.addCase(fetchPlatesList.fulfilled, (state, action) => {
       state.list = action.payload;
+      state.loadingList = LoadingState.fulfilled;
+    });
+    builder.addCase(fetchStatistics.pending, (state, action) => {
+      state.loadingList = LoadingState.pending;
+    });
+    builder.addCase(fetchStatistics.fulfilled, (state, action) => {
+      state.statistics = action.payload;
       state.loadingList = LoadingState.fulfilled;
     });
   },

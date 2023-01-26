@@ -1,5 +1,4 @@
 import logging
-import json
 from django.http import FileResponse
 
 from django.http import JsonResponse
@@ -37,6 +36,18 @@ def plate_detail(request):
         id = request.query_params.get('id', None)
         PlateUtils.delete_plate(id)
         return JsonResponse(status=status.HTTP_200_OK, safe=False, data="Deleted")
+
+
+@api_view(['GET'])
+def plate_statistics(request):
+    if request.method == 'GET':
+        try:
+            plate = PlateUtils.get_statistics()
+        except Exception:
+            return JsonResponse(status=status.HTTP_404_NOT_FOUND, safe=False, data=None)
+
+        serializer = PlateStatisticsSerializer(plate, many=True)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
 
 @api_view(['GET', 'DELETE'])
