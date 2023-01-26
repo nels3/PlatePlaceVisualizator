@@ -24,6 +24,9 @@ const Navbar = () => {
           <NavLink to="/stats">
             {language == "en" ? "Statistics" : "Statystyki"}
           </NavLink>
+          <NavLink to="/world">
+            {language == "en" ? "Your World" : "Twój świat"}
+          </NavLink>
 
           <PL
             style={{ marginLeft: "auto" }}

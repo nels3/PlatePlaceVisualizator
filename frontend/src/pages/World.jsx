@@ -1,10 +1,11 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
-import { RootState } from "src/store/store";
-
-import { fetchStatistics } from "src/store/slices/plates/platesThunk";
+import UserCountries from "src/components/world/UserCountries";
+import UserCities from "src/components/world/UserCities";
 
 export default function World() {
-  return <div style={{ padding: "5px" }}></div>;
+  return (
+    <div style={{ padding: "5px" }}>
+      <UserCountries />
+      <UserCities />
+    </div>
+  );
 }
