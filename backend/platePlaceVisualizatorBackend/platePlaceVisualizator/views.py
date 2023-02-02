@@ -108,7 +108,7 @@ def country_list(request):
         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
 
-@api_view(["GET", "DELETE"])
+@api_view(["GET", "DELETE", "POST", "PUT"])
 def country_selector(request):
     if request.method == 'GET':
         name = request.query_params.get('name', None)
@@ -130,6 +130,30 @@ def country_selector(request):
             Country.objects.get(name=name).delete()
             logging.info(f"Deleted country from database: {name}")
         return JsonResponse(status=status.HTTP_200_OK, data=None, safe=False)
+
+    elif request.method == 'PUT':
+        try:
+            CountryUtils.save_country(request.PUT)
+            return JsonResponse(status=status.HTTP_201_CREATED, data="Saved", safe=False)
+        except AlreadyExistError:
+            return JsonResponse(status=status.HTTP_406_NOT_ACCEPTABLE, data="Already exists", safe=False)
+        except NotAllMandatoryFields:
+            return JsonResponse(status=status.HTTP_406_NOT_ACCEPTABLE, data="Not all mandatory fields provided", safe=False)
+        except Exception as exp:
+            logging.error(f"Error: {exp}")
+            return JsonResponse(status=status.HTTP_400_BAD_REQUEST, data=exp, safe=False)
+
+    elif request.method == 'POST':
+        try:
+            CountryUtils.update_country(request.POST)
+            return JsonResponse(status=status.HTTP_201_CREATED, data="Updated", safe=False)
+        except NotFoundError:
+            return JsonResponse(status=status.HTTP_406_NOT_ACCEPTABLE, data="Not exists", safe=False)
+        except NotAllMandatoryFields:
+            return JsonResponse(status=status.HTTP_406_NOT_ACCEPTABLE, data="Not all mandatory fields provided", safe=False)
+        except Exception as exp:
+            logging.error(f"Error: {exp}")
+            return JsonResponse(status=status.HTTP_400_BAD_REQUEST, data=exp, safe=False)
 
 
 @api_view(['GET'])

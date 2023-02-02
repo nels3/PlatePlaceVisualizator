@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Title from "src/components/common/Title";
 import Table from "src/components/common/Table";
-import { setSelectedRowIndexCountries } from "src/store/slices/world/worldSlice";
+import {
+  setSelectedCountry,
+  setSelectedRowIndexCountries,
+} from "src/store/slices/world/worldSlice";
 import { fetchCountriesList } from "src/store/slices/world/worldThunk";
 
 const UserCountries = () => {
@@ -14,6 +17,9 @@ const UserCountries = () => {
   );
   const selectedRowIndex = useSelector(
     (state: RootState) => state.world.selectedRowIndexCountry
+  );
+  const loadingDetail = useSelector(
+    (state: RootState) => state.world.loadingCountries
   );
 
   const dispatch = useDispatch();
@@ -48,6 +54,7 @@ const UserCountries = () => {
   ];
 
   const onRowClickAction = (rowDetails, rowIndex) => {
+    dispatch(setSelectedCountry(rowDetails));
     dispatch(setSelectedRowIndexCountries(rowIndex));
   };
 

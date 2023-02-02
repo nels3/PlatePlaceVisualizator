@@ -129,8 +129,8 @@ export default function PlateDetails() {
             fields={fields}
             title={language == "en" ? "Plate details" : "Dane talerzyka"}
             updateField={updateFieldFun}
-            updatePlate={updatePlateFun}
-            deletePlate={deletePlateFun}
+            updateFn={updatePlateFun}
+            deleteFn={deletePlateFun}
             shouldUpdate={shouldUpdate}
           />
         </div>

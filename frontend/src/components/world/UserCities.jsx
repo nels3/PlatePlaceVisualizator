@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Title from "src/components/common/Title";
 import Table from "src/components/common/Table";
-import { setSelectedRowIndexCities } from "src/store/slices/world/worldSlice";
+import {
+  setSelectedCity,
+  setSelectedRowIndexCities,
+} from "src/store/slices/world/worldSlice";
 import { fetchCitiesList } from "src/store/slices/world/worldThunk";
 
 const UserCities = () => {
@@ -43,6 +46,7 @@ const UserCities = () => {
 
   const onRowClickAction = (rowDetails, rowIndex) => {
     dispatch(setSelectedRowIndexCities(rowIndex));
+    dispatch(setSelectedCity(rowDetails));
   };
 
   return (

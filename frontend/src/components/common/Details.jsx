@@ -10,8 +10,8 @@ export default function Details({
   title = "",
   shouldUpdate = null,
   updateField = () => {},
-  updatePlate = () => {},
-  deletePlate = () => {},
+  updateFn = () => {},
+  deleteFn = () => {},
   updateImageField = () => {},
 }) {
   return (
@@ -32,18 +32,10 @@ export default function Details({
         })}
       </form>
       <div style={{ width: "100%" }}>
-        <button
-          className="button"
-          onClick={updatePlate}
-          disabled={!shouldUpdate}
-        >
+        <button className="button" onClick={updateFn} disabled={!shouldUpdate}>
           Update
         </button>
-        <button
-          className="button"
-          onClick={deletePlate}
-          style={{ flow: "right" }}
-        >
+        <button className="button" onClick={deleteFn} style={{ flow: "right" }}>
           Delete
         </button>
       </div>

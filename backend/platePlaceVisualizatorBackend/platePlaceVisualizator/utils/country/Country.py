@@ -1,6 +1,8 @@
 import requests, logging
-from platePlaceVisualizator.exceptions import *
 from platePlaceVisualizator.models import *
+from platePlaceVisualizator.exceptions import *
+from django.db.models import Q
+from django.db.utils import IntegrityError
 
 from platePlaceVisualizator.constants import country_api_url
 from platePlaceVisualizator.utils.translator.Translator import Translator
@@ -48,3 +50,55 @@ class CountryUtils:
                 return country
             else:
                 raise NotFoundError()
+
+    @staticmethod
+    def save_country(data):
+        """
+        Saving Country in database
+        :param data: dictionary with all necessary parameters
+        :return:
+        """
+        country = Country(name=data.get("name", None),
+                          name_pl=data.get("name_pl", None),
+                          capital=data.get("capital", None),
+                          region=data.get("region", None),
+                          subregion=data.get("subregion", None))
+
+        if Country.objects.filter(Q(name=country.name_pl) | Q(country=country.name_pl)).exists():
+            raise AlreadyExistError()
+
+        try:
+            country.save()
+            logging.info(f"Saved country:: {country.name}.")
+        except IntegrityError as exp:
+            raise NotAllMandatoryFields(exp)
+        except Exception as exp:
+            raise exp
+
+    @staticmethod
+    def update_country(data):
+        """
+        Updating Country in database
+        :param data: dictionary with all necessary parameters
+        :return:
+        """
+
+        if not Country.objects.filter(Q(name=data.get("name", None))).exists():
+            raise NotFoundError()
+
+        country = Country.objects.get(Q(name=data.get("name", None)))
+
+        country.name = data.get("name", None)
+        country.name_pl = data.get("name_pl", None)
+        country.capital = data.get("capital", None)
+        country.region = data.get("region", None)
+        country.subregion = data.get("subregion", None)
+
+        print(country.capital)
+        try:
+            country.save()
+            logging.info(f"Saved country: {country.name}.")
+        except IntegrityError as exp:
+            raise NotAllMandatoryFields(exp)
+        except Exception as exp:
+            raise exp
