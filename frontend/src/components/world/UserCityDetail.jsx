@@ -1,13 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Details from "src/components/common/Details";
-import Title from "src/components/common/Title";
-import Table from "src/components/common/Table";
-import {
-  setSelectedRowIndexCities,
-  updateSelectedCityField,
-} from "src/store/slices/world/worldSlice";
+import { updateSelectedCityField } from "src/store/slices/world/worldSlice";
 import { fetchCitiesList, updateCity } from "src/store/slices/world/worldThunk";
 
 const UserCityDetail = () => {
@@ -84,7 +79,7 @@ const UserCityDetail = () => {
             id="city_details"
             data={city}
             fields={fields}
-            title={language == "en" ? "City details" : "Dane miasta"}
+            title={language === "en" ? "City details" : "Dane miasta"}
             updateField={updateFieldFun}
             updateFn={updateFun}
             deleteFn={deleteFun}

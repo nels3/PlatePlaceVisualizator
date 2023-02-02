@@ -7,8 +7,6 @@ import { setSelectedPlate } from "src/store/slices/plates/platesSlice";
 import { fetchPlatesList } from "src/store/slices/plates/platesThunk";
 import { setMarkersList } from "src/store/slices/map/mapSlice";
 
-import mapGeoConfig from "src/components/map/MapConfig";
-
 export default function Markers() {
   const [circleR, setCircleR] = useState(3);
   const [fontSize, setFontSize] = useState(0);
@@ -26,7 +24,7 @@ export default function Markers() {
 
   // adjusting marker parameters according to map tribe
   const computeParams = () => {
-    if (tribe == "world") {
+    if (tribe === "world") {
       setCircleR(3);
       setFontSize(0);
     } else if (tribe === "continent") {

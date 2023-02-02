@@ -127,7 +127,7 @@ export default function PlateDetails() {
             data={plate}
             data_add={file}
             fields={fields}
-            title={language == "en" ? "Plate details" : "Dane talerzyka"}
+            title={language === "en" ? "Plate details" : "Dane talerzyka"}
             updateField={updateFieldFun}
             updateFn={updatePlateFun}
             deleteFn={deletePlateFun}

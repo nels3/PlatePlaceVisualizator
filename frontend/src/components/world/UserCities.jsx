@@ -17,6 +17,10 @@ const UserCities = () => {
     (state: RootState) => state.world.selectedRowIndexCity
   );
 
+  const loadingState = useSelector(
+    (state: RootState) => state.world.loadingCities
+  );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,6 +61,7 @@ const UserCities = () => {
         data={citiesList}
         onClickAction={onRowClickAction}
         selectedRowIndex={selectedRowIndex}
+        loadingState={loadingState}
       />
     </div>
   );

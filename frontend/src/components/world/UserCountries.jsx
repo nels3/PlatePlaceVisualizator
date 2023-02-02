@@ -18,7 +18,7 @@ const UserCountries = () => {
   const selectedRowIndex = useSelector(
     (state: RootState) => state.world.selectedRowIndexCountry
   );
-  const loadingDetail = useSelector(
+  const loadingState = useSelector(
     (state: RootState) => state.world.loadingCountries
   );
 
@@ -66,6 +66,7 @@ const UserCountries = () => {
         data={countriesList}
         onClickAction={onRowClickAction}
         selectedRowIndex={selectedRowIndex}
+        loadingState={loadingState}
       />
     </div>
   );

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useTable } from "react-table";
+import React from "react";
 
 export default function FilterCheckbox({ onChange, value, disabled = false }) {
   return (

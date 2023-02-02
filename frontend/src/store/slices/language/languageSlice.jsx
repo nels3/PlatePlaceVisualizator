@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { LoadingState } from "src/utils/constants";
-
 export interface LanguageSlice {
   language: String;
 }

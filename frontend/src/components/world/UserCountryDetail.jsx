@@ -3,12 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { LoadingState } from "src/utils/constants";
 import Details from "src/components/common/Details";
-import Title from "src/components/common/Title";
-import Table from "src/components/common/Table";
-import {
-  setSelectedRowIndexCountries,
-  updateSelectedCountryField,
-} from "src/store/slices/world/worldSlice";
+import { updateSelectedCountryField } from "src/store/slices/world/worldSlice";
 import {
   fetchCountriesList,
   updateCountry,
@@ -85,7 +80,7 @@ const UserCountryDetail = () => {
             id="country_details"
             data={country}
             fields={fields}
-            title={language == "en" ? "Country details" : "Dane kraju"}
+            title={language === "en" ? "Country details" : "Dane kraju"}
             updateField={updateFieldFun}
             updateFn={updateFun}
             deleteFn={deleteFun}

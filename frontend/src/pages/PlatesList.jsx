@@ -14,6 +14,9 @@ import { fetchPlatesList } from "src/store/slices/plates/platesThunk";
 
 export default function PlatesList() {
   const platesList = useSelector((state: RootState) => state.plates.list);
+  const loadingState = useSelector(
+    (state: RootState) => state.plates.loadingList
+  );
   const selectedRowIndex = useSelector(
     (state: RootState) => state.plates.selectedRowIndex
   );
@@ -58,6 +61,7 @@ export default function PlatesList() {
         data={platesList}
         onClickAction={onRowClickAction}
         selectedRowIndex={selectedRowIndex}
+        loadingState={loadingState}
       />
       <PlateDetails />
     </div>

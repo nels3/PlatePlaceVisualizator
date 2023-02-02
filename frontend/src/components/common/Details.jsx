@@ -1,5 +1,4 @@
 import React from "react";
-import { useTable } from "react-table";
 
 import Detail from "src/components/common/detail/Detail";
 import "src/static/form.css";

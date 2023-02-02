@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Table from "src/components/common/Table";
-import PlateDetails from "src/components/PlateDetails";
 
 import { RootState } from "src/store/store";
 
@@ -11,6 +10,10 @@ import { fetchStatistics } from "src/store/slices/plates/platesThunk";
 export default function StatisticsList() {
   const statisticsList = useSelector(
     (state: RootState) => state.plates.statistics
+  );
+
+  const loadingState = useSelector(
+    (state: RootState) => state.plates.loadingStatistics
   );
 
   const language = useSelector((state: RootState) => state.language.language);
@@ -43,7 +46,11 @@ export default function StatisticsList() {
 
   return (
     <div style={{ padding: "5px" }}>
-      <Table columns={columns} data={statisticsList} />
+      <Table
+        columns={columns}
+        data={statisticsList}
+        loadingState={loadingState}
+      />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useTable } from "react-table";
 import Select from "react-select";
 
 import "src/static/table.css";
@@ -38,7 +37,7 @@ export default function FilterSelect({
   };
 
   useEffect(() => {
-    if (value == "") {
+    if (value === "") {
       setSelected([]);
     }
   }, [value]);

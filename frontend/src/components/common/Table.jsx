@@ -1,19 +1,22 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useTable, useSortBy, useFilters } from "react-table";
+import { useSelector } from "react-redux";
 import { ColumnFilter } from "src/components/common/ColumnFilter";
+import { LoadingState } from "src/utils/constants";
 
 import {
   BsFillCaretDownFill,
   BsFillCaretUpFill,
   BsSearch,
 } from "react-icons/bs";
-
+import LoadingSign from "src/components/common/LoadingSign";
 import "src/static/table.css";
 
 export default function Table({
   columns,
   data,
   selectedRowIndex = null,
+  loadingState = null,
   onClickAction = () => {},
 }) {
   const defaultColumn = useMemo(
@@ -22,6 +25,7 @@ export default function Table({
     }),
     []
   );
+  const language = useSelector((state: RootState) => state.language.language);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
@@ -34,7 +38,7 @@ export default function Table({
       useSortBy
     );
 
-  return (
+  return loadingState === null || loadingState === LoadingState.fulfilled ? (
     <table style={{ width: "100%" }} {...getTableProps()}>
       <thead>
         {headerGroups.map((headerGroup) => (
@@ -85,6 +89,9 @@ export default function Table({
         })}
       </tbody>
     </table>
+  ) : (
+    <LoadingSign
+      text={language === "en" ? "Loading table..." : "Ładowanie tabeli..."}
+    />
   );
 }
-//style: { width: column.width, textAlign: "center" },

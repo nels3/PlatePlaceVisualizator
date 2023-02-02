@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import {
   ComposableMap,
@@ -8,7 +8,6 @@ import {
   ZoomableGroup,
 } from "react-simple-maps";
 
-import mapGeoConfig from "src/components/map/MapConfig";
 import Markers from "src/components/map/Markers";
 import MapFilters from "src/components/map/MapFilters";
 

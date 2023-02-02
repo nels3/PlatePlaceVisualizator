@@ -84,11 +84,11 @@ export const platesSlice = createSlice({
       state.loadingList = LoadingState.fulfilled;
     });
     builder.addCase(fetchStatistics.pending, (state, action) => {
-      state.loadingList = LoadingState.pending;
+      state.loadingStatistics = LoadingState.pending;
     });
     builder.addCase(fetchStatistics.fulfilled, (state, action) => {
       state.statistics = action.payload;
-      state.loadingList = LoadingState.fulfilled;
+      state.loadingStatistics = LoadingState.fulfilled;
     });
   },
 });

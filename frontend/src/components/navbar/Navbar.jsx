@@ -19,13 +19,13 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div>
-          <NavLink to="/">{language == "en" ? "Plates" : "Talerzyki"}</NavLink>
-          <NavLink to="/map">{language == "en" ? "Map" : "Mapa"}</NavLink>
+          <NavLink to="/">{language === "en" ? "Plates" : "Talerzyki"}</NavLink>
+          <NavLink to="/map">{language === "en" ? "Map" : "Mapa"}</NavLink>
           <NavLink to="/stats">
-            {language == "en" ? "Statistics" : "Statystyki"}
+            {language === "en" ? "Statistics" : "Statystyki"}
           </NavLink>
           <NavLink to="/world">
-            {language == "en" ? "Your World" : "Twój świat"}
+            {language === "en" ? "Your World" : "Twój świat"}
           </NavLink>
 
           <PL

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Columns, Row, Col } from "react-grid";
+import { Container, Row, Col } from "react-grid";
 
 import FilterSelect from "src/components/common/FilterSelect";
 import FilterCheckbox from "src/components/common/FilterCheckbox";
@@ -155,7 +155,7 @@ export default function MapFilters() {
             <Label
               title={
                 selectedMapGeo
-                  ? language == "en"
+                  ? language === "en"
                     ? selectedMapGeo.name
                     : selectedMapGeo.namePl
                   : "---"
