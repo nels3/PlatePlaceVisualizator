@@ -1,6 +1,8 @@
 import React from "react";
 
+import { useSelector } from "react-redux";
 import Detail from "src/components/common/detail/Detail";
+import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 import "src/static/form.css";
 
 export default function Details({
@@ -13,6 +15,8 @@ export default function Details({
   deleteFn = () => {},
   updateImageField = () => {},
 }) {
+  const language = useSelector((state: RootState) => state.language.language);
+
   return (
     <div className="form-box">
       <h5>{title}</h5>
@@ -32,10 +36,10 @@ export default function Details({
       </form>
       <div style={{ width: "100%" }}>
         <button className="button" onClick={updateFn} disabled={!shouldUpdate}>
-          Update
+          {getDisplayText(language, dict.common.update)}
         </button>
         <button className="button" onClick={deleteFn} style={{ flow: "right" }}>
-          Delete
+          {getDisplayText(language, dict.common.delete)}
         </button>
       </div>
     </div>

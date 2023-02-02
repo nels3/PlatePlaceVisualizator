@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Details from "src/components/common/Details";
 import { LoadingState } from "src/utils/constants";
+import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 import { RootState } from "src/store/store";
 
@@ -49,42 +50,42 @@ export default function PlateDetails() {
 
   const fields = [
     {
-      title: language === "en" ? "Country (en)" : "Kraj (ang)",
+      title: getDisplayText(language, dict.plateDetails.countryEn),
       accessor: "country",
       type: "input",
     },
     {
-      title: language === "en" ? "Country (pl)" : "Kraj (pl)",
+      title: getDisplayText(language, dict.plateDetails.countryPl),
       accessor: "country_pl",
       type: "input",
     },
     {
-      title: language === "en" ? "City (en)" : "Miasto (ang)",
+      title: getDisplayText(language, dict.plateDetails.cityEn),
       accessor: "city",
       type: "input",
     },
     {
-      title: language === "en" ? "City (pl)" : "Miasto (pl)",
+      title: getDisplayText(language, dict.plateDetails.cityPl),
       accessor: "city_pl",
       type: "input",
     },
     {
-      title: "Longitude",
-      accessor: "longitude",
-      type: "input",
-    },
-    {
-      title: "Latitude",
+      title: getDisplayText(language, dict.plateDetails.latitude),
       accessor: "latitude",
       type: "input",
     },
     {
-      title: "Info",
+      title: getDisplayText(language, dict.plateDetails.longitude),
+      accessor: "longitude",
+      type: "input",
+    },
+    {
+      title: getDisplayText(language, dict.plateDetails.info),
       accessor: "info",
       type: "textarea",
     },
     {
-      title: language === "en" ? "Image" : "Zdjęcie",
+      title: getDisplayText(language, dict.plateDetails.image),
       accessor: "image_url",
       type: "image",
     },
@@ -127,7 +128,7 @@ export default function PlateDetails() {
             data={plate}
             data_add={file}
             fields={fields}
-            title={language === "en" ? "Plate details" : "Dane talerzyka"}
+            title={getDisplayText(language, dict.plateDetails.title)}
             updateField={updateFieldFun}
             updateFn={updatePlateFun}
             deleteFn={deletePlateFun}

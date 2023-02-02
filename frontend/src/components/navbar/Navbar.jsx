@@ -7,6 +7,12 @@ import { setLanguage } from "src/store/slices/language/languageSlice";
 import "src/static/navbar.css";
 import { GB, PL } from "country-flag-icons/react/3x2";
 
+import {
+  getDisplayText,
+  getDisplayTextFromChoices,
+  dictionary as dict,
+} from "src/utils/languageUtil";
+
 const Navbar = () => {
   const language = useSelector((state: RootState) => state.language.language);
 
@@ -19,25 +25,33 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div>
-          <NavLink to="/">{language === "en" ? "Plates" : "Talerzyki"}</NavLink>
-          <NavLink to="/map">{language === "en" ? "Map" : "Mapa"}</NavLink>
+          <NavLink to="/">
+            {getDisplayText(language, dict.navbar.plates)}
+          </NavLink>
+          <NavLink to="/map">
+            {getDisplayText(language, dict.navbar.map)}
+          </NavLink>
           <NavLink to="/stats">
-            {language === "en" ? "Statistics" : "Statystyki"}
+            {getDisplayText(language, dict.navbar.statistics)}
           </NavLink>
           <NavLink to="/world">
-            {language === "en" ? "Your World" : "Twój świat"}
+            {getDisplayText(language, dict.navbar.world)}
           </NavLink>
 
           <PL
             style={{ marginLeft: "auto" }}
             title="pl"
-            className={"flag " + (language === "pl" ? "selected" : "")}
+            className={
+              "flag " + getDisplayTextFromChoices(language, "", "selected")
+            }
             onClick={() => changeLanguage("pl")}
           />
           <GB
             style={{ marginRight: "20px" }}
             title="en"
-            className={"flag " + (language === "en" ? "selected" : "")}
+            className={
+              "flag " + getDisplayTextFromChoices(language, "selected", "")
+            }
             onClick={() => changeLanguage("en")}
           />
         </div>

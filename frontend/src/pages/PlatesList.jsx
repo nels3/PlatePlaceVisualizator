@@ -5,6 +5,7 @@ import Table from "src/components/common/Table";
 import PlateDetails from "src/components/PlateDetails";
 
 import { RootState } from "src/store/store";
+import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 import {
   setSelectedPlate,
@@ -33,17 +34,17 @@ export default function PlatesList() {
 
   const columns = [
     {
-      Header: language === "pl" ? "Kraj" : "Country",
-      accessor: language === "pl" ? "country_pl" : "country",
+      Header: getDisplayText(language, dict.plateList.country),
+      accessor: getDisplayText(language, dict.plateList.countryAccessor),
       width: 150,
     },
     {
-      Header: language === "pl" ? "Miasto" : "City",
-      accessor: language === "pl" ? "city_pl" : "city",
+      Header: getDisplayText(language, dict.plateList.city),
+      accessor: getDisplayText(language, dict.plateList.cityAccessor),
       width: 150,
     },
     {
-      Header: language === "pl" ? "Zdjęcie?" : "Image?",
+      Header: getDisplayText(language, dict.plateList.image),
       accessor: "image_present",
       width: 80,
     },

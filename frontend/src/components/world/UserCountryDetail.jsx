@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { LoadingState } from "src/utils/constants";
 import Details from "src/components/common/Details";
+import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 import { updateSelectedCountryField } from "src/store/slices/world/worldSlice";
 import {
   fetchCountriesList,
@@ -25,27 +26,27 @@ const UserCountryDetail = () => {
   const dispatch = useDispatch();
   const fields = [
     {
-      title: language === "en" ? "Country (en)" : "Kraj (ang)",
+      title: getDisplayText(language, dict.world.countriesDetails.countryEn),
       accessor: "name",
       type: "input",
     },
     {
-      title: language === "en" ? "Country (pl)" : "Kraj (pl)",
+      title: getDisplayText(language, dict.world.countriesDetails.countryPl),
       accessor: "name_pl",
       type: "input",
     },
     {
-      title: language === "en" ? "Capital" : "Stolica",
+      title: getDisplayText(language, dict.world.countriesDetails.capital),
       accessor: "capital",
       type: "input",
     },
     {
-      title: "Region",
+      title: getDisplayText(language, dict.world.countriesDetails.region),
       accessor: "region",
       type: "input",
     },
     {
-      title: "Subregion",
+      title: getDisplayText(language, dict.world.countriesDetails.subregion),
       accessor: "subregion",
       type: "input",
     },
@@ -80,7 +81,7 @@ const UserCountryDetail = () => {
             id="country_details"
             data={country}
             fields={fields}
-            title={language === "en" ? "Country details" : "Dane kraju"}
+            title={getDisplayText(language, dict.world.countriesDetails.title)}
             updateField={updateFieldFun}
             updateFn={updateFun}
             deleteFn={deleteFun}

@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Title from "src/components/common/Title";
 import Table from "src/components/common/Table";
+import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
+
 import {
   setSelectedCity,
   setSelectedRowIndexCities,
@@ -31,20 +33,20 @@ const UserCities = () => {
 
   const columns = [
     {
-      Header: language === "pl" ? "Miasto" : "City",
-      accessor: language === "pl" ? "name_pl" : "name",
+      Header: getDisplayText(language, dict.world.cities.city),
+      accessor: getDisplayText(language, dict.world.cities.cityAccessor),
     },
     {
-      Header: language === "pl" ? "Kraj" : "Country",
-      accessor: language === "pl" ? "country_pl" : "country",
+      Header: getDisplayText(language, dict.world.cities.country),
+      accessor: getDisplayText(language, dict.world.cities.countryAccessor),
     },
     {
-      Header: "Region",
-      accessor: "region",
+      Header: getDisplayText(language, dict.world.cities.region),
+      accessor: getDisplayText(language, dict.world.cities.regionAccessor),
     },
     {
-      Header: language === "pl" ? "Populacja" : "Population",
-      accessor: "population",
+      Header: getDisplayText(language, dict.world.cities.population),
+      accessor: getDisplayText(language, dict.world.cities.populationAccessor),
     },
   ];
 
@@ -55,7 +57,7 @@ const UserCities = () => {
 
   return (
     <div style={{ padding: "5px" }}>
-      <Title title={language === "en" ? "Cities:" : "Miasta:"} />
+      <Title title={getDisplayText(language, dict.world.cities.title)} />
       <Table
         columns={columns}
         data={citiesList}

@@ -7,6 +7,11 @@ import FilterCheckbox from "src/components/common/FilterCheckbox";
 import Label from "src/components/common/Label";
 
 import { mapGeoConfig } from "src/components/map/MapConfig";
+import {
+  getDisplayText,
+  getDisplayTextFromChoices,
+  dictionary as dict,
+} from "src/utils/languageUtil";
 
 import {
   setSelectedContinent,
@@ -21,6 +26,7 @@ import {
 import "src/static/filter.css";
 
 export default function MapFilters() {
+  const language = useSelector((state: RootState) => state.language.language);
   const selectedMapGeo = useSelector((state: RootState) => state.map.mapGeoUrl);
   const world = useSelector((state: RootState) => state.map.worldList);
   const countries = useSelector((state: RootState) => state.map.countriesList);
@@ -36,8 +42,6 @@ export default function MapFilters() {
   const selectedCountry = useSelector(
     (state: RootState) => state.map.selectedCountry
   );
-
-  const language = useSelector((state: RootState) => state.language.language);
 
   const dispatch = useDispatch();
 
@@ -102,10 +106,10 @@ export default function MapFilters() {
       <Container container spacing={2} className="filter-box row">
         <Row>
           <Col>
-            <h5>{language === "en" ? "Filters" : "Filtry"} </h5>
+            <h5>{getDisplayText(language, dict.map.filters)} </h5>
           </Col>
           <Col>
-            <Label title={language === "en" ? "World:" : "Świat:"} />
+            <Label title={getDisplayText(language, dict.map.world)} />
           </Col>
           <Col>
             <FilterCheckbox
@@ -115,13 +119,13 @@ export default function MapFilters() {
             />
           </Col>
           <Col>
-            <Label title={language === "en" ? "Continent:" : "Kontynent:"} />
+            <Label title={getDisplayText(language, dict.map.continent)} />
           </Col>
           <Col>
             <FilterSelect
               options={continents}
               optionValue={"name"}
-              optionLabel={language === "en" ? "name" : "namePl"}
+              optionLabel={getDisplayText(language, dict.map.continentLabel)}
               value={
                 selectedContinent && selectedContinent.name
                   ? selectedContinent.name
@@ -131,13 +135,13 @@ export default function MapFilters() {
             />
           </Col>
           <Col>
-            <Label title={language === "en" ? "Country:" : "Kraj:"} />
+            <Label title={getDisplayText(language, dict.map.country)} />
           </Col>
           <Col>
             <FilterSelect
               options={countries}
               optionValue={"name"}
-              optionLabel={language === "en" ? "name" : "namePl"}
+              optionLabel={getDisplayText(language, dict.map.countryLabel)}
               value={
                 selectedCountry && selectedCountry.name
                   ? selectedCountry.name
@@ -149,15 +153,17 @@ export default function MapFilters() {
         </Row>
         <Row>
           <Col>
-            <Label title={language === "en" ? "Selected:" : "Wybrane:"} />
+            <Label title={getDisplayText(language, dict.map.selected)} />
           </Col>
           <Col>
             <Label
               title={
                 selectedMapGeo
-                  ? language === "en"
-                    ? selectedMapGeo.name
-                    : selectedMapGeo.namePl
+                  ? getDisplayTextFromChoices(
+                      language,
+                      selectedMapGeo.name,
+                      selectedMapGeo.namePl
+                    )
                   : "---"
               }
             />

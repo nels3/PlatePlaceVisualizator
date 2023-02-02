@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Title from "src/components/common/Title";
 import Table from "src/components/common/Table";
+import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
+
 import {
   setSelectedCountry,
   setSelectedRowIndexCountries,
@@ -32,22 +34,22 @@ const UserCountries = () => {
 
   const columns = [
     {
-      Header: language === "pl" ? "Kraj" : "Country",
-      accessor: language === "pl" ? "name_pl" : "name",
+      Header: getDisplayText(language, dict.world.countries.country),
+      accessor: getDisplayText(language, dict.world.countries.countryAccessor),
       width: 150,
     },
     {
-      Header: language === "pl" ? "Stolica" : "Capital",
+      Header: getDisplayText(language, dict.world.countries.capital),
       accessor: "capital",
       width: 150,
     },
     {
-      Header: "Region",
+      Header: getDisplayText(language, dict.world.countries.region),
       accessor: "region",
       width: 150,
     },
     {
-      Header: "Subregion",
+      Header: getDisplayText(language, dict.world.countries.subregion),
       accessor: "subregion",
       width: 150,
     },
@@ -60,7 +62,7 @@ const UserCountries = () => {
 
   return (
     <div style={{ padding: "5px" }}>
-      <Title title={language === "en" ? "Countries:" : "Kraje:"} />
+      <Title title={getDisplayText(language, dict.world.countries.title)} />
       <Table
         columns={columns}
         data={countriesList}

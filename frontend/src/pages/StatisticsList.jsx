@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 import Table from "src/components/common/Table";
 
 import { RootState } from "src/store/store";
@@ -28,17 +29,17 @@ export default function StatisticsList() {
 
   const columns = [
     {
-      Header: language === "en" ? "Country" : "Kraj",
+      Header: getDisplayText(language, dict.statistics.country),
       accessor: "country",
       width: 150,
     },
     {
-      Header: language === "en" ? "Count" : "Liczba",
+      Header: getDisplayText(language, dict.statistics.count),
       accessor: "count",
       width: 80,
     },
     {
-      Header: language === "en" ? "Cities" : "Kraje",
+      Header: getDisplayText(language, dict.statistics.cities),
       accessor: "cities",
       width: 80,
     },

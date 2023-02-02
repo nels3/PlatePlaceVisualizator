@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Details from "src/components/common/Details";
 import { updateSelectedCityField } from "src/store/slices/world/worldSlice";
 import { fetchCitiesList, updateCity } from "src/store/slices/world/worldThunk";
+import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 const UserCityDetail = () => {
   const language = useSelector((state: RootState) => state.language.language);
@@ -14,44 +15,45 @@ const UserCityDetail = () => {
   );
 
   const dispatch = useDispatch();
+
   const fields = [
     {
-      title: language === "en" ? "City (en)" : "Kraj (ang)",
+      title: getDisplayText(language, dict.world.citiesDetails.cityEn),
       accessor: "name",
       type: "input",
     },
     {
-      title: language === "en" ? "Country (pl)" : "Kraj (pl)",
+      title: getDisplayText(language, dict.world.citiesDetails.cityPl),
       accessor: "name_pl",
       type: "input",
     },
     {
-      title: language === "en" ? "Country (en)" : "Kraj (en)",
+      title: getDisplayText(language, dict.world.citiesDetails.countryEn),
       accessor: "country",
       type: "input",
     },
     {
-      title: language === "en" ? "Country (pl)" : "Kraj (pl)",
+      title: getDisplayText(language, dict.world.citiesDetails.countryPl),
       accessor: "country_pl",
       type: "input",
     },
     {
-      title: "Region",
+      title: getDisplayText(language, dict.world.citiesDetails.region),
       accessor: "region",
       type: "input",
     },
     {
-      title: language === "en" ? "Population" : "Populacja",
+      title: getDisplayText(language, dict.world.citiesDetails.population),
       accessor: "population",
       type: "input",
     },
     {
-      title: "Latitude",
+      title: getDisplayText(language, dict.world.citiesDetails.latitude),
       accessor: "latitude",
       type: "input",
     },
     {
-      title: "Longitude",
+      title: getDisplayText(language, dict.world.citiesDetails.longitude),
       accessor: "longitude",
       type: "input",
     },
@@ -79,7 +81,7 @@ const UserCityDetail = () => {
             id="city_details"
             data={city}
             fields={fields}
-            title={language === "en" ? "City details" : "Dane miasta"}
+            title={getDisplayText(language, dict.world.citiesDetails.title)}
             updateField={updateFieldFun}
             updateFn={updateFun}
             deleteFn={deleteFun}

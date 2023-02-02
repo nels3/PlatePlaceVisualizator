@@ -7,6 +7,8 @@ import { setSelectedPlate } from "src/store/slices/plates/platesSlice";
 import { fetchPlatesList } from "src/store/slices/plates/platesThunk";
 import { setMarkersList } from "src/store/slices/map/mapSlice";
 
+import { getDisplayTextFromChoices } from "src/utils/languageUtil";
+
 export default function Markers() {
   const [circleR, setCircleR] = useState(3);
   const [fontSize, setFontSize] = useState(0);
@@ -42,7 +44,7 @@ export default function Markers() {
     platesList.map((plate) => {
       const marker = {
         markerOffset: -10,
-        name: language === "en" ? plate.city : plate.city_pl,
+        name: getDisplayTextFromChoices(language, plate.city, plate.city_pl),
         coordinates: [plate.longitude, plate.latitude],
         original: plate,
       };
@@ -88,7 +90,11 @@ export default function Markers() {
           fill={
             selectedPlate &&
             name ===
-              (language === "en" ? selectedPlate.city : selectedPlate.city_pl)
+              getDisplayTextFromChoices(
+                language,
+                selectedPlate.city,
+                selectedPlate.city_pl
+              )
               ? "#00FF00"
               : "#FF0000"
           }
@@ -101,7 +107,11 @@ export default function Markers() {
           fontSize={
             selectedPlate &&
             name ===
-              (language === "en" ? selectedPlate.city : selectedPlate.city_pl)
+              getDisplayTextFromChoices(
+                language,
+                selectedPlate.city,
+                selectedPlate.city_pl
+              )
               ? fontSize + 10
               : fontSize
           }
