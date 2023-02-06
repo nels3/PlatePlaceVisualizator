@@ -114,9 +114,6 @@ class CityUtils:
                     longitude=data.get("longitude", None),
                     latitude=data.get("latitude", None))
 
-        if City.objects.filter(Q(name=city.name) | Q(country=city.country)).exists():
-            raise AlreadyExistError()
-
         try:
             city.save()
             logging.info(f"Saved city:: {city.name}.")

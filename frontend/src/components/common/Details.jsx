@@ -11,6 +11,7 @@ import { openModal, setText } from "src/store/slices/common/commonSlice";
 export default function Details({
   fields,
   data,
+  tribe = "update",
   title = "",
   shouldUpdate = null,
   updateField = () => {},
@@ -29,6 +30,11 @@ export default function Details({
         text: getDisplayText(language, dict.common.confirmDeleteText),
       })
     );
+  };
+
+  const deleteFunction = () => {
+    if (tribe === "update") confirmDelete();
+    else deleteFn();
   };
 
   return (
@@ -50,14 +56,18 @@ export default function Details({
       </form>
       <div style={{ width: "100%" }}>
         <button className="button" onClick={updateFn} disabled={!shouldUpdate}>
-          {getDisplayText(language, dict.common.update)}
+          {tribe === "update"
+            ? getDisplayText(language, dict.common.update)
+            : getDisplayText(language, dict.common.add)}
         </button>
         <button
           className="button"
-          onClick={confirmDelete}
+          onClick={deleteFunction}
           style={{ flow: "right" }}
         >
-          {getDisplayText(language, dict.common.delete)}
+          {tribe === "update"
+            ? getDisplayText(language, dict.common.delete)
+            : getDisplayText(language, dict.common.cancel)}
         </button>
       </div>
       <ModalWindow

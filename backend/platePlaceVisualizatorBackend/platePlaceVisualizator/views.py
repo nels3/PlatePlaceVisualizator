@@ -164,7 +164,7 @@ def city_list(request):
         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
 
-@api_view(["GET", "POST", "DELETE"])
+@api_view(["GET", "POST", "DELETE", "PUT"])
 def city_selector(request):
     if request.method == 'GET':
         country = request.query_params.get('country', None)

@@ -23,6 +23,8 @@ export interface WorldSlice {
   loadingCities: LoadingState;
   selectedRowIndexCity: Integer;
   shouldUpdateCity: Boolean;
+  newCity: {};
+  showAddNewCity: Boolean;
 }
 
 const initialState: WorldSlice = {
@@ -36,6 +38,8 @@ const initialState: WorldSlice = {
   loadingCities: LoadingState.idle,
   selectedRowIndexCity: null,
   shouldUpdateCity: false,
+  newCity: null,
+  showAddNewCity: false,
 };
 
 export const worldSlice = createSlice({
@@ -70,6 +74,10 @@ export const worldSlice = createSlice({
       state.selectedCity = action.payload;
       return state;
     },
+    setNewCity(state, action) {
+      state.newCity = action.payload;
+      return state;
+    },
     updateSelectedCityField(state, action) {
       state.selectedCity[action.payload.field] = action.payload.value;
       state.shouldUpdateCity = true;
@@ -77,6 +85,21 @@ export const worldSlice = createSlice({
     },
     setSelectedRowIndexCities(state, action) {
       state.selectedRowIndexCity = action.payload;
+      return state;
+    },
+    updateNewCityField(state, action) {
+      state.newCity[action.payload.field] = action.payload.value;
+      state.shouldUpdateCity = true;
+      return state;
+    },
+    cancelAddCity(state, action) {
+      state.showAddNewCity = false;
+      state.newCity = {};
+      return state;
+    },
+    setShowAddNewCity(state, action) {
+      state.showAddNewCity = true;
+      state.newCity = {};
       return state;
     },
   },
@@ -113,6 +136,7 @@ export const worldSlice = createSlice({
       state.loadingCities = LoadingState.pending;
       state.selectedCity = null;
       state.selectedRowIndexCity = null;
+      state.showAddNewCity = false;
     });
     builder.addCase(deleteCity.fulfilled, (state, action) => {
       state.loadingCities = LoadingState.pending;
@@ -131,6 +155,10 @@ export const {
   setSelectedRowIndexCities,
   setSelectedCity,
   updateSelectedCityField,
+  setNewCity,
+  cancelAddCity,
+  updateNewCityField,
+  setShowAddNewCity,
 } = worldSlice.actions;
 
 export default worldSlice.reducer;

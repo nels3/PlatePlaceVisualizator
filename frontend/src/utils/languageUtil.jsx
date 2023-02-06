@@ -8,6 +8,8 @@ export const getDisplayTextFromChoices = (language, en, pl) => {
 export const dictionary = {
   common: {
     update: { en: "Update", pl: "Aktualizuj" },
+    add: { en: "Add", pl: "Dodaj" },
+    cancel: { en: "Cancel", pl: "Cofnij" },
     delete: { en: "Delete", pl: "Usuń" },
     confirm: { en: "Confirm", pl: "Potwierdź" },
     back: { en: "Back", pl: "Wyjdź" },
@@ -39,16 +41,17 @@ export const dictionary = {
     cities: {
       title: { en: "Cities:", pl: "Miasta:" },
       city: { en: "City:", pl: "Miasto" },
-      cityAccessor: { en: "name:", pl: "name_pl" },
+      cityAccessor: { en: "name", pl: "name_pl" },
       country: { en: "Country:", pl: "Kraj" },
-      countryAccessor: { en: "country:", pl: "country_pl" },
+      countryAccessor: { en: "country", pl: "country_pl" },
       region: { en: "Region:", pl: "Region" },
-      regionAccessor: { en: "region:", pl: "region" },
+      regionAccessor: { en: "region", pl: "region" },
       population: { en: "Population:", pl: "Populacja" },
-      populationAccessor: { en: "population:", pl: "population" },
+      populationAccessor: { en: "population", pl: "population" },
     },
     citiesDetails: {
       title: { en: "City details", pl: "Dane miasta" },
+      newTitle: { en: "New city details", pl: "Dane nowego miasta" },
       cityEn: { en: "City(en)", pl: "Miasto(ang)" },
       cityPl: { en: "City(pl)", pl: "Miasto(pl)" },
       countryEn: { en: "Country(en)", pl: "Kraj(ang)" },
