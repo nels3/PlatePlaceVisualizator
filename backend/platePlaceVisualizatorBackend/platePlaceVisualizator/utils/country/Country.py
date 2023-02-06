@@ -83,10 +83,11 @@ class CountryUtils:
         :return:
         """
 
-        if not Country.objects.filter(Q(name=data.get("name", None))).exists():
+        id = data.get("id", None)
+        if not Country.objects.filter(Q(id=id)).exists():
             raise NotFoundError()
 
-        country = Country.objects.get(Q(name=data.get("name", None)))
+        country = Country.objects.get(Q(id=id))
 
         country.name = data.get("name", None)
         country.name_pl = data.get("name_pl", None)
@@ -94,7 +95,6 @@ class CountryUtils:
         country.region = data.get("region", None)
         country.subregion = data.get("subregion", None)
 
-        print(country.capital)
         try:
             country.save()
             logging.info(f"Saved country: {country.name}.")

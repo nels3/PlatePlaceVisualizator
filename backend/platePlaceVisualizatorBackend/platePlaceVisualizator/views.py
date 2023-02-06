@@ -180,10 +180,10 @@ def city_selector(request):
             logging.error(f"Not found city: {name}")
             return JsonResponse(status=status.HTTP_400_BAD_REQUEST, data="Not found city", safe=False)
 
-    elif request.method == 'POST':
+    elif request.method == 'PUT':
         try:
             CityUtils.save_city(request.POST)
-            return JsonResponse(status=status.HTTP_201_CREATED, data="Created", safe=False)
+            return JsonResponse(status=status.HTTP_201_CREATED, data="Saved", safe=False)
         except AlreadyExistError:
             return JsonResponse(status=status.HTTP_406_NOT_ACCEPTABLE, data="Already exists", safe=False)
         except NotAllMandatoryFields:
@@ -192,8 +192,21 @@ def city_selector(request):
             logging.error(f"Error: {exp}")
             return JsonResponse(status=status.HTTP_400_BAD_REQUEST, data=exp, safe=False)
 
+    elif request.method == 'POST':
+        try:
+            CityUtils.update_city(request.POST)
+            return JsonResponse(status=status.HTTP_201_CREATED, data="Updated", safe=False)
+        except NotFoundError:
+            return JsonResponse(status=status.HTTP_406_NOT_ACCEPTABLE, data="Not exists", safe=False)
+        except NotAllMandatoryFields:
+            return JsonResponse(status=status.HTTP_406_NOT_ACCEPTABLE, data="Not all mandatory fields provided", safe=False)
+        except Exception as exp:
+            logging.error(f"Error: {exp}")
+            return JsonResponse(status=status.HTTP_400_BAD_REQUEST, data=exp, safe=False)
+
     elif request.method == 'DELETE':
-        name = request.query_params.get('name', None)
-        country = request.query_params.get('country', None)
-        CityUtils.delete_city(name, country)
+        id = request.query_params.get('id', None)
+        if City.objects.filter(id=id).exists():
+            City.objects.get(id=id).delete()
+            logging.info(f"Deleted city from database: {id}")
         return JsonResponse(status=status.HTTP_200_OK, data=None, safe=False)

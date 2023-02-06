@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Details from "src/components/common/Details";
+import { LoadingState } from "src/utils/constants";
 import { updateSelectedCityField } from "src/store/slices/world/worldSlice";
-import { fetchCitiesList, updateCity } from "src/store/slices/world/worldThunk";
+import {
+  fetchCitiesList,
+  updateCity,
+  deleteCity,
+} from "src/store/slices/world/worldThunk";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 const UserCityDetail = () => {
@@ -12,6 +17,10 @@ const UserCityDetail = () => {
   const city = useSelector((state: RootState) => state.world.selectedCity);
   const shouldUpdate = useSelector(
     (state: RootState) => state.world.shouldUpdateCity
+  );
+
+  const loadingDetail = useSelector(
+    (state: RootState) => state.world.loadingCities
   );
 
   const dispatch = useDispatch();
@@ -59,13 +68,18 @@ const UserCityDetail = () => {
     },
   ];
 
+  useEffect(() => {
+    if (loadingDetail === LoadingState.pending) {
+      dispatch(fetchCitiesList());
+    }
+  }, [loadingDetail]);
+
   const updateFun = () => {
     dispatch(updateCity(city));
-    dispatch(fetchCitiesList());
   };
 
   const deleteFun = () => {
-    console.log("TODO: Delete");
+    dispatch(deleteCity(city.id));
   };
 
   // method executed when there is change on field

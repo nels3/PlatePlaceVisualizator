@@ -69,6 +69,36 @@ class CityUtils:
                 raise NotFoundError()
 
     @staticmethod
+    def update_city(data):
+        """
+        Saving City in database
+        :param data: dictionary with all necessary parameters
+        :return:
+        """
+
+        id = data.get("id", None)
+        if not City.objects.filter(Q(id=id)).exists():
+            raise NotFoundError()
+
+        city = City.objects.get(Q(id=id))
+        city.name = data.get("name", None)
+        city.name_pl = data.get("name_pl", None)
+        city.country = data.get("country", None)
+        city.country_pl = data.get("country_pl", None)
+        city.region = data.get("region", None)
+        city.population = data.get("population", None)
+        city.longitude = data.get("longitude", None)
+        city.latitude = data.get("latitude", None)
+
+        try:
+            city.save()
+            logging.info(f"Updated city:: {city.name}.")
+        except IntegrityError as exp:
+            raise NotAllMandatoryFields(exp)
+        except Exception as exp:
+            raise exp
+
+    @staticmethod
     def save_city(data):
         """
         Saving City in database
@@ -94,15 +124,3 @@ class CityUtils:
             raise NotAllMandatoryFields(exp)
         except Exception as exp:
             raise exp
-
-    @staticmethod
-    def delete_city(city, country):
-        """
-        Deleting City in database
-        :param city: City in english
-        :param country: Country in english
-        :return:
-        """
-        if City.objects.filter(Q(name=city) | Q(country=country)).exists():
-            Country.objects.get(Q(name=city) | Q(country=country)).delete()
-            logging.info(f"Deleted city from database: {city}")

@@ -7,6 +7,9 @@ import {
   addNewCountry,
   updateCountry,
   deleteCountry,
+  addNewCity,
+  updateCity,
+  deleteCity,
 } from "./worldThunk";
 
 export interface WorldSlice {
@@ -88,6 +91,8 @@ export const worldSlice = createSlice({
     });
     builder.addCase(updateCountry.fulfilled, (state, action) => {
       state.loadingCountries = LoadingState.pending;
+      state.selectedCountry = null;
+      state.selectedRowIndexCountry = null;
     });
     builder.addCase(addNewCountry.fulfilled, (state, action) => {
       state.loadingCountries = LoadingState.pending;
@@ -98,6 +103,21 @@ export const worldSlice = createSlice({
       state.loadingCountries = LoadingState.pending;
       state.selectedCountry = null;
       state.selectedRowIndexCountry = null;
+    });
+    builder.addCase(updateCity.fulfilled, (state, action) => {
+      state.loadingCities = LoadingState.pending;
+      state.selectedCity = null;
+      state.selectedRowIndexCity = null;
+    });
+    builder.addCase(addNewCity.fulfilled, (state, action) => {
+      state.loadingCities = LoadingState.pending;
+      state.selectedCity = null;
+      state.selectedRowIndexCity = null;
+    });
+    builder.addCase(deleteCity.fulfilled, (state, action) => {
+      state.loadingCities = LoadingState.pending;
+      state.selectedCity = null;
+      state.selectedRowIndexCity = null;
     });
   },
 });

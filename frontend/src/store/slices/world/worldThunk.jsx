@@ -25,6 +25,7 @@ export const updateCountry = createAsyncThunk(
   async (args, thunkAPI) => {
     let formData = new FormData();
 
+    formData.append("id", args.id);
     formData.append("name", args.name);
     formData.append("name_pl", args.name_pl);
     formData.append("capital", args.capital);
@@ -72,13 +73,55 @@ export const deleteCountry = createAsyncThunk(
 export const updateCity = createAsyncThunk(
   "plates/updateCity",
   async (args, thunkAPI) => {
-    //TODO
+    let formData = new FormData();
+
+    formData.append("id", args.id);
+    formData.append("name", args.name);
+    formData.append("name_pl", args.name_pl);
+    formData.append("country", args.country);
+    formData.append("country_pl", args.country_pl);
+    formData.append("region", args.region);
+    formData.append("population", args.region);
+    formData.append("longitude", args.region);
+    formData.append("latitude", args.region);
+
+    return await axios.post(backendPath + "city/", formData, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+      },
+    });
   }
 );
 
 export const addNewCity = createAsyncThunk(
   "plates/addNewCity",
   async (args, thunkAPI) => {
-    //TODO
+    let formData = new FormData();
+
+    formData.append("name", args.name);
+    formData.append("name_pl", args.name_pl);
+    formData.append("country", args.country);
+    formData.append("country_pl", args.country_pl);
+    formData.append("region", args.region);
+    formData.append("population", args.region);
+    formData.append("longitude", args.region);
+    formData.append("latitude", args.region);
+
+    return await axios.put(backendPath + "city/", formData, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  }
+);
+
+export const deleteCity = createAsyncThunk(
+  "plates/deleteCity",
+  async (args, thunkAPI) => {
+    return await axios.delete(backendPath + "city/", {
+      params: { id: args },
+    });
   }
 );
