@@ -156,6 +156,7 @@ export const worldSlice = createSlice({
     clearResults(state, action) {
       state.checkResults = [];
       state.showResults = false;
+      state.selectedRowIndexCityResults = null;
       return state;
     },
   },

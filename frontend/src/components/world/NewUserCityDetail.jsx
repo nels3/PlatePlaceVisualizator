@@ -45,8 +45,16 @@ const NewUserCityDetail = () => {
   const checkState = useSelector(
     (state: RootState) => state.world.newCityCheck
   );
-  const checkName = (args) => {
-    dispatch(getCityByName(args));
+  const checkName = (arg) => {
+    dispatch(
+      getCityByName({
+        name: city.name,
+        name_pl: city.name_pl,
+        country: city.country,
+        country_pl: city.country_pl,
+        id: arg,
+      })
+    );
   };
 
   const dispatch = useDispatch();
@@ -58,23 +66,41 @@ const NewUserCityDetail = () => {
       type: "check",
       checkState: checkState.name ? checkState.name : CheckState.notChecked,
       checkFn: () => {
-        checkName({ name: city.name, id: "name" });
+        checkName("name");
       },
     },
     {
       title: getDisplayText(language, dict.world.citiesDetails.cityPl),
       accessor: "name_pl",
-      type: "input",
+      type: "check",
+      checkState: checkState.name_pl
+        ? checkState.name_pl
+        : CheckState.notChecked,
+      checkFn: () => {
+        checkName("name_pl");
+      },
     },
     {
       title: getDisplayText(language, dict.world.citiesDetails.countryEn),
       accessor: "country",
-      type: "input",
+      type: "check",
+      checkState: checkState.country
+        ? checkState.country
+        : CheckState.notChecked,
+      checkFn: () => {
+        checkName("country");
+      },
     },
     {
       title: getDisplayText(language, dict.world.citiesDetails.countryPl),
       accessor: "country_pl",
-      type: "input",
+      type: "check",
+      checkState: checkState.country_pl
+        ? checkState.country_pl
+        : CheckState.notChecked,
+      checkFn: () => {
+        checkName("country_pl");
+      },
     },
     {
       title: getDisplayText(language, dict.world.citiesDetails.region),

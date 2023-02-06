@@ -63,8 +63,6 @@ class CityUtils:
                     logging.info(f"Returning: {len(city_list)} biggest cities")
                     return city_list
                 else:
-                    print("res:")
-                    print(response.status_code)
                     raise NotFoundError()
 
             else:

@@ -28,6 +28,9 @@ export const getCityByName = createAsyncThunk(
       .get(backendPath + "city/", {
         params: {
           name: args.name,
+          name_pl: args.name_pl,
+          country: args.country,
+          country_pl: args.country_pl,
         },
       })
       .then((res) => {
