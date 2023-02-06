@@ -10,6 +10,7 @@ export const dictionary = {
     update: { en: "Update", pl: "Aktualizuj" },
     add: { en: "Add", pl: "Dodaj" },
     cancel: { en: "Cancel", pl: "Cofnij" },
+    choose: { en: "Choose", pl: "Wybierz" },
     delete: { en: "Delete", pl: "Usuń" },
     confirm: { en: "Confirm", pl: "Potwierdź" },
     back: { en: "Back", pl: "Wyjdź" },

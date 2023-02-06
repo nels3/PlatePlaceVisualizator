@@ -11,6 +11,7 @@ import {
   updateCity,
   deleteCity,
   getCountryByName,
+  getCityByName,
 } from "./worldThunk";
 
 export interface WorldSlice {
@@ -25,11 +26,16 @@ export interface WorldSlice {
   selectedRowIndexCity: Integer;
   shouldUpdateCity: Boolean;
   newCity: {};
+  newCityTmp: null;
   showAddNewCity: Boolean;
   newCountry: {};
   showAddNewCountry: Boolean;
   newCountryCheck: {};
+  newCityCheck: {};
   checkResults: [];
+  showResults: Boolean;
+  selectedRowIndexCityResults: String;
+  loadingResults: LoadingState;
 }
 
 const initialState: WorldSlice = {
@@ -44,11 +50,16 @@ const initialState: WorldSlice = {
   selectedRowIndexCity: null,
   shouldUpdateCity: false,
   newCity: null,
+  newCityTmp: null,
   showAddNewCity: false,
   newCountry: null,
   showAddNewCountry: false,
   newCountryCheck: {},
+  newCityCheck: {},
   checkResults: [],
+  loadingResults: LoadingState.idle,
+  showResults: false,
+  selectedRowIndexCityResults: null,
 };
 
 export const worldSlice = createSlice({
@@ -89,6 +100,10 @@ export const worldSlice = createSlice({
     },
     setNewCity(state, action) {
       state.newCity = action.payload;
+      return state;
+    },
+    setNewCityTmp(state, action) {
+      state.newCityTmp = action.payload;
       return state;
     },
     updateSelectedCityField(state, action) {
@@ -132,6 +147,15 @@ export const worldSlice = createSlice({
     },
     setNewCountryCheck(state, action) {
       state.newCountryCheck[action.payload.field] = action.payload.value;
+      return state;
+    },
+    setSelectedRowIndexCitiesResults(state, action) {
+      state.selectedRowIndexCityResults = action.payload;
+      return state;
+    },
+    clearResults(state, action) {
+      state.checkResults = [];
+      state.showResults = false;
       return state;
     },
   },
@@ -186,6 +210,21 @@ export const worldSlice = createSlice({
         state.newCountry = action.payload.data;
       }
     });
+    builder.addCase(getCityByName.fulfilled, (state, action) => {
+      if (action.payload.info === "error") {
+        state.newCityCheck[action.payload.field] = CheckState.error;
+      } else {
+        if (action.payload.data.length === 1) {
+          let check = {};
+          check[action.payload.field] = CheckState.correct;
+          state.newCityCheck = check;
+          state.newCity = action.payload.data[0];
+        } else {
+          state.checkResults = action.payload.data;
+          state.showResults = true;
+        }
+      }
+    });
   },
 });
 
@@ -200,6 +239,8 @@ export const {
   setSelectedCity,
   updateSelectedCityField,
   setNewCity,
+  setNewCityTmp,
+  clearResults,
   cancelAddCity,
   updateNewCityField,
   setShowAddNewCity,
@@ -207,6 +248,7 @@ export const {
   updateNewCountryField,
   setShowAddNewCountry,
   setNewCountryCheck,
+  setSelectedRowIndexCitiesResults,
 } = worldSlice.actions;
 
 export default worldSlice.reducer;

@@ -16,7 +16,24 @@ export const getCountryByName = createAsyncThunk(
         return { info: "ok", data: res.data, field: args.id };
       })
       .catch((error) => {
-        console.log("lala");
+        return { info: "error", field: args.id };
+      });
+  }
+);
+
+export const getCityByName = createAsyncThunk(
+  "world/getCityByName",
+  async (args, thunkAPI) => {
+    return await axios
+      .get(backendPath + "city/", {
+        params: {
+          name: args.name,
+        },
+      })
+      .then((res) => {
+        return { info: "ok", data: res.data, field: args.id };
+      })
+      .catch((error) => {
         return { info: "error", field: args.id };
       });
   }
