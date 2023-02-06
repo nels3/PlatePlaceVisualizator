@@ -156,6 +156,23 @@ def country_selector(request):
             return JsonResponse(status=status.HTTP_400_BAD_REQUEST, data=exp, safe=False)
 
 
+@api_view(["GET"])
+def country_selector_check(request):
+    if request.method == 'GET':
+        name = request.query_params.get('name', None)
+        language = request.query_params.get('language', None)
+        try:
+            country = CountryUtils().get_country(name, language, save_if_found=False)
+            serializer = CountrySerializer(country, many=False)
+            return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+        except NoConfiguredLanguage:
+            logging.error(f"Not configured language: {language}")
+            return JsonResponse(status=status.HTTP_400_BAD_REQUEST, data="Not configured language", safe=False)
+        except NotFoundError:
+            logging.error(f"Not found country: {name}")
+            return JsonResponse(status=status.HTTP_400_BAD_REQUEST, data="Not found country", safe=False)
+
+
 @api_view(['GET'])
 def city_list(request):
     if request.method == 'GET':

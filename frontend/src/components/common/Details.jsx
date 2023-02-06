@@ -50,6 +50,8 @@ export default function Details({
               accessor={field.accessor}
               type={field.type}
               updateField={updateField}
+              checkState={field.checkState}
+              checkFn={field.checkFn}
             />
           );
         })}

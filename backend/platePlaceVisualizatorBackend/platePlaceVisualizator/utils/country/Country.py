@@ -14,9 +14,10 @@ class CountryUtils:
     def __init__(self):
         pass
 
-    def get_country(self, name, language) -> Country:
+    def get_country(self, name, language, save_if_found=False) -> Country:
         """
         Returning existing Country object or using rest api
+        :param save_if_found: save found new country if everything alright
         :param name: name of country in language
         :param language: language of name, possible: self.possible_languaage
         :return: Country object
@@ -45,7 +46,8 @@ class CountryUtils:
                                   capital=response.json()[0]['capital'][0],
                                   region=response.json()[0]['region'],
                                   subregion=response.json()[0]['subregion'])
-                country.save()
+                if save_if_found:
+                    country.save()
                 logging.info(f"Saving new country: {name}")
                 return country
             else:

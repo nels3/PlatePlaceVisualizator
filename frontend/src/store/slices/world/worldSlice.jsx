@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { LoadingState } from "src/utils/constants";
+import { LoadingState, CheckState } from "src/utils/constants";
 import {
   fetchCountriesList,
   fetchCitiesList,
@@ -10,6 +10,7 @@ import {
   addNewCity,
   updateCity,
   deleteCity,
+  getCountryByName,
 } from "./worldThunk";
 
 export interface WorldSlice {
@@ -27,6 +28,8 @@ export interface WorldSlice {
   showAddNewCity: Boolean;
   newCountry: {};
   showAddNewCountry: Boolean;
+  newCountryCheck: {};
+  checkResults: [];
 }
 
 const initialState: WorldSlice = {
@@ -44,6 +47,8 @@ const initialState: WorldSlice = {
   showAddNewCity: false,
   newCountry: null,
   showAddNewCountry: false,
+  newCountryCheck: {},
+  checkResults: [],
 };
 
 export const worldSlice = createSlice({
@@ -125,6 +130,10 @@ export const worldSlice = createSlice({
       state.newCountry = {};
       return state;
     },
+    setNewCountryCheck(state, action) {
+      state.newCountryCheck[action.payload.field] = action.payload.value;
+      return state;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCountriesList.fulfilled, (state, action) => {
@@ -167,6 +176,16 @@ export const worldSlice = createSlice({
       state.selectedCity = null;
       state.selectedRowIndexCity = null;
     });
+    builder.addCase(getCountryByName.fulfilled, (state, action) => {
+      if (action.payload.info === "error") {
+        state.newCountryCheck[action.payload.field] = CheckState.error;
+      } else {
+        let check = {};
+        check[action.payload.field] = CheckState.correct;
+        state.newCountryCheck = check;
+        state.newCountry = action.payload.data;
+      }
+    });
   },
 });
 
@@ -187,6 +206,7 @@ export const {
   cancelAddCountry,
   updateNewCountryField,
   setShowAddNewCountry,
+  setNewCountryCheck,
 } = worldSlice.actions;
 
 export default worldSlice.reducer;

@@ -2,6 +2,26 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { backendPath } from "src/utils/utils";
 
+export const getCountryByName = createAsyncThunk(
+  "world/getCountryByName",
+  async (args, thunkAPI) => {
+    return await axios
+      .get(backendPath + "country/check", {
+        params: {
+          name: args.name,
+          language: args.language,
+        },
+      })
+      .then((res) => {
+        return { info: "ok", data: res.data, field: args.id };
+      })
+      .catch((error) => {
+        console.log("lala");
+        return { info: "error", field: args.id };
+      });
+  }
+);
+
 export const fetchCountriesList = createAsyncThunk(
   "world/fetchCountriesList",
   async (args, thunkAPI) => {

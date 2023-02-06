@@ -11,6 +11,7 @@ urlpatterns = [
     path('plate/list/country/', views.plate_list_by_county, name='plate_list_by_county'),
     path('country/list', views.country_list, name='country_list'),
     path('country/', views.country_selector, name='country_selector'),
+    path('country/check', views.country_selector_check, name='country_selector_check'),
     path('city/list', views.city_list, name='city_list'),
     path('city/', views.city_selector, name='city_selector'),
 ]

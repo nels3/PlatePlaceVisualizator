@@ -3,35 +3,55 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { LoadingState } from "src/utils/constants";
 import Details from "src/components/common/Details";
+import { CheckState } from "src/utils/constants";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 import {
   updateNewCountryField,
   cancelAddCountry,
+  setNewCountryCheck,
 } from "src/store/slices/world/worldSlice";
 import {
   fetchCountriesList,
   addNewCountry,
+  getCountryByName,
 } from "src/store/slices/world/worldThunk";
 
 const NewUserCountryDetail = () => {
   const language = useSelector((state: RootState) => state.language.language);
 
   const country = useSelector((state: RootState) => state.world.newCountry);
+  const checkState = useSelector(
+    (state: RootState) => state.world.newCountryCheck
+  );
   const loadingDetail = useSelector(
     (state: RootState) => state.world.loadingCountries
   );
+
+  const checkName = (args) => {
+    dispatch(getCountryByName(args));
+  };
 
   const dispatch = useDispatch();
   const fields = [
     {
       title: getDisplayText(language, dict.world.countriesDetails.countryEn),
       accessor: "name",
-      type: "input",
+      type: "check",
+      checkState: checkState.name ? checkState.name : CheckState.notChecked,
+      checkFn: () => {
+        checkName({ name: country.name, language: "eng", id: "name" });
+      },
     },
     {
       title: getDisplayText(language, dict.world.countriesDetails.countryPl),
       accessor: "name_pl",
-      type: "input",
+      type: "check",
+      checkState: checkState.name_pl
+        ? checkState.name_pl
+        : CheckState.notChecked,
+      checkFn: () => {
+        checkName({ name: country.name_pl, language: "pl", id: "name_pl" });
+      },
     },
     {
       title: getDisplayText(language, dict.world.countriesDetails.capital),
