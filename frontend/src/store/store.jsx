@@ -3,9 +3,11 @@ import platesReducer from "src/store/slices/plates/platesSlice";
 import mapReducer from "src/store/slices/map/mapSlice";
 import languageReducer from "src/store/slices/language/languageSlice";
 import worldReducer from "src/store/slices/world/worldSlice";
+import commonReducer from "src/store/slices/common/commonSlice";
 
 export const store = configureStore({
   reducer: {
+    common: commonReducer,
     language: languageReducer,
     plates: platesReducer,
     map: mapReducer,

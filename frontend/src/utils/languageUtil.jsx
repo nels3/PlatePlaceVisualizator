@@ -9,6 +9,16 @@ export const dictionary = {
   common: {
     update: { en: "Update", pl: "Aktualizuj" },
     delete: { en: "Delete", pl: "Usuń" },
+    confirm: { en: "Confirm", pl: "Potwierdź" },
+    back: { en: "Back", pl: "Wyjdź" },
+    confirmDeleteText: {
+      en: "Are you sure you want to delete it?",
+      pl: "Czy na pewno chcesz usunąć ten element?",
+    },
+    confirmButtonLabel: {
+      en: "Confirm",
+      pl: "Potwierdzam",
+    },
   },
   navbar: {
     plates: { en: "Plates", pl: "Talerzyki" },

@@ -75,6 +75,8 @@ export const platesSlice = createSlice({
     builder.addCase(updatePlate.fulfilled, (state, action) => {
       state.loadingDetail = LoadingState.fulfilled;
       state.shouldUpdate = false;
+      state.selectedPlate = null;
+      state.selectedRowIndex = null;
     });
     builder.addCase(fetchPlatesList.pending, (state, action) => {
       state.loadingList = LoadingState.pending;

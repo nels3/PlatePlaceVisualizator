@@ -125,10 +125,10 @@ def country_selector(request):
             return JsonResponse(status=status.HTTP_400_BAD_REQUEST, data="Not found country", safe=False)
 
     elif request.method == 'DELETE':
-        name = request.query_params.get('name', None)
-        if Country.objects.filter(name=name).exists():
-            Country.objects.get(name=name).delete()
-            logging.info(f"Deleted country from database: {name}")
+        id = request.query_params.get('id', None)
+        if Country.objects.filter(id=id).exists():
+            Country.objects.get(id=id).delete()
+            logging.info(f"Deleted country from database: {id}")
         return JsonResponse(status=status.HTTP_200_OK, data=None, safe=False)
 
     elif request.method == 'PUT':

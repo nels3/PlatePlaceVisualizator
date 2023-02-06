@@ -45,7 +45,7 @@
 .button{
     display: inline-block;
     width: 30%;
-    height: 2rem;
+    height: 3rem;
     color: var(--hard-blue);
     border: 0;
     bottom: 0;
@@ -58,10 +58,6 @@
     margin: 1rem ;
     border-radius: 20px; 
 
-}
-
-.button{    
-     margin: 1rem; 
 }
 
 .form-box .row {

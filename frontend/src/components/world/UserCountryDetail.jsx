@@ -8,6 +8,7 @@ import { updateSelectedCountryField } from "src/store/slices/world/worldSlice";
 import {
   fetchCountriesList,
   updateCountry,
+  deleteCountry,
 } from "src/store/slices/world/worldThunk";
 
 const UserCountryDetail = () => {
@@ -63,7 +64,7 @@ const UserCountryDetail = () => {
   };
 
   const deleteFun = () => {
-    console.log("TODO: Delete");
+    dispatch(deleteCountry(country.id));
   };
 
   // method executed when there is change on field

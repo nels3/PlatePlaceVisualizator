@@ -1,0 +1,14 @@
+
+.button-modal{
+    margin: 1rem ;
+    border-radius: 20px; 
+    display: inline-block;
+    width: 30%;
+    height: 3rem;
+    color: var(--hard-blue);
+    border: 0;
+    bottom: 0;
+    cursor: pointer;
+    font-size: 16px;
+
+}

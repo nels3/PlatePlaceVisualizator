@@ -14,15 +14,17 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App () {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route exact path='/' element={<PlatesList />} />;
-        <Route exact path='/map' element={<PlateMap />} />;
-        <Route exact path='/stats' element={<StatisticsList />} />;
-        <Route exact path='/world' element={<World />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route exact path='/' element={<PlatesList />} />;
+          <Route exact path='/map' element={<PlateMap />} />;
+          <Route exact path='/stats' element={<StatisticsList />} />;
+          <Route exact path='/world' element={<World />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   )
 }
 

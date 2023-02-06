@@ -60,8 +60,24 @@ export const addNewCountry = createAsyncThunk(
   }
 );
 
+export const deleteCountry = createAsyncThunk(
+  "plates/deleteCountry",
+  async (args, thunkAPI) => {
+    return await axios.delete(backendPath + "country/", {
+      params: { id: args },
+    });
+  }
+);
+
 export const updateCity = createAsyncThunk(
   "plates/updateCity",
+  async (args, thunkAPI) => {
+    //TODO
+  }
+);
+
+export const addNewCity = createAsyncThunk(
+  "plates/addNewCity",
   async (args, thunkAPI) => {
     //TODO
   }
