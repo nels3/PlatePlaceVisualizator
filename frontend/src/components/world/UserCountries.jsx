@@ -7,6 +7,7 @@ import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 import {
   setSelectedCountry,
+  setNewCountry,
   setSelectedRowIndexCountries,
 } from "src/store/slices/world/worldSlice";
 import { fetchCountriesList } from "src/store/slices/world/worldThunk";
@@ -16,6 +17,9 @@ const UserCountries = () => {
 
   const countriesList = useSelector(
     (state: RootState) => state.world.countries
+  );
+  const showAddNewCountry = useSelector(
+    (state: RootState) => state.world.showAddNewCountry
   );
   const selectedRowIndex = useSelector(
     (state: RootState) => state.world.selectedRowIndexCountry
@@ -56,8 +60,9 @@ const UserCountries = () => {
   ];
 
   const onRowClickAction = (rowDetails, rowIndex) => {
-    dispatch(setSelectedCountry(rowDetails));
     dispatch(setSelectedRowIndexCountries(rowIndex));
+    if (!showAddNewCountry) dispatch(setSelectedCountry(rowDetails));
+    else dispatch(setNewCountry(rowDetails));
   };
 
   return (

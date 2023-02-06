@@ -71,6 +71,7 @@ export const dictionary = {
     },
     countriesDetails: {
       title: { en: "Country details", pl: "Dane kraju" },
+      newTitle: { en: "New country details", pl: "Dane nowego kraju" },
       countryEn: { en: "Country(en)", pl: "Kraj(ang)" },
       countryPl: { en: "Country(pl)", pl: "Kraj(pl)" },
       capital: { en: "Capital", pl: "Stolica" },

@@ -25,6 +25,8 @@ export interface WorldSlice {
   shouldUpdateCity: Boolean;
   newCity: {};
   showAddNewCity: Boolean;
+  newCountry: {};
+  showAddNewCountry: Boolean;
 }
 
 const initialState: WorldSlice = {
@@ -40,6 +42,8 @@ const initialState: WorldSlice = {
   shouldUpdateCity: false,
   newCity: null,
   showAddNewCity: false,
+  newCountry: null,
+  showAddNewCountry: false,
 };
 
 export const worldSlice = createSlice({
@@ -54,6 +58,10 @@ export const worldSlice = createSlice({
     setSelectedCountry(state, action) {
       state.selectedCountry = action.payload;
       state.shouldUpdateCountry = false;
+      return state;
+    },
+    setNewCountry(state, action) {
+      state.newCountry = action.payload;
       return state;
     },
     updateSelectedCountryField(state, action) {
@@ -102,6 +110,21 @@ export const worldSlice = createSlice({
       state.newCity = {};
       return state;
     },
+    updateNewCountryField(state, action) {
+      state.newCountry[action.payload.field] = action.payload.value;
+      state.shouldUpdateCountry = true;
+      return state;
+    },
+    cancelAddCountry(state, action) {
+      state.showAddNewCountry = false;
+      state.newCountry = {};
+      return state;
+    },
+    setShowAddNewCountry(state, action) {
+      state.showAddNewCountry = true;
+      state.newCountry = {};
+      return state;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCountriesList.fulfilled, (state, action) => {
@@ -121,6 +144,7 @@ export const worldSlice = createSlice({
       state.loadingCountries = LoadingState.pending;
       state.selectedCountry = null;
       state.selectedRowIndexCountry = null;
+      state.showAddNewCountry = false;
     });
     builder.addCase(deleteCountry.fulfilled, (state, action) => {
       state.loadingCountries = LoadingState.pending;
@@ -150,6 +174,7 @@ export const {
   setCountries,
   setSelectedRowIndexCountries,
   setSelectedCountry,
+  setNewCountry,
   updateSelectedCountryField,
   setCities,
   setSelectedRowIndexCities,
@@ -159,6 +184,9 @@ export const {
   cancelAddCity,
   updateNewCityField,
   setShowAddNewCity,
+  cancelAddCountry,
+  updateNewCountryField,
+  setShowAddNewCountry,
 } = worldSlice.actions;
 
 export default worldSlice.reducer;

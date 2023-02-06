@@ -63,10 +63,6 @@ class CountryUtils:
                           capital=data.get("capital", None),
                           region=data.get("region", None),
                           subregion=data.get("subregion", None))
-
-        if Country.objects.filter(Q(name=country.name_pl) | Q(country=country.name_pl)).exists():
-            raise AlreadyExistError()
-
         try:
             country.save()
             logging.info(f"Saved country:: {country.name}.")

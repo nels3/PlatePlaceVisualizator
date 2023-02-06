@@ -15,7 +15,7 @@ import {
 } from "src/store/slices/world/worldThunk";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
-const UserCityDetail = () => {
+const NewUserCityDetail = () => {
   const language = useSelector((state: RootState) => state.language.language);
 
   const city = useSelector((state: RootState) => state.world.newCity);
@@ -118,4 +118,4 @@ const UserCityDetail = () => {
   );
 };
 
-export default UserCityDetail;
+export default NewUserCityDetail;

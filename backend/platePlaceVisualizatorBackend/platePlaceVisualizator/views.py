@@ -133,7 +133,7 @@ def country_selector(request):
 
     elif request.method == 'PUT':
         try:
-            CountryUtils.save_country(request.PUT)
+            CountryUtils.save_country(request.POST)
             return JsonResponse(status=status.HTTP_201_CREATED, data="Saved", safe=False)
         except AlreadyExistError:
             return JsonResponse(status=status.HTTP_406_NOT_ACCEPTABLE, data="Already exists", safe=False)
