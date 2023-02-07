@@ -91,6 +91,11 @@ export const dictionary = {
     longitude: { en: "Longitude", pl: "Longitude" },
     info: { en: "Info", pl: "Info" },
     image: { en: "Image", pl: "Zdjęcie" },
+    filters: { en: "Filters", pl: "Filtry" },
+    country: { en: "Country:", pl: "Kraj:" },
+    city: { en: "City:", pl: "Miasto:" },
+    countryLabel: { en: "name", pl: "name_pl" },
+    cityLabel: { en: "name", pl: "name_pl" },
   },
   plateList: {
     country: { en: "Country", pl: "Kraj" },

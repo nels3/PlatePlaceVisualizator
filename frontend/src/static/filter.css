@@ -5,7 +5,7 @@
 
 .filter-box{
     border: solid var(--hard-blue) 3px;
-    margin: 20px !important;
+    margin: 20px;
     padding: 1vw ;
     max-width: 98% !important;
 }

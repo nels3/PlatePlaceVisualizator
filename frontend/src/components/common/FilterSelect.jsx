@@ -50,7 +50,6 @@ export default function FilterSelect({
         onChange={(e) => onChangeFun(e)}
         value={selected}
         isSearchable
-        //isClearable
       />
     </>
   );

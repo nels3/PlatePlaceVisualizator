@@ -22,6 +22,8 @@ export interface PlatesSlice {
   statistics: [];
   showNewPlate: Boolean;
   newPlate: {};
+  selectedCountry: String;
+  selectedCity: String;
 }
 
 const initialState: PlatesSlice = {
@@ -36,6 +38,8 @@ const initialState: PlatesSlice = {
   statistics: [],
   showNewPlate: false,
   newPlate: {},
+  selectedCountry: null,
+  selectedCity: null,
 };
 
 export const platesSlice = createSlice({

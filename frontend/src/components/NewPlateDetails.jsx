@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import Details from "src/components/common/Details";
+import NewPlateHelper from "src/components/common/NewPlateHelper";
 import { LoadingState } from "src/utils/constants";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
@@ -117,6 +118,7 @@ export default function PlateDetails() {
   return (
     <>
       <div style={{ padding: "5px" }}>
+        <NewPlateHelper />
         <Details
           tribe="add"
           id="new_plate_details"
