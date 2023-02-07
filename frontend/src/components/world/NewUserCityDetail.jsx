@@ -9,42 +9,37 @@ import { openModal, closeModal } from "src/store/slices/common/commonSlice";
 import {
   updateNewCityField,
   cancelAddCity,
-  setSelectedRowIndexCitiesResults,
   setNewCity,
-  setNewCityTmp,
-  clearResults,
 } from "src/store/slices/world/worldSlice";
 import {
   fetchCitiesList,
   updateCity,
   deleteCity,
   addNewCity,
-  getCityByName,
 } from "src/store/slices/world/worldThunk";
+import {
+  setCitySelectedRowIndexResults,
+  setNewCityTmp,
+  clearCityResults,
+} from "src/store/slices/checker/checkerSlice";
+import { getCityByName } from "src/store/slices/checker/checkerThunk";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 const NewUserCityDetail = () => {
-  const language = useSelector((state: RootState) => state.language.language);
+  const language = useSelector((state) => state.language.language);
 
-  const city = useSelector((state: RootState) => state.world.newCity);
-  const cityTmp = useSelector((state: RootState) => state.world.newCityTmp);
+  const city = useSelector((state) => state.world.newCity);
+  const loadingDetail = useSelector((state) => state.world.loadingCities);
+
+  const cityTmp = useSelector((state) => state.checker.newCityTmp);
   const selectedRowIndex = useSelector(
-    (state: RootState) => state.world.selectedRowIndexCityResults
+    (state) => state.checker.citySelectedRowIndexResults
   );
-  const results = useSelector((state: RootState) => state.world.checkResults);
-  const loadingState = useSelector(
-    (state: RootState) => state.world.loadingReulsts
-  );
-  const showResults = useSelector(
-    (state: RootState) => state.world.showResults
-  );
+  const results = useSelector((state) => state.checker.cityCheckResults);
+  const loadingState = useSelector((state) => state.checker.cityLoadingResults);
+  const showResults = useSelector((state) => state.checker.cityShowResults);
+  const checkState = useSelector((state) => state.checker.newCityCheck);
 
-  const loadingDetail = useSelector(
-    (state: RootState) => state.world.loadingCities
-  );
-  const checkState = useSelector(
-    (state: RootState) => state.world.newCityCheck
-  );
   const checkName = (arg) => {
     dispatch(
       getCityByName({
@@ -134,7 +129,7 @@ const NewUserCityDetail = () => {
     if (showResults) {
       dispatch(openModal("city-results"));
     }
-  }, [showResults]);
+  }, [showResults, results]);
 
   const updateFun = () => {
     dispatch(addNewCity(city));
@@ -162,7 +157,7 @@ const NewUserCityDetail = () => {
 
   const chooseFn = () => {
     dispatch(setNewCity(cityTmp));
-    dispatch(clearResults());
+    dispatch(clearCityResults());
     dispatch(closeModal("city-results"));
   };
 
@@ -202,7 +197,7 @@ const NewUserCityDetail = () => {
   ];
 
   const onRowClickAction = (rowDetails, rowIndex) => {
-    dispatch(setSelectedRowIndexCitiesResults(rowIndex));
+    dispatch(setCitySelectedRowIndexResults(rowIndex));
     dispatch(setNewCityTmp(rowDetails));
   };
 

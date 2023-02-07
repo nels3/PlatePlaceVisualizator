@@ -60,9 +60,14 @@ const UserCountries = () => {
   ];
 
   const onRowClickAction = (rowDetails, rowIndex) => {
-    dispatch(setSelectedRowIndexCountries(rowIndex));
-    if (!showAddNewCountry) dispatch(setSelectedCountry(rowDetails));
-    else dispatch(setNewCountry(rowDetails));
+    if (selectedRowIndex === rowIndex) {
+      dispatch(setSelectedRowIndexCountries(null));
+      if (!showAddNewCountry) dispatch(setSelectedCountry(null));
+    } else {
+      dispatch(setSelectedRowIndexCountries(rowIndex));
+      if (!showAddNewCountry) dispatch(setSelectedCountry(rowDetails));
+      else dispatch(setNewCountry(rowDetails));
+    }
   };
 
   return (

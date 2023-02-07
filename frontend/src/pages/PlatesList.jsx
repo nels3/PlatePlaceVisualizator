@@ -51,8 +51,13 @@ export default function PlatesList() {
   ];
 
   const onRowClickAction = (rowDetails, rowIndex) => {
-    dispatch(setSelectedPlate(rowDetails));
-    dispatch(setSelectedRowIndex(rowIndex));
+    if (selectedRowIndex === rowIndex) {
+      dispatch(setSelectedRowIndex(null));
+      dispatch(setSelectedPlate(null));
+    } else {
+      dispatch(setSelectedRowIndex(rowIndex));
+      dispatch(setSelectedPlate(rowDetails));
+    }
   };
 
   return (

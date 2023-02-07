@@ -55,9 +55,14 @@ const UserCities = () => {
   ];
 
   const onRowClickAction = (rowDetails, rowIndex) => {
-    dispatch(setSelectedRowIndexCities(rowIndex));
-    if (!showAddNewCity) dispatch(setSelectedCity(rowDetails));
-    else dispatch(setNewCity(rowDetails));
+    if (selectedRowIndex === rowIndex) {
+      dispatch(setSelectedRowIndexCities(null));
+      if (!showAddNewCity) dispatch(setSelectedCity(null));
+    } else {
+      dispatch(setSelectedRowIndexCities(rowIndex));
+      if (!showAddNewCity) dispatch(setSelectedCity(rowDetails));
+      else dispatch(setNewCity(rowDetails));
+    }
   };
 
   return (

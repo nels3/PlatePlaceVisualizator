@@ -43,6 +43,8 @@ class CityUtils:
                 except CannotTranslate:
                     raise NotFoundError("There is not such country")
 
+
+
             if name is not None:
                 url = city_api_url + '?sort=-population&namePrefix=' + name
                 headers = {"X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com", "X-RapidAPI-Key": api_key}
@@ -51,10 +53,21 @@ class CityUtils:
                     city_list = []
                     for city_res in response.json()["data"]:
                         if country is None or city_res["country"].lower() == country.lower():
+                            country_pl_tmp = ""
+                            if country_pl is None and city_res["country"] is not None:
+                                try:
+                                    country_obj = Country.objects.filter(name=city_res["country"]).first()
+                                    country_pl_tmp = country_obj.name_pl
+                                except Exception:
+                                    pass
+                            name_pl_tmp = ""
+                            if name_pl is None:
+                                name_pl_tmp = city_res["name"]
+
                             city = City(name=city_res["name"],
-                                        name_pl = name_pl,
+                                        name_pl = name_pl if name_pl else name_pl_tmp,
                                         country=city_res["country"],
-                                        country_pl = country_pl,
+                                        country_pl = country_pl if country_pl else country_pl_tmp,
                                         region=city_res["region"],
                                         population=city_res["population"],
                                         longitude=city_res["longitude"],

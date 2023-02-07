@@ -8,30 +8,30 @@ import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 import {
   updateNewCountryField,
   cancelAddCountry,
+  setNewCountry,
   setNewCountryCheck,
 } from "src/store/slices/world/worldSlice";
 import {
   fetchCountriesList,
   addNewCountry,
-  getCountryByName,
 } from "src/store/slices/world/worldThunk";
+import { getCountryByName } from "src/store/slices/checker/checkerThunk";
 
 const NewUserCountryDetail = () => {
-  const language = useSelector((state: RootState) => state.language.language);
+  const language = useSelector((state) => state.language.language);
 
-  const country = useSelector((state: RootState) => state.world.newCountry);
-  const checkState = useSelector(
-    (state: RootState) => state.world.newCountryCheck
-  );
-  const loadingDetail = useSelector(
-    (state: RootState) => state.world.loadingCountries
-  );
+  const country = useSelector((state) => state.world.newCountry);
+  const countryTmp = useSelector((state) => state.checker.newCountryTmp);
+  const loadingDetail = useSelector((state) => state.world.loadingCountries);
+
+  const checkState = useSelector((state) => state.checker.newCountryCheck);
+
+  const dispatch = useDispatch();
 
   const checkName = (args) => {
     dispatch(getCountryByName(args));
   };
 
-  const dispatch = useDispatch();
   const fields = [
     {
       title: getDisplayText(language, dict.world.countriesDetails.countryEn),
@@ -75,6 +75,10 @@ const NewUserCountryDetail = () => {
       dispatch(fetchCountriesList());
     }
   }, [loadingDetail]);
+
+  useEffect(() => {
+    dispatch(setNewCountry(countryTmp));
+  }, [countryTmp]);
 
   const updateFun = () => {
     dispatch(addNewCountry(country));
