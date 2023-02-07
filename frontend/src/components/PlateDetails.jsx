@@ -15,6 +15,7 @@ import {
   updatePlate,
   fetchPlatesList,
   fetchPlateImage,
+  deletePlate,
 } from "src/store/slices/plates/platesThunk";
 
 export default function PlateDetails() {
@@ -101,7 +102,7 @@ export default function PlateDetails() {
 
   // method executed when deleting plate button is used
   const deletePlateFun = () => {
-    console.log("TODO: Delete plate");
+    dispatch(deletePlate(plate.id));
   };
 
   // method executed when there is change on field

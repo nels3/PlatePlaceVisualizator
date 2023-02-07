@@ -5,6 +5,7 @@ import {
   updatePlate,
   fetchStatistics,
   addNewPlate,
+  deletePlate,
 } from "./platesThunk";
 
 import { LoadingState } from "src/utils/constants";
@@ -120,6 +121,11 @@ export const platesSlice = createSlice({
       state.selectedPlate = null;
       state.selectedRowIndex = null;
       state.showNewPlate = false;
+    });
+    builder.addCase(deletePlate.fulfilled, (state, action) => {
+      state.loadingList = LoadingState.pending;
+      state.selectedPlate = null;
+      state.selectedRowIndex = null;
     });
   },
 });

@@ -81,3 +81,12 @@ export const fetchStatistics = createAsyncThunk(
       });
   }
 );
+
+export const deletePlate = createAsyncThunk(
+  "plates/deletePlate",
+  async (args, thunkAPI) => {
+    return await axios.delete(backendPath + "plate/", {
+      params: { id: args },
+    });
+  }
+);

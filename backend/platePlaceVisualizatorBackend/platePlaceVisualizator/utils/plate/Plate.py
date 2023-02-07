@@ -73,7 +73,7 @@ class PlateUtils:
     @staticmethod
     def delete_plate(id):
         if Plate.objects.filter(id=id).exists():
-            Plate.objects.get(id.id).delete()
+            Plate.objects.get(id=id).delete()
             logging.info(f"Deleted plate from database with id: {id}")
 
     @staticmethod
