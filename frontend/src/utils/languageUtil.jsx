@@ -82,6 +82,7 @@ export const dictionary = {
   },
   plateDetails: {
     title: { en: "Plate details", pl: "Dane talerzyka" },
+    newTitle: { en: "New plate details", pl: "Dane nowego talerzyka" },
     countryEn: { en: "Country(en)", pl: "Kraj(ang)" },
     countryPl: { en: "Country(pl)", pl: "Kraj(pl)" },
     cityEn: { en: "City(en)", pl: "Miasto(ang)" },

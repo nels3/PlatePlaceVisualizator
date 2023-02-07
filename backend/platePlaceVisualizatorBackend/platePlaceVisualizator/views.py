@@ -14,7 +14,7 @@ from .utils.city.City import CityUtils
 from .exceptions import *
 
 
-@api_view(['GET', 'POST', 'DELETE'])
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def plate_detail(request):
     if request.method == 'GET':
         id = request.query_params.get('id', None)
@@ -30,6 +30,10 @@ def plate_detail(request):
 
     elif request.method == 'POST':
         PlateUtils.save_plate(request.data)
+        return JsonResponse(status=status.HTTP_200_OK, safe=False, data="Created")
+
+    elif request.method == 'PUT':
+        PlateUtils.add_new_plate(request.data)
         return JsonResponse(status=status.HTTP_200_OK, safe=False, data="Created")
 
     elif request.method == 'DELETE':

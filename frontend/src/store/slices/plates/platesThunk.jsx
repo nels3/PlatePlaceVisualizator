@@ -36,10 +36,33 @@ export const updatePlate = createAsyncThunk(
     formData.append("country_pl", args.country_pl);
     formData.append("latitude", args.latitude);
     formData.append("longitude", args.longitude);
-    formData.append("info", args.info);
-    formData.append("file", args.file);
+    formData.append("info", args.info ? args.info : "");
+    formData.append("file", args.file ? args.file : "");
 
     return await axios.post(backendPath + "plate/", formData, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  }
+);
+
+export const addNewPlate = createAsyncThunk(
+  "plates/addNewPlate",
+  async (args, thunkAPI) => {
+    let formData = new FormData();
+
+    formData.append("city", args.city);
+    formData.append("city_pl", args.city_pl);
+    formData.append("country", args.country);
+    formData.append("country_pl", args.country_pl);
+    formData.append("latitude", args.latitude);
+    formData.append("longitude", args.longitude);
+    formData.append("info", args.info ? args.info : "");
+    formData.append("file", args.file ? args.file : "");
+
+    return await axios.put(backendPath + "plate/", formData, {
       headers: {
         Accept: "application/json",
         "Content-Type": "multipart/form-data",

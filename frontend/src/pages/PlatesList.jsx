@@ -1,27 +1,32 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { LoadingState } from "src/utils/constants";
 
 import Table from "src/components/common/Table";
 import PlateDetails from "src/components/PlateDetails";
+import NewPlateDetails from "src/components/NewPlateDetails";
 
+import { BiMessageSquareAdd } from "react-icons/bi";
 import { RootState } from "src/store/store";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 import {
   setSelectedPlate,
   setSelectedRowIndex,
+  setShowNewPlate,
+  setNewPlate,
 } from "src/store/slices/plates/platesSlice";
 import { fetchPlatesList } from "src/store/slices/plates/platesThunk";
 
 export default function PlatesList() {
-  const platesList = useSelector((state: RootState) => state.plates.list);
-  const loadingState = useSelector(
-    (state: RootState) => state.plates.loadingList
-  );
+  const language = useSelector((state) => state.language.language);
+  const platesList = useSelector((state) => state.plates.list);
+  const loadingState = useSelector((state) => state.plates.loadingList);
   const selectedRowIndex = useSelector(
-    (state: RootState) => state.plates.selectedRowIndex
+    (state) => state.plates.selectedRowIndex
   );
-  const language = useSelector((state: RootState) => state.language.language);
+
+  const showNewPlate = useSelector((state) => state.plates.showNewPlate);
 
   const dispatch = useDispatch();
 
@@ -31,6 +36,12 @@ export default function PlatesList() {
       dispatch(fetchPlatesList());
     }
   }, []);
+
+  useEffect(() => {
+    if (loadingState === LoadingState.pending) {
+      dispatch(fetchPlatesList());
+    }
+  }, [loadingState]);
 
   const columns = [
     {
@@ -56,8 +67,16 @@ export default function PlatesList() {
       dispatch(setSelectedPlate(null));
     } else {
       dispatch(setSelectedRowIndex(rowIndex));
-      dispatch(setSelectedPlate(rowDetails));
+      if (showNewPlate) {
+        dispatch(setNewPlate(rowDetails));
+      } else {
+        dispatch(setSelectedPlate(rowDetails));
+      }
     }
+  };
+
+  const openAddNewPlate = () => {
+    dispatch(setShowNewPlate(true));
   };
 
   return (
@@ -69,7 +88,14 @@ export default function PlatesList() {
         selectedRowIndex={selectedRowIndex}
         loadingState={loadingState}
       />
-      <PlateDetails />
+      {!showNewPlate ? (
+        <>
+          <BiMessageSquareAdd size="20" onClick={openAddNewPlate} />
+          <PlateDetails />
+        </>
+      ) : (
+        <NewPlateDetails />
+      )}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import {
   fetchPlateImage,
   updatePlate,
   fetchStatistics,
+  addNewPlate,
 } from "./platesThunk";
 
 import { LoadingState } from "src/utils/constants";
@@ -18,6 +19,8 @@ export interface PlatesSlice {
   shouldUpdate: Boolean;
   loadingStatistics: LoadingState;
   statistics: [];
+  showNewPlate: Boolean;
+  newPlate: {};
 }
 
 const initialState: PlatesSlice = {
@@ -30,6 +33,8 @@ const initialState: PlatesSlice = {
   shouldUpdate: false,
   loadingStatistics: LoadingState.idle,
   statistics: [],
+  showNewPlate: false,
+  newPlate: {},
 };
 
 export const platesSlice = createSlice({
@@ -51,6 +56,10 @@ export const platesSlice = createSlice({
       state.shouldUpdate = true;
       return state;
     },
+    updateNewPlate(state, action) {
+      state.newPlate[action.payload.field] = action.payload.value;
+      return state;
+    },
     setLoadingDetail(state, action) {
       state.loadingDetail = action.payload;
       return state;
@@ -61,6 +70,19 @@ export const platesSlice = createSlice({
     },
     setShouldUpdate(state, action) {
       state.shouldUpdate = action.payload;
+      return state;
+    },
+    setShowNewPlate(state, action) {
+      state.showNewPlate = action.payload;
+      return state;
+    },
+    setNewPlate(state, action) {
+      state.newPlate = action.payload;
+      return state;
+    },
+    cancelAddPlate(state, action) {
+      state.showNewPlate = false;
+      state.newPlate = {};
       return state;
     },
   },
@@ -92,6 +114,13 @@ export const platesSlice = createSlice({
       state.statistics = action.payload;
       state.loadingStatistics = LoadingState.fulfilled;
     });
+    builder.addCase(addNewPlate.fulfilled, (state, action) => {
+      state.loadingList = LoadingState.pending;
+      state.newPlate = {};
+      state.selectedPlate = null;
+      state.selectedRowIndex = null;
+      state.showNewPlate = false;
+    });
   },
 });
 
@@ -102,6 +131,10 @@ export const {
   updateSelectedPlate,
   setLoadingImage,
   setShouldUpdate,
+  setShowNewPlate,
+  cancelAddPlate,
+  updateNewPlate,
+  setNewPlate,
 } = platesSlice.actions;
 
 export default platesSlice.reducer;

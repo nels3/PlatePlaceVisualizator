@@ -45,7 +45,26 @@ class PlateUtils:
 
         try:
             plate.save()
-            logging.info(f"Saved plate:: {plate.city} with id {plate.id}.")
+            logging.info(f"Saved plate: {plate.city} with id {plate.id}.")
+        except IntegrityError as exp:
+            raise NotAllMandatoryFields(exp)
+        except Exception as exp:
+            raise exp
+
+    @staticmethod
+    def add_new_plate(data):
+        plate = Plate(country=data.get("country", None),
+                      city=data.get("city", None),
+                      country_pl=data.get("country_pl", None),
+                      city_pl=data.get("city_pl", None),
+                      longitude=data.get("longitude", None),
+                      latitude=data.get("latitude", None),
+                      info=data.get("info", ""),
+                      img=data.get('file', ""))
+
+        try:
+            plate.save()
+            logging.info(f"Added new plate: {plate.city}.")
         except IntegrityError as exp:
             raise NotAllMandatoryFields(exp)
         except Exception as exp:
