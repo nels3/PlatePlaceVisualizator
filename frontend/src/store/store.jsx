@@ -5,6 +5,7 @@ import languageReducer from "src/store/slices/language/languageSlice";
 import worldReducer from "src/store/slices/world/worldSlice";
 import commonReducer from "src/store/slices/common/commonSlice";
 import checkerReducer from "src/store/slices/checker/checkerSlice";
+import galleryReducer from "src/store/slices/gallery/gallerySlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     map: mapReducer,
     world: worldReducer,
     checker: checkerReducer,
+    gallery: galleryReducer,
   },
 });
 

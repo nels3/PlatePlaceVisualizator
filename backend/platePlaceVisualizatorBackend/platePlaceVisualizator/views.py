@@ -105,6 +105,40 @@ def plate_list_by_county(request):
 
 
 @api_view(['GET'])
+def plate_regions(request):
+    if request.method == 'GET':
+        regions = PlateUtils.get_regions()
+        serializer = FilterSerializer(regions, many=True)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
+@api_view(['GET'])
+def plate_countries(request):
+    if request.method == 'GET':
+        countries = PlateUtils.get_countries()
+        serializer = FilterSerializer(countries, many=True)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
+@api_view(['GET'])
+def plate_region(request):
+    if request.method == 'GET':
+        region = request.query_params.get('region', None)
+        plates = PlateUtils.get_plate_by_region(region)
+        serializer = PlateSerializer(plates, many=True)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
+@api_view(['GET'])
+def plate_country(request):
+    if request.method == 'GET':
+        country = request.query_params.get('country', None)
+        plates = PlateUtils.get_plate_by_country(country)
+        serializer = PlateSerializer(plates, many=True)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
+@api_view(['GET'])
 def country_list(request):
     if request.method == 'GET':
         countries = Country.objects.all()

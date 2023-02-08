@@ -28,6 +28,9 @@ const Navbar = () => {
           <NavLink to="/">
             {getDisplayText(language, dict.navbar.plates)}
           </NavLink>
+          <NavLink to="/gallery">
+            {getDisplayText(language, dict.navbar.gallery)}
+          </NavLink>
           <NavLink to="/map">
             {getDisplayText(language, dict.navbar.map)}
           </NavLink>

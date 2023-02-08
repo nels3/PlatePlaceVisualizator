@@ -12,6 +12,12 @@ class PlateSerializer(serializers.ModelSerializer):
         fields = ['country', 'city', 'country_pl', 'city_pl', 'longitude', 'latitude', 'info', 'image_present', "id"]
 
 
+class FilterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Filter
+        fields = '__all__'
+
+
 class PlateStatisticsSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlateStatistics

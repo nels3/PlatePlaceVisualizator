@@ -25,6 +25,10 @@ class PlateStatistics(models.Model):
     objects = models.Manager()
 
 
+class Filter(models.Model):
+    name = models.CharField(max_length=100)
+    objects = models.Manager()
+
 class Country(models.Model):
     name = models.CharField(max_length=100)
     name_pl = models.CharField(max_length=100)

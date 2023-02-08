@@ -38,7 +38,7 @@ export default function World() {
       <UserCountries />
       {!showAddNewCountry ? (
         <>
-          <BiMessageSquareAdd size="20" onClick={openAddNewCountry} />
+          <BiMessageSquareAdd size="30" onClick={openAddNewCountry} />
           <UserCountryDetail />
         </>
       ) : (
@@ -49,7 +49,7 @@ export default function World() {
       <UserCities />
       {!showAddNewCity ? (
         <>
-          <BiMessageSquareAdd size="20" onClick={openAddNewCity} />
+          <BiMessageSquareAdd size="30" onClick={openAddNewCity} />
           <UserCityDetail />
         </>
       ) : (

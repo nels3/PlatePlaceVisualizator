@@ -25,6 +25,7 @@ export const dictionary = {
   },
   navbar: {
     plates: { en: "Plates", pl: "Talerzyki" },
+    gallery: { en: "Gallery", pl: "Galeria" },
     map: { en: "Map", pl: "Mapa" },
     statistics: { en: "Statistics", pl: "Statystyki" },
     world: { en: "Your World", pl: "Twój świat" },
@@ -37,6 +38,13 @@ export const dictionary = {
     country: { en: "Country:", pl: "Kraj:" },
     countryLabel: { en: "name", pl: "namePl" },
     selected: { en: "Selected:", pl: "Wybrane:" },
+  },
+  gallery: {
+    filters: { en: "Filters", pl: "Filtry" },
+    country: { en: "Country:", pl: "Kraj:" },
+    countryLabel: { en: "name", pl: "name" },
+    region: { en: "Region:", pl: "Region:" },
+    regionLabel: { en: "name", pl: "name" },
   },
   world: {
     cities: {

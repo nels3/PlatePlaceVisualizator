@@ -31,6 +31,56 @@ class PlateUtils:
         pass
 
     @staticmethod
+    def get_regions():
+        plates_list = Plate.objects.values("country").order_by("country").distinct()
+        countries = Country.objects.all()
+        countries_dict = {}
+
+        for country in countries:
+            countries_dict[country.name] = country.region
+
+        regions_original = []
+        for plate in plates_list:
+            if plate["country"] in countries_dict:
+                region = countries_dict[plate["country"]]
+                regions_original.append(region)
+        regions_original = list(dict.fromkeys(regions_original))
+        regions = []
+        for r in regions_original:
+            region = Filter(name=r)
+            regions.append(region)
+
+        return regions
+
+    @staticmethod
+    def get_countries():
+
+        plates_list = Plate.objects.values("country").order_by("country").distinct()
+        countries = []
+        for plate in plates_list:
+            country = Filter(name=plate["country"])
+            countries.append(country)
+
+        return countries
+
+    @staticmethod
+    def get_plate_by_region(region):
+        plates = Plate.objects.all()
+        plates_ret = []
+        countries = Country.objects.filter(region=region).values("name").distinct()
+
+        for plate in plates:
+            for country in countries:
+                if plate.country == country["name"]:
+                    plates_ret.append(plate)
+        return plates_ret
+
+    @staticmethod
+    def get_plate_by_country(country):
+        plates = Plate.objects.filter(country=country)
+        return plates
+
+    @staticmethod
     def save_plate(data):
         plate = Plate(country=data.get("country", None),
                       city=data.get("city", None),

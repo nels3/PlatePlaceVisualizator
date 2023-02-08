@@ -90,7 +90,7 @@ export default function PlatesList() {
       />
       {!showNewPlate ? (
         <>
-          <BiMessageSquareAdd size="20" onClick={openAddNewPlate} />
+          <BiMessageSquareAdd size="30" onClick={openAddNewPlate} />
           <PlateDetails />
         </>
       ) : (
