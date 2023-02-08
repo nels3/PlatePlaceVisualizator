@@ -51,6 +51,11 @@ export default function PlateDetails() {
 
   const fields = [
     {
+      title: getDisplayText(language, dict.plateDetails.image),
+      accessor: "image_url",
+      type: "image",
+    },
+    {
       title: getDisplayText(language, dict.plateDetails.countryEn),
       accessor: "country",
       type: "input",
@@ -84,11 +89,6 @@ export default function PlateDetails() {
       title: getDisplayText(language, dict.plateDetails.info),
       accessor: "info",
       type: "textarea",
-    },
-    {
-      title: getDisplayText(language, dict.plateDetails.image),
-      accessor: "image_url",
-      type: "image",
     },
   ];
 

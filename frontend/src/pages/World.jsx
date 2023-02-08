@@ -13,6 +13,7 @@ import {
   setShowAddNewCity,
   setShowAddNewCountry,
 } from "src/store/slices/world/worldSlice";
+import { resetAllChecks } from "src/store/slices/checker/checkerSlice";
 
 export default function World() {
   const showAddNewCity = useSelector(
@@ -25,9 +26,11 @@ export default function World() {
   const dispatch = useDispatch();
   const openAddNewCity = () => {
     dispatch(setShowAddNewCity(true));
+    dispatch(resetAllChecks());
   };
   const openAddNewCountry = () => {
     dispatch(setShowAddNewCountry(true));
+    dispatch(resetAllChecks());
   };
 
   return (

@@ -81,9 +81,9 @@ export const updateCity = createAsyncThunk(
     formData.append("country", args.country);
     formData.append("country_pl", args.country_pl);
     formData.append("region", args.region);
-    formData.append("population", args.region);
-    formData.append("longitude", args.region);
-    formData.append("latitude", args.region);
+    formData.append("population", args.population);
+    formData.append("longitude", args.longitude);
+    formData.append("latitude", args.latitude);
 
     return await axios.post(backendPath + "city/", formData, {
       headers: {

@@ -31,6 +31,12 @@ export const checkerSlice = createSlice({
   name: "checker",
   initialState,
   reducers: {
+    resetAllChecks(state, action) {
+      state.newCountryCheck = {};
+      state.newCityCheck = {};
+      return state;
+    },
+
     setNewCountryCheck(state, action) {
       state.newCountryCheck[action.payload.field] = action.payload.value;
       return state;
@@ -71,19 +77,12 @@ export const checkerSlice = createSlice({
       if (action.payload.info === "error") {
         state.newCityCheck[action.payload.field] = CheckState.error;
       } else {
-        if (action.payload.data.length === 1) {
-          let check = {};
-          check[action.payload.field] = CheckState.correct;
-          state.newCityCheck = check;
-          state.newCityTmp = action.payload.data[0];
-        } else {
-          let check = {};
-          check[action.payload.field] = CheckState.correct;
-          state.newCityCheck = check;
-          state.cityCheckResults = action.payload.data;
-          state.cityShowResults = true;
-          state.cityLoadingResults = LoadingState.fulfilled;
-        }
+        let check = {};
+        check[action.payload.field] = CheckState.correct;
+        state.newCityCheck = check;
+        state.cityCheckResults = action.payload.data;
+        state.cityShowResults = true;
+        state.cityLoadingResults = LoadingState.fulfilled;
       }
     });
   },
@@ -95,6 +94,7 @@ export const {
   setNewCityTmp,
   setCitySelectedRowIndexResults,
   clearCityResults,
+  resetAllChecks,
 } = checkerSlice.actions;
 
 export default checkerSlice.reducer;

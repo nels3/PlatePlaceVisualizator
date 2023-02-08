@@ -74,6 +74,33 @@ class CountryUtils:
             raise exp
 
     @staticmethod
+    def save_country_by_name(name, save=True) -> Country:
+        """
+        Saving Country in database
+        :param data: dictionary with all necessary parameters
+        :return:
+        """
+        if Country.objects.filter(name=name).exists():
+            return Country.objects.filter(name=name).first()
+        else:
+
+            url = country_api_url + 'name/' + name
+            response = requests.get(url)
+
+            if response.status_code == 200:
+                country = Country(name=name,
+                                  name_pl=response.json()[0]['translations']['pol']['common'],
+                                  capital=response.json()[0]['capital'][0],
+                                  region=response.json()[0]['region'],
+                                  subregion=response.json()[0]['subregion'])
+                if save:
+                    country.save()
+                logging.info(f"Saving new country: {name}")
+                return country
+            else:
+                return {}
+
+    @staticmethod
     def update_country(data):
         """
         Updating Country in database

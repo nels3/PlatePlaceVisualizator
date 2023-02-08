@@ -166,6 +166,7 @@ export const worldSlice = createSlice({
     });
     builder.addCase(addNewCity.fulfilled, (state, action) => {
       state.loadingCities = LoadingState.pending;
+      state.loadingCountries = LoadingState.pending;
       state.selectedCity = null;
       state.selectedRowIndexCity = null;
       state.showAddNewCity = false;

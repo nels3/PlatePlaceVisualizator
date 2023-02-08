@@ -27,14 +27,14 @@ export default function Markers() {
   // adjusting marker parameters according to map tribe
   const computeParams = () => {
     if (tribe === "world") {
-      setCircleR(3);
+      setCircleR(1);
       setFontSize(0);
     } else if (tribe === "continent") {
-      setCircleR(5);
-      setFontSize(10);
+      setCircleR(2);
+      setFontSize(6);
     } else if (tribe === "country") {
-      setCircleR(8);
-      setFontSize(15);
+      setCircleR(3);
+      setFontSize(8);
     }
   };
 
@@ -99,7 +99,7 @@ export default function Markers() {
               : "#FF0000"
           }
           stroke="#fff"
-          strokeWidth={2}
+          strokeWidth={0}
         />
         <text
           textAnchor="middle"

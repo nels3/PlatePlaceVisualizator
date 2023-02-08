@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.db.utils import IntegrityError
 
 from platePlaceVisualizator.utils.translator.Translator import Translator
+from platePlaceVisualizator.utils.country.Country import CountryUtils
 
 from platePlaceVisualizator.constants import city_api_url
 from platePlaceVisualizator.secret import api_key
@@ -43,8 +44,6 @@ class CityUtils:
                 except CannotTranslate:
                     raise NotFoundError("There is not such country")
 
-
-
             if name is not None:
                 url = city_api_url + '?sort=-population&namePrefix=' + name
                 headers = {"X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com", "X-RapidAPI-Key": api_key}
@@ -60,6 +59,13 @@ class CityUtils:
                                     country_pl_tmp = country_obj.name_pl
                                 except Exception:
                                     pass
+                            if (country_pl is None or country_pl == "") and country_pl_tmp == "" and city_res["country"]:
+                                try:
+                                    countryObj = CountryUtils.save_country_by_name(city_res["country"], False)
+                                    country_pl_tmp = countryObj.name_pl
+                                except Exception:
+                                    pass
+
                             name_pl_tmp = ""
                             if name_pl is None:
                                 name_pl_tmp = city_res["name"]
@@ -67,7 +73,7 @@ class CityUtils:
                             city = City(name=city_res["name"],
                                         name_pl = name_pl if name_pl else name_pl_tmp,
                                         country=city_res["country"],
-                                        country_pl = country_pl if country_pl else country_pl_tmp,
+                                        country_pl=country_pl if country_pl else country_pl_tmp,
                                         region=city_res["region"],
                                         population=city_res["population"],
                                         longitude=city_res["longitude"],
@@ -127,6 +133,10 @@ class CityUtils:
                     longitude=data.get("longitude", None),
                     latitude=data.get("latitude", None))
 
+        country = CountryUtils.save_country_by_name(data.get("country"))
+        if city.country_pl is None or city.country_pl == "":
+            city.country_pl = country.name_pl
+
         try:
             city.save()
             logging.info(f"Saved city:: {city.name}.")
@@ -134,3 +144,4 @@ class CityUtils:
             raise NotAllMandatoryFields(exp)
         except Exception as exp:
             raise exp
+
