@@ -3,7 +3,7 @@ import axios from "axios";
 import { backendPath } from "src/utils/utils";
 
 export const getRegions = createAsyncThunk(
-  "plates/getRegions",
+  "gallery/getRegions",
   async (args, thunkAPI) => {
     return await axios.get(backendPath + "plate/regions", {}).then((res) => {
       return res.data;
@@ -11,7 +11,7 @@ export const getRegions = createAsyncThunk(
   }
 );
 export const getCountries = createAsyncThunk(
-  "plates/getCountries",
+  "gallery/getCountries",
   async (args, thunkAPI) => {
     return await axios.get(backendPath + "plate/countries", {}).then((res) => {
       return res.data;
@@ -20,23 +20,37 @@ export const getCountries = createAsyncThunk(
 );
 
 export const getPlatesByCountry = createAsyncThunk(
-  "plates/getPlatesByCountry",
+  "gallery/getPlatesByCountry",
   async (args, thunkAPI) => {
     return await axios
       .get(backendPath + "plate/country", { params: { country: args } })
       .then((res) => {
-        return res.data;
+        return { data: res.data, accessor: args };
       });
   }
 );
 
 export const getPlatesByRegion = createAsyncThunk(
-  "plates/getPlatesByRegion",
+  "gallery/getPlatesByRegion",
   async (args, thunkAPI) => {
     return await axios
       .get(backendPath + "plate/region", { params: { region: args } })
       .then((res) => {
-        return res.data;
+        return { data: res.data, accessor: args };
+      });
+  }
+);
+
+export const fetchPlateImage = createAsyncThunk(
+  "gallery/fetchPlateImage",
+  async (args, thunkAPI) => {
+    return await axios
+      .get(backendPath + "plate/image", {
+        params: { id: args },
+        responseType: "blob",
+      })
+      .then((res) => {
+        return URL.createObjectURL(res.data);
       });
   }
 );

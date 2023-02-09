@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import UserCountries from "src/components/world/UserCountries";
@@ -22,6 +23,10 @@ export default function World() {
   const showAddNewCountry = useSelector(
     (state: RootState) => state.world.showAddNewCountry
   );
+
+  useEffect(() => {
+    document.title = `World`;
+  }, []);
 
   const dispatch = useDispatch();
   const openAddNewCity = () => {

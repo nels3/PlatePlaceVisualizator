@@ -6,6 +6,7 @@ import {
   getRegions,
   getPlatesByCountry,
   getPlatesByRegion,
+  fetchPlateImage,
 } from "./galleryThunk";
 
 export interface GallerySlice {
@@ -14,6 +15,9 @@ export interface GallerySlice {
   countries: [];
   regions: [];
   plates: [];
+  photos: {};
+  chosen: String;
+  photosLoading: LoadingState;
 }
 
 const initialState: GallerySlice = {
@@ -22,6 +26,9 @@ const initialState: GallerySlice = {
   countries: [],
   regions: [],
   plates: [],
+  photos: {},
+  chosen: null,
+  photosLoading: LoadingState.idle,
 };
 
 export const gallerySlice = createSlice({
@@ -38,6 +45,14 @@ export const gallerySlice = createSlice({
       state.selectedRegion = null;
       return state;
     },
+    setPhotosLoading(state, action) {
+      state.photosLoading = action.payload;
+      return state;
+    },
+    clearChosen(state, action) {
+      state.chosen = {};
+      return state;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getCountries.fulfilled, (state, action) => {
@@ -47,14 +62,32 @@ export const gallerySlice = createSlice({
       state.regions = action.payload;
     });
     builder.addCase(getPlatesByCountry.fulfilled, (state, action) => {
-      state.plates = action.payload;
+      state.plates = action.payload.data;
+      state.chosen = action.payload.accessor;
+      let photosTmp = { ...state.photos };
+      photosTmp[action.payload.accessor] = [];
+      state.photos = photosTmp;
+      state.photosLoading = LoadingState.pending;
     });
     builder.addCase(getPlatesByRegion.fulfilled, (state, action) => {
-      state.plates = action.payload;
+      state.plates = action.payload.data;
+      state.chosen = action.payload.accessor;
+      let photosTmp = { ...state.photos };
+      photosTmp[action.payload.accessor] = [];
+      state.photos = photosTmp;
+      state.photosLoading = LoadingState.pending;
+    });
+    builder.addCase(fetchPlateImage.fulfilled, (state, action) => {
+      state.photos[state.chosen].push(action.payload);
     });
   },
 });
 
-export const { setSelectedRegion, setSelectedCountry } = gallerySlice.actions;
+export const {
+  setSelectedRegion,
+  setSelectedCountry,
+  setPhotosLoading,
+  clearChosen,
+} = gallerySlice.actions;
 
 export default gallerySlice.reducer;
