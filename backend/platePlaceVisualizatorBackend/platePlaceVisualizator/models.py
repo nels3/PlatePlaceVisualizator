@@ -11,6 +11,7 @@ class Plate(models.Model):
     latitude = models.CharField(max_length=100)
     info = models.CharField(max_length=1000, blank=True)
     img = models.ImageField(upload_to='images/', default=None, blank=True, null=True)
+    is_country_plate = models.CharField(max_length=1, default="", blank=False, null=False)
     objects = models.Manager()
 
     @property
@@ -29,12 +30,15 @@ class Filter(models.Model):
     name = models.CharField(max_length=100)
     objects = models.Manager()
 
+
 class Country(models.Model):
     name = models.CharField(max_length=100)
     name_pl = models.CharField(max_length=100)
     capital = models.CharField(max_length=100)
     region = models.CharField(max_length=100)
     subregion = models.CharField(max_length=100)
+    longitude = models.CharField(max_length=100, null=True, blank=True)
+    latitude = models.CharField(max_length=100, null=True, blank=True)
     objects = models.Manager()
 
 

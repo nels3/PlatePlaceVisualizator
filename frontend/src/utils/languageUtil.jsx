@@ -86,6 +86,8 @@ export const dictionary = {
       capital: { en: "Capital", pl: "Stolica" },
       region: { en: "Region", pl: "Region" },
       subregion: { en: "Subregion:", pl: "Subregion" },
+      latitude: { en: "Capital latitude", pl: "Latitude (stolicy)" },
+      longitude: { en: "Capital longitude", pl: "Longitude (stolicy)" },
     },
   },
   plateDetails: {
@@ -104,6 +106,7 @@ export const dictionary = {
     city: { en: "City:", pl: "Miasto:" },
     countryLabel: { en: "name", pl: "name_pl" },
     cityLabel: { en: "name", pl: "name_pl" },
+    is_country_plate: { en: "Country plate?", pl: "Talerzyk kraju?" },
   },
   plateList: {
     country: { en: "Country", pl: "Kraj" },
@@ -111,10 +114,11 @@ export const dictionary = {
     city: { en: "City", pl: "Miasto" },
     cityAccessor: { en: "city", pl: "city_pl" },
     image: { en: "Image?", pl: "Zdjęcie?" },
+    is_country_plate: { en: "Country plate?", pl: "Talerzyk kraju?" },
   },
   statistics: {
     country: { en: "Country", pl: "Kraj" },
     count: { en: "Count", pl: "Liczba" },
-    cities: { en: "Cities", pl: "Kraje" },
+    cities: { en: "Cities", pl: "Miasta" },
   },
 };

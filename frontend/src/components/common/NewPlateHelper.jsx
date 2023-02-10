@@ -52,6 +52,13 @@ export default function NewPlateHelper({}) {
     dispatch(
       updateNewPlate({ field: "country_pl", value: targetCountry.name_pl })
     );
+    dispatch(
+      updateNewPlate({ field: "latitude", value: targetCountry.latitude })
+    );
+    dispatch(
+      updateNewPlate({ field: "longitude", value: targetCountry.longitude })
+    );
+    dispatch(updateNewPlate({ field: "is_country_plate", value: "x" }));
   };
   const changeCity = (e) => {
     let targetCity = {};
@@ -73,6 +80,7 @@ export default function NewPlateHelper({}) {
     dispatch(
       updateNewPlate({ field: "longitude", value: targetCity.longitude })
     );
+    dispatch(updateNewPlate({ field: "is_country_plate", value: "" }));
   };
 
   return (

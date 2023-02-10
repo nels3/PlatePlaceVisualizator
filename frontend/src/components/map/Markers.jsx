@@ -44,7 +44,14 @@ export default function Markers() {
     platesList.map((plate) => {
       const marker = {
         markerOffset: -10,
-        name: getDisplayTextFromChoices(language, plate.city, plate.city_pl),
+        name:
+          plate.is_country_plate === "x"
+            ? getDisplayTextFromChoices(
+                language,
+                plate.country,
+                plate.country_pl
+              )
+            : getDisplayTextFromChoices(language, plate.city, plate.city_pl),
         coordinates: [plate.longitude, plate.latitude],
         original: plate,
       };
@@ -90,11 +97,17 @@ export default function Markers() {
           fill={
             selectedPlate &&
             name ===
-              getDisplayTextFromChoices(
-                language,
-                selectedPlate.city,
-                selectedPlate.city_pl
-              )
+              (selectedPlate.is_country_plate === "x"
+                ? getDisplayTextFromChoices(
+                    language,
+                    selectedPlate.country,
+                    selectedPlate.country_pl
+                  )
+                : getDisplayTextFromChoices(
+                    language,
+                    selectedPlate.city,
+                    selectedPlate.city_pl
+                  ))
               ? "#00FF00"
               : "#FF0000"
           }
@@ -107,11 +120,17 @@ export default function Markers() {
           fontSize={
             selectedPlate &&
             name ===
-              getDisplayTextFromChoices(
-                language,
-                selectedPlate.city,
-                selectedPlate.city_pl
-              )
+              (selectedPlate.is_country_plate === "x"
+                ? getDisplayTextFromChoices(
+                    language,
+                    selectedPlate.country,
+                    selectedPlate.country_pl
+                  )
+                : getDisplayTextFromChoices(
+                    language,
+                    selectedPlate.city,
+                    selectedPlate.city_pl
+                  ))
               ? fontSize + 10
               : fontSize
           }

@@ -68,6 +68,16 @@ const NewUserCountryDetail = () => {
       accessor: "subregion",
       type: "input",
     },
+    {
+      title: getDisplayText(language, dict.world.countriesDetails.longitude),
+      accessor: "longitude",
+      type: "input",
+    },
+    {
+      title: getDisplayText(language, dict.world.countriesDetails.latitude),
+      accessor: "latitude",
+      type: "input",
+    },
   ];
 
   useEffect(() => {

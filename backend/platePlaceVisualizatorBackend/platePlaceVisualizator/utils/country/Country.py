@@ -45,7 +45,9 @@ class CountryUtils:
                                   name_pl=response.json()[0]['translations']['pol']['common'],
                                   capital=response.json()[0]['capital'][0],
                                   region=response.json()[0]['region'],
-                                  subregion=response.json()[0]['subregion'])
+                                  subregion=response.json()[0]['subregion'],
+                                  latitude=response.json()[0]['capitalInfo']['latlng'][0],
+                                  longitude=response.json()[0]['capitalInfo']['latlng'][1])
                 if save_if_found:
                     country.save()
                 logging.info(f"Saving new country: {name}")
@@ -64,7 +66,9 @@ class CountryUtils:
                           name_pl=data.get("name_pl", None),
                           capital=data.get("capital", None),
                           region=data.get("region", None),
-                          subregion=data.get("subregion", None))
+                          subregion=data.get("subregion", None),
+                          latitude=data.get("latitude", None),
+                          longitude=data.get("longitude", None))
         try:
             country.save()
             logging.info(f"Saved country:: {country.name}.")
@@ -92,7 +96,9 @@ class CountryUtils:
                                   name_pl=response.json()[0]['translations']['pol']['common'],
                                   capital=response.json()[0]['capital'][0],
                                   region=response.json()[0]['region'],
-                                  subregion=response.json()[0]['subregion'])
+                                  subregion=response.json()[0]['subregion'],
+                                  latitude=response.json()[0]['capitalInfo']['latlng'][0],
+                                  longitude=response.json()[0]['capitalInfo']['latlng'][1])
                 if save:
                     country.save()
                 logging.info(f"Saving new country: {name}")
@@ -119,6 +125,8 @@ class CountryUtils:
         country.capital = data.get("capital", None)
         country.region = data.get("region", None)
         country.subregion = data.get("subregion", None)
+        country.latitude = data.get("latitude", None)
+        country.longitude = data.get("longitude", None)
 
         try:
             country.save()

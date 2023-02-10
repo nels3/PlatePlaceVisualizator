@@ -30,13 +30,17 @@ export const updatePlate = createAsyncThunk(
     let formData = new FormData();
 
     formData.append("id", args.id);
-    formData.append("city", args.city);
-    formData.append("city_pl", args.city_pl);
+    formData.append("city", args.city ? args.city : "");
+    formData.append("city_pl", args.city_pl ? args.city_pl : "");
     formData.append("country", args.country);
     formData.append("country_pl", args.country_pl);
     formData.append("latitude", args.latitude);
     formData.append("longitude", args.longitude);
     formData.append("info", args.info ? args.info : "");
+    formData.append(
+      "is_country_plate",
+      args.is_country_plate ? args.is_country_plate : ""
+    );
     if (args.file) formData.append("file", args.file);
 
     return await axios.post(backendPath + "plate/", formData, {
@@ -53,15 +57,18 @@ export const addNewPlate = createAsyncThunk(
   async (args, thunkAPI) => {
     let formData = new FormData();
 
-    formData.append("city", args.city);
-    formData.append("city_pl", args.city_pl);
+    formData.append("city", args.city ? args.city : "");
+    formData.append("city_pl", args.city_pl ? args.city_pl : "");
     formData.append("country", args.country);
     formData.append("country_pl", args.country_pl);
     formData.append("latitude", args.latitude);
     formData.append("longitude", args.longitude);
     formData.append("info", args.info ? args.info : "");
     formData.append("file", args.file ? args.file : "");
-
+    formData.append(
+      "is_country_plate",
+      args.is_country_plate ? args.is_country_plate : ""
+    );
     return await axios.put(backendPath + "plate/", formData, {
       headers: {
         Accept: "application/json",

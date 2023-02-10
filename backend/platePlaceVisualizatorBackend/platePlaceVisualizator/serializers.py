@@ -9,7 +9,7 @@ class PlateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Plate
-        fields = ['country', 'city', 'country_pl', 'city_pl', 'longitude', 'latitude', 'info', 'image_present', "id"]
+        fields = ['country', 'city', 'country_pl', 'city_pl', 'longitude', 'latitude', 'info', 'image_present', "id", "is_country_plate"]
 
 
 class FilterSerializer(serializers.ModelSerializer):

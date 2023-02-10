@@ -48,11 +48,13 @@ export default function PlateDetails() {
       title: getDisplayText(language, dict.plateDetails.cityEn),
       accessor: "city",
       type: "input",
+      mandatory: "false",
     },
     {
       title: getDisplayText(language, dict.plateDetails.cityPl),
       accessor: "city_pl",
       type: "input",
+      mandatory: "false",
     },
     {
       title: getDisplayText(language, dict.plateDetails.latitude),
@@ -68,6 +70,12 @@ export default function PlateDetails() {
       title: getDisplayText(language, dict.plateDetails.info),
       accessor: "info",
       type: "textarea",
+      mandatory: "false",
+    },
+    {
+      title: getDisplayText(language, dict.plateDetails.is_country_plate),
+      accessor: "is_country_plate",
+      type: "checkbox",
       mandatory: "false",
     },
   ];

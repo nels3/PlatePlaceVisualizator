@@ -93,6 +93,7 @@ class PlateUtils:
         plate.longitude = data.get("longitude", None)
         plate.latitude = data.get("latitude", None)
         plate.info = data.get("info", None)
+        plate.is_country_plate = data.get("is_country_plate", "")
 
         if data.get("file", None) is not None:
             plate.img = data.get("file", None)
@@ -114,6 +115,7 @@ class PlateUtils:
                       longitude=data.get("longitude", None),
                       latitude=data.get("latitude", None),
                       info=data.get("info", ""),
+                      is_country_plate=data.get('is_country_plate', ""),
                       img=data.get('file', ""))
 
         try:
@@ -146,12 +148,14 @@ class PlateUtils:
         for plate in plate_list:
             if plate.country in stats:
                 stats[plate.country]["count"] += 1
-                stats[plate.country]["cities"] += "; " + plate.city
-                stats[plate.country]["cities_pl"] += "; " + plate.city_pl
+                stats[plate.country]["cities"] += "; " + (plate.country if plate.is_country_plate else plate.city)
+                stats[plate.country]["cities_pl"] += "; " + (plate.country_pl if plate.is_country_plate else plate.city_pl)
                 if stats[plate.country]["country_pl"] == "" and plate.country_pl != "":
                     stats[plate.country]["country_pl"] = plate.country_pl
             else:
-                stats[plate.country] = {"count": 1, "country_pl": plate.country_pl, "cities": plate.city, "cities_pl": plate.city_pl}
+                stats[plate.country] = {"count": 1, "country_pl": plate.country_pl,
+                                        "cities": plate.country if plate.is_country_plate else plate.city,
+                                        "cities_pl": plate.country_pl if plate.is_country_plate else plate.city_pl}
 
         ret = []
         for key in stats:

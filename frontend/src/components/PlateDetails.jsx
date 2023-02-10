@@ -90,6 +90,11 @@ export default function PlateDetails() {
       accessor: "info",
       type: "textarea",
     },
+    {
+      title: getDisplayText(language, dict.plateDetails.is_country_plate),
+      accessor: "is_country_plate",
+      type: "checkbox",
+    },
   ];
 
   // method executed when update plate button is used

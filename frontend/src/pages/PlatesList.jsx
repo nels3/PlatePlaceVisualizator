@@ -59,6 +59,11 @@ export default function PlatesList() {
       accessor: "image_present",
       width: 80,
     },
+    {
+      Header: getDisplayText(language, dict.plateList.is_country_plate),
+      accessor: "is_country_plate",
+      width: 80,
+    },
   ];
 
   const onRowClickAction = (rowDetails, rowIndex) => {
