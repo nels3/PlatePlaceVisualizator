@@ -82,16 +82,20 @@ class PlateUtils:
 
     @staticmethod
     def save_plate(data):
-        plate = Plate(country=data.get("country", None),
-                      city=data.get("city", None),
-                      country_pl=data.get("country_pl", None),
-                      city_pl=data.get("city_pl", None),
-                      longitude=data.get("longitude", None),
-                      latitude=data.get("latitude", None),
-                      info=data.get("info", None),
-                      img=data.get('file', None))
-        if data.get("id", None) is not None:
-            plate.id = data.get("id", None)
+        if not Plate.objects.filter(id=data.get("id", None)).exists():
+            raise NotFoundError()
+
+        plate = Plate.objects.get(id=data.get("id", None))
+        plate.country = data.get("country", None)
+        plate.city = data.get("city", None)
+        plate.country_pl = data.get("country_pl", None)
+        plate.city_pl = data.get("city_pl", None)
+        plate.longitude = data.get("longitude", None)
+        plate.latitude = data.get("latitude", None)
+        plate.info = data.get("info", None)
+
+        if data.get("file", None) is not None:
+            plate.img = data.get("file", None)
 
         try:
             plate.save()

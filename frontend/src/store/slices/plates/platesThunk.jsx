@@ -37,7 +37,7 @@ export const updatePlate = createAsyncThunk(
     formData.append("latitude", args.latitude);
     formData.append("longitude", args.longitude);
     formData.append("info", args.info ? args.info : "");
-    formData.append("file", args.file ? args.file : "");
+    if (args.file) formData.append("file", args.file);
 
     return await axios.post(backendPath + "plate/", formData, {
       headers: {

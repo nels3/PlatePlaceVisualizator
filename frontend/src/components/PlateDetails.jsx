@@ -19,7 +19,7 @@ import {
 } from "src/store/slices/plates/platesThunk";
 
 export default function PlateDetails() {
-  const [file, setFile] = useState({});
+  const [file, setFile] = useState(null);
 
   const plate = useSelector((state: RootState) => state.plates.selectedPlate);
   const shouldUpdate = useSelector(
@@ -95,9 +95,12 @@ export default function PlateDetails() {
   // method executed when update plate button is used
   const updatePlateFun = () => {
     let plateEnhanced = { ...plate };
-    plateEnhanced["file"] = file;
+    if (file !== null) {
+      plateEnhanced["file"] = file;
+    }
     dispatch(updatePlate(plateEnhanced));
     dispatch(fetchPlatesList());
+    setFile(null);
   };
 
   // method executed when deleting plate button is used
