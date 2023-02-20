@@ -50,6 +50,10 @@ export const checkerSlice = createSlice({
       state.newCityTmp = action.payload;
       return state;
     },
+    setNewCountryTmp(state, action) {
+      state.newCountryTmp = action.payload;
+      return state;
+    },
     setCitySelectedRowIndexResults(state, action) {
       state.citySelectedRowIndexResults = action.payload;
       return state;
@@ -95,6 +99,7 @@ export const {
   setCitySelectedRowIndexResults,
   clearCityResults,
   resetAllChecks,
+  setNewCountryTmp,
 } = checkerSlice.actions;
 
 export default checkerSlice.reducer;

@@ -15,6 +15,7 @@ import {
   fetchCountriesList,
   addNewCountry,
 } from "src/store/slices/world/worldThunk";
+import { setNewCountryTmp } from "src/store/slices/checker/checkerSlice";
 import { getCountryByName } from "src/store/slices/checker/checkerThunk";
 
 const NewUserCountryDetail = () => {
@@ -89,6 +90,12 @@ const NewUserCountryDetail = () => {
   useEffect(() => {
     dispatch(setNewCountry(countryTmp));
   }, [countryTmp]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setNewCountryTmp({}));
+    };
+  }, []);
 
   const updateFun = () => {
     dispatch(addNewCountry(country));
