@@ -86,13 +86,6 @@ export default function PlatesList() {
 
   return (
     <div style={{ padding: "5px" }}>
-      <Table
-        columns={columns}
-        data={platesList}
-        onClickAction={onRowClickAction}
-        selectedRowIndex={selectedRowIndex}
-        loadingState={loadingState}
-      />
       {!showNewPlate ? (
         <>
           <BiMessageSquareAdd size="30" onClick={openAddNewPlate} />
@@ -101,6 +94,13 @@ export default function PlatesList() {
       ) : (
         <NewPlateDetails />
       )}
+      <Table
+        columns={columns}
+        data={platesList}
+        onClickAction={onRowClickAction}
+        selectedRowIndex={selectedRowIndex}
+        loadingState={loadingState}
+      />
     </div>
   );
 }
