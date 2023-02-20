@@ -34,6 +34,7 @@ export const checkerSlice = createSlice({
     resetAllChecks(state, action) {
       state.newCountryCheck = {};
       state.newCityCheck = {};
+      state.cityShowResults = false;
       return state;
     },
 
