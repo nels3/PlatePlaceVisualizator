@@ -79,7 +79,7 @@ def plate_image_detail(request):
 @api_view(['GET'])
 def plate_list(request):
     if request.method == 'GET':
-        plates = Plate.objects.all()
+        plates = Plate.objects.all().order_by('country', 'city')
         serializer = PlateSerializer(plates, many=True)
         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
@@ -141,7 +141,7 @@ def plate_country(request):
 @api_view(['GET'])
 def country_list(request):
     if request.method == 'GET':
-        countries = Country.objects.all()
+        countries = Country.objects.all().order_by('name')
         serializer = CountrySerializer(countries, many=True)
         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
@@ -214,7 +214,7 @@ def country_selector_check(request):
 @api_view(['GET'])
 def city_list(request):
     if request.method == 'GET':
-        cities = City.objects.all()
+        cities = City.objects.all().order_by('country', 'name')
         serializer = CitySerializer(cities, many=True)
         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 

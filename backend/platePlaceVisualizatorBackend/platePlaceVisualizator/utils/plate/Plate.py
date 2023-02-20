@@ -143,7 +143,7 @@ class PlateUtils:
     @staticmethod
     def get_statistics(language):
         stats = {}
-        plate_list = Plate.objects.all()
+        plate_list = Plate.objects.all().order_by('country')
 
         for plate in plate_list:
             if plate.country in stats:
