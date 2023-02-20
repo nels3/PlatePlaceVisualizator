@@ -24,11 +24,19 @@ export const dictionary = {
     },
   },
   navbar: {
+    home: { en: "Home", pl: "Start" },
     plates: { en: "Plates", pl: "Talerzyki" },
     gallery: { en: "Gallery", pl: "Galeria" },
     map: { en: "Map", pl: "Mapa" },
     statistics: { en: "Statistics", pl: "Statystyki" },
     world: { en: "Your World", pl: "Twój świat" },
+  },
+  home: {
+    welcome: { en: "Welcome Traveler!", pl: "Witaj Podróżniku!" },
+    have: { en: "You have: ", pl: "Masz: " },
+    plates: { en: " plates, from ", pl: " talerzyków, z " },
+    countries: { en: " countries, from ", pl: " krajów, z " },
+    cities: { en: " cities. Congrats!", pl: " miast. Gratulacje!" },
   },
   map: {
     filters: { en: "Filters", pl: "Filtry" },

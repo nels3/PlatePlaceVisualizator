@@ -166,5 +166,11 @@ class PlateUtils:
 
         return ret
 
+    @staticmethod
+    def get_all_statistics():
+        count = Plate.objects.all().count()
+        country_count = Plate.objects.values("country").distinct().count()
+        city_count = Plate.objects.values("city").distinct().count()
+        return PlateStatistics(country=country_count, count=count, cities=city_count)
 
 

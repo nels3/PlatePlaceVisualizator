@@ -8,6 +8,7 @@ import PlateMap from 'src/pages/PlateMap'
 import StatisticsList from 'src/pages/StatisticsList'
 import Gallery from 'src/pages/Gallery'
 import World from 'src/pages/World'
+import Home from 'src/pages/Home'
 
 import 'src/App.css'
 import 'src/static/common.css'
@@ -19,7 +20,8 @@ function App () {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route exact path='/' element={<PlatesList />} />;
+          <Route exact path='/' element={<Home />} />;
+          <Route exact path='/plates' element={<PlatesList />} />;
           <Route exact path='/gallery' element={<Gallery />} />;
           <Route exact path='/map' element={<PlateMap />} />;
           <Route exact path='/stats' element={<StatisticsList />} />;

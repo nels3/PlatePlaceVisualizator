@@ -25,7 +25,8 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div>
-          <NavLink to="/">
+          <NavLink to="/">{getDisplayText(language, dict.navbar.home)}</NavLink>
+          <NavLink to="/plates">
             {getDisplayText(language, dict.navbar.plates)}
           </NavLink>
           <NavLink to="/gallery">

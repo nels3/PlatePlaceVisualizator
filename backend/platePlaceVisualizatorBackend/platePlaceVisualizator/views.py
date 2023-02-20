@@ -55,6 +55,18 @@ def plate_statistics(request):
         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
 
+@api_view(['GET'])
+def plate_statistics_all(request):
+    if request.method == 'GET':
+        try:
+            plate = PlateUtils.get_all_statistics()
+        except Exception:
+            return JsonResponse(status=status.HTTP_404_NOT_FOUND, safe=False, data=None)
+
+        serializer = PlateStatisticsSerializer(plate, many=False)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
 @api_view(['GET', 'DELETE'])
 def plate_image_detail(request):
     if request.method == 'GET':
