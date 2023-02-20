@@ -54,7 +54,7 @@ export default function Map() {
                   key={geo.rsmKey}
                   geography={geo}
                   fill="#EAEAEC"
-                  stroke="#D6D6DA"
+                  stroke="#9c9c9c"
                 />
               ))
             }

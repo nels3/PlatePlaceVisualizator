@@ -76,7 +76,7 @@ export const mapGeoConfig = {
 
     {
       name: "Italy",
-      namePl: "Wlochy",
+      namePl: "Włochy",
       geoUrl:
         "https://raw.githubusercontent.com/deldersveld/topojson/master/countries/italy/italy-regions.json",
       scale: 2000,
