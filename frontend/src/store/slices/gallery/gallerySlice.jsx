@@ -51,6 +51,7 @@ export const gallerySlice = createSlice({
     },
     clearChosen(state, action) {
       state.chosen = {};
+      state.photos = {};
       return state;
     },
   },
