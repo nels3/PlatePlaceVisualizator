@@ -96,7 +96,7 @@ class CountryUtils:
                                   name_pl=response.json()[0]['translations']['pol']['common'],
                                   capital=response.json()[0]['capital'][0],
                                   region=response.json()[0]['region'],
-                                  subregion=response.json()[0]['subregion'],
+                                  subregion=response.json()[0]['subregion'] if 'subregion' in response.json()[0] else "",
                                   latitude=response.json()[0]['capitalInfo']['latlng'][0],
                                   longitude=response.json()[0]['capitalInfo']['latlng'][1])
                 if save:

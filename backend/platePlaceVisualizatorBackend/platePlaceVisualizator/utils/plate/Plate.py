@@ -120,7 +120,7 @@ class PlateUtils:
 
         try:
             plate.save()
-            logging.info(f"Added new plate: {plate.city}.")
+            logging.info(f"Added new plate: {plate.city}/{plate.country}.")
         except IntegrityError as exp:
             raise NotAllMandatoryFields(exp)
         except Exception as exp:
