@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import StartGallery from "src/components/gallery/StartGallery";
 
 import { BiMessageSquareAdd } from "react-icons/bi";
 
@@ -32,6 +33,7 @@ export default function Home() {
         {cityCount}
         {getDisplayText(language, dict.home.cities)}
       </h6>
+      <StartGallery />
     </div>
   );
 }
