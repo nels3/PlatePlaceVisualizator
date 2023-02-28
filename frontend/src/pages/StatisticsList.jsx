@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 import Table from "src/components/common/Table";
+import Export from "src/components/Export";
 
 import { RootState } from "src/store/store";
 
@@ -52,6 +53,7 @@ export default function StatisticsList() {
         data={statisticsList}
         loadingState={loadingState}
       />
+      <Export />
     </div>
   );
 }

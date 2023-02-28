@@ -7,6 +7,7 @@ import {
   getPlatesByCountry,
   getPlatesByRegion,
   fetchPlateImage,
+  fetchAllPhotosDataForMap,
 } from "./galleryThunk";
 
 export interface GallerySlice {
@@ -16,6 +17,7 @@ export interface GallerySlice {
   regions: [];
   plates: [];
   photos: {};
+  allPhotos: [];
   chosen: String;
   photosLoading: LoadingState;
 }
@@ -27,6 +29,7 @@ const initialState: GallerySlice = {
   regions: [],
   plates: [],
   photos: {},
+  allPhotos: [],
   chosen: null,
   photosLoading: LoadingState.idle,
 };
@@ -80,6 +83,9 @@ export const gallerySlice = createSlice({
     });
     builder.addCase(fetchPlateImage.fulfilled, (state, action) => {
       state.photos[state.chosen].push(action.payload);
+    });
+    builder.addCase(fetchAllPhotosDataForMap.fulfilled, (state, action) => {
+      state.allPhotos = action.payload;
     });
   },
 });

@@ -10,6 +10,7 @@ urlpatterns = [
     path('plate/list/all', views.plate_list, name='plate_list'),
     path('plate/list/city/', views.plate_list_by_city, name='plate_list_by_city'),
     path('plate/list/country/', views.plate_list_by_county, name='plate_list_by_county'),
+    path('plate/map', views.plate_map, name='plate_map'),
     path('plate/regions', views.plate_regions, name='plate_regions'),
     path('plate/countries', views.plate_countries, name='plate_countries'),
     path('plate/region', views.plate_region, name='plate_region'),

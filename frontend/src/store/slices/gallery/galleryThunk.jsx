@@ -18,6 +18,14 @@ export const getCountries = createAsyncThunk(
     });
   }
 );
+export const fetchAllPhotosDataForMap = createAsyncThunk(
+  "gallery/fetchAllPhotosDataForMap",
+  async (args, thunkAPI) => {
+    return await axios.get(backendPath + "plate/map", {}).then((res) => {
+      return res.data;
+    });
+  }
+);
 
 export const getPlatesByCountry = createAsyncThunk(
   "gallery/getPlatesByCountry",

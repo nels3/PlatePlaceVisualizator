@@ -117,6 +117,14 @@ def plate_list_by_county(request):
 
 
 @api_view(['GET'])
+def plate_map(request):
+    if request.method == 'GET':
+        regions = PlateUtils.get_plate_with_regions_and_countries()
+        serializer = FilterEnhancedSerializer(regions, many=True)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
+@api_view(['GET'])
 def plate_regions(request):
     if request.method == 'GET':
         regions = PlateUtils.get_regions()

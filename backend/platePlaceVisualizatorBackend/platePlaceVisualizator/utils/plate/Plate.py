@@ -31,6 +31,21 @@ class PlateUtils:
         pass
 
     @staticmethod
+    def get_plate_with_regions_and_countries():
+        plates = Plate.objects.all()
+        plates_ret = []
+        countries = Country.objects.all()
+
+        for plate in plates:
+            for country in countries:
+                if plate.country == country.name:
+                    plates_ret.append(Filter(name="media/" + str(plate.img),
+                                             country=plate.country,
+                                             region=country.region))
+                    continue
+        return plates_ret
+
+    @staticmethod
     def get_regions():
         plates_list = Plate.objects.values("country").order_by("country").distinct()
         countries = Country.objects.all()
