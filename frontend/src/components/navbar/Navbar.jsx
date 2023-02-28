@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { setLanguage } from "src/store/slices/language/languageSlice";
 
-import "src/static/navbar.css";
 import { GB, PL } from "country-flag-icons/react/3x2";
 
 import {
@@ -12,9 +11,10 @@ import {
   getDisplayTextFromChoices,
   dictionary as dict,
 } from "src/utils/languageUtil";
+import "src/static/navbar.css";
 
 const Navbar = () => {
-  const language = useSelector((state: RootState) => state.language.language);
+  const language = useSelector((state) => state.language.language);
 
   const dispatch = useDispatch();
   const changeLanguage = (language) => {

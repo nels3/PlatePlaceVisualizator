@@ -5,8 +5,6 @@ import Details from "src/components/common/Details";
 import { LoadingState } from "src/utils/constants";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
-import { RootState } from "src/store/store";
-
 import {
   updateSelectedPlate,
   setLoadingDetail,
@@ -21,17 +19,11 @@ import {
 export default function PlateDetails() {
   const [file, setFile] = useState(null);
 
-  const plate = useSelector((state: RootState) => state.plates.selectedPlate);
-  const shouldUpdate = useSelector(
-    (state: RootState) => state.plates.shouldUpdate
-  );
-  const loadingImage = useSelector(
-    (state: RootState) => state.plates.loadingImage
-  );
-  const loadingDetail = useSelector(
-    (state: RootState) => state.plates.loadingDetail
-  );
-  const language = useSelector((state: RootState) => state.language.language);
+  const plate = useSelector((state) => state.plates.selectedPlate);
+  const shouldUpdate = useSelector((state) => state.plates.shouldUpdate);
+  const loadingImage = useSelector((state) => state.plates.loadingImage);
+  const loadingDetail = useSelector((state) => state.plates.loadingDetail);
+  const language = useSelector((state) => state.language.language);
 
   const dispatch = useDispatch();
 

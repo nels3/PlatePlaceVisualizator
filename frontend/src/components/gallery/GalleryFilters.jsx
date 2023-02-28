@@ -25,7 +25,7 @@ import {
 import "src/static/filter.css";
 
 export default function GalleryFilter() {
-  const language = useSelector((state: RootState) => state.language.language);
+  const language = useSelector((state) => state.language.language);
 
   const selectedRegion = useSelector((state) => state.gallery.selectedRegion);
   const selectedCountry = useSelector((state) => state.gallery.selectedCountry);

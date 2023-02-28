@@ -8,7 +8,7 @@ import { getAllStatistics } from "src/store/slices/home/homeThunk";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 export default function Home() {
-  const language = useSelector((state: RootState) => state.language.language);
+  const language = useSelector((state) => state.language.language);
   const platesCount = useSelector((state) => state.home.platesCount);
   const countryCount = useSelector((state) => state.home.countryCount);
   const cityCount = useSelector((state) => state.home.cityCount);

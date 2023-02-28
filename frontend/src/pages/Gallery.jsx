@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import GalleryFilters from "src/components/gallery/GalleryFilters";
 
 import { LoadingState } from "src/utils/constants";
-import { RootState } from "src/store/store";
 import PhotoAlbum from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
 
@@ -15,23 +14,21 @@ import {
 } from "src/store/slices/gallery/gallerySlice";
 
 import "yet-another-react-lightbox/styles.css";
-
+import "yet-another-react-lightbox/plugins/thumbnails.css";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
-import "yet-another-react-lightbox/plugins/thumbnails.css";
+
 const breakpoints = [4320, 2160, 1080, 640, 384, 256, 128];
 
 export default function PhotoGallery() {
   const [index, setIndex] = useState(-1);
 
-  const platesList = useSelector((state: RootState) => state.gallery.plates);
-  const photosList = useSelector((state: RootState) => state.gallery.photos);
-  const chosen = useSelector((state: RootState) => state.gallery.chosen);
-  const loadingStatus = useSelector(
-    (state: RootState) => state.gallery.photosLoading
-  );
+  const platesList = useSelector((state) => state.gallery.plates);
+  const photosList = useSelector((state) => state.gallery.photos);
+  const chosen = useSelector((state) => state.gallery.chosen);
+  const loadingStatus = useSelector((state) => state.gallery.photosLoading);
 
   const dispatch = useDispatch();
   useEffect(() => {

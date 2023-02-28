@@ -17,11 +17,9 @@ import {
 import { resetAllChecks } from "src/store/slices/checker/checkerSlice";
 
 export default function World() {
-  const showAddNewCity = useSelector(
-    (state: RootState) => state.world.showAddNewCity
-  );
+  const showAddNewCity = useSelector((state) => state.world.showAddNewCity);
   const showAddNewCountry = useSelector(
-    (state: RootState) => state.world.showAddNewCountry
+    (state) => state.world.showAddNewCountry
   );
 
   useEffect(() => {

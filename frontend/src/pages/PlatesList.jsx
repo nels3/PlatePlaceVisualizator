@@ -7,7 +7,6 @@ import PlateDetails from "src/components/PlateDetails";
 import NewPlateDetails from "src/components/NewPlateDetails";
 
 import { BiMessageSquareAdd } from "react-icons/bi";
-import { RootState } from "src/store/store";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 import {

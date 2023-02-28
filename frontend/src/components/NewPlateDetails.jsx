@@ -6,8 +6,6 @@ import NewPlateHelper from "src/components/common/NewPlateHelper";
 import { LoadingState } from "src/utils/constants";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
-import { RootState } from "src/store/store";
-
 import {
   updateNewPlate,
   setLoadingDetail,

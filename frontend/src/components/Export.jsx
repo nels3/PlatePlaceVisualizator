@@ -7,7 +7,6 @@ import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 import { fetchPlatesList } from "src/store/slices/plates/platesThunk";
 import { getAllStatistics } from "src/store/slices/home/homeThunk";
-import { RootState } from "src/store/store";
 import {
   getRegions,
   getCountries,
@@ -16,7 +15,7 @@ import {
 import { fetchStatistics } from "src/store/slices/plates/platesThunk";
 
 export default function Export() {
-  const language = useSelector((state: RootState) => state.language.language);
+  const language = useSelector((state) => state.language.language);
 
   // HOME
   const platesCount = useSelector((state) => state.home.platesCount);

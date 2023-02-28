@@ -13,14 +13,12 @@ export default function Markers() {
   const [circleR, setCircleR] = useState(3);
   const [fontSize, setFontSize] = useState(0);
 
-  const selectedPlate = useSelector(
-    (state: RootState) => state.plates.selectedPlate
-  );
-  const platesList = useSelector((state: RootState) => state.plates.list);
-  const markersList = useSelector((state: RootState) => state.map.markersList);
-  const tribe = useSelector((state: RootState) => state.map.mapGeoUrl.tribe);
+  const selectedPlate = useSelector((state) => state.plates.selectedPlate);
+  const platesList = useSelector((state) => state.plates.list);
+  const markersList = useSelector((state) => state.map.markersList);
+  const tribe = useSelector((state) => state.map.mapGeoUrl.tribe);
 
-  const language = useSelector((state: RootState) => state.language.language);
+  const language = useSelector((state) => state.language.language);
 
   const dispatch = useDispatch();
 
