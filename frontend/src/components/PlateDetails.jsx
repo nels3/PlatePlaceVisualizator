@@ -8,6 +8,8 @@ import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 import {
   updateSelectedPlate,
   setLoadingDetail,
+  setSelectedPlate,
+  setSelectedRowIndex,
 } from "src/store/slices/plates/platesSlice";
 import {
   updatePlate,
@@ -105,6 +107,12 @@ export default function PlateDetails() {
     dispatch(deletePlate(plate.id));
   };
 
+  // method executed when deleting plate button is used
+  const cancelPlateFun = () => {
+    dispatch(setSelectedRowIndex(null));
+    dispatch(setSelectedPlate(null));
+  };
+
   // method executed when there is change on field
   const updateFieldFun = (e, field) => {
     if (field === "image_url") {
@@ -133,6 +141,7 @@ export default function PlateDetails() {
             updateField={updateFieldFun}
             updateFn={updatePlateFun}
             deleteFn={deletePlateFun}
+            cancelFn={cancelPlateFun}
             shouldUpdate={shouldUpdate}
           />
         </div>

@@ -3,7 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Details from "src/components/common/Details";
 import { LoadingState } from "src/utils/constants";
-import { updateSelectedCityField } from "src/store/slices/world/worldSlice";
+import {
+  updateSelectedCityField,
+  setSelectedCity,
+  setSelectedRowIndexCities,
+} from "src/store/slices/world/worldSlice";
 import {
   fetchCitiesList,
   updateCity,
@@ -87,6 +91,11 @@ const UserCityDetail = () => {
     dispatch(updateSelectedCityField({ field: field, value: e.target.value }));
   };
 
+  const cancelFun = () => {
+    dispatch(setSelectedRowIndexCities(null));
+    dispatch(setSelectedCity(null));
+  };
+
   return (
     <>
       {city ? (
@@ -99,6 +108,7 @@ const UserCityDetail = () => {
             updateField={updateFieldFun}
             updateFn={updateFun}
             deleteFn={deleteFun}
+            cancelFn={cancelFun}
             shouldUpdate={shouldUpdate}
           />
         </div>

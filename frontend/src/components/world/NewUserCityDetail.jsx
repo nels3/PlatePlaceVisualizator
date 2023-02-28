@@ -135,7 +135,7 @@ const NewUserCityDetail = () => {
     dispatch(addNewCity(city));
   };
 
-  const deleteFun = () => {
+  const cancelFun = () => {
     dispatch(cancelAddCity());
   };
 
@@ -212,7 +212,7 @@ const NewUserCityDetail = () => {
           title={getDisplayText(language, dict.world.citiesDetails.newTitle)}
           updateField={updateFieldFun}
           updateFn={updateFun}
-          deleteFn={() => deleteFun()}
+          cancelFn={() => cancelFun()}
           shouldUpdate={shouldUpdate}
         />
       </div>

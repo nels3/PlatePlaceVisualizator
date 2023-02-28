@@ -101,7 +101,7 @@ const NewUserCountryDetail = () => {
     dispatch(addNewCountry(country));
   };
 
-  const deleteFun = () => {
+  const cancelFun = () => {
     dispatch(cancelAddCountry());
   };
 
@@ -136,7 +136,7 @@ const NewUserCountryDetail = () => {
             )}
             updateField={updateFieldFun}
             updateFn={updateFun}
-            deleteFn={deleteFun}
+            cancelFn={cancelFun}
             shouldUpdate={shouldUpdate}
           />
         </div>

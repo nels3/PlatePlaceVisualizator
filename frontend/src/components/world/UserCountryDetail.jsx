@@ -4,7 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { LoadingState } from "src/utils/constants";
 import Details from "src/components/common/Details";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
-import { updateSelectedCountryField } from "src/store/slices/world/worldSlice";
+import {
+  updateSelectedCountryField,
+  setSelectedCountry,
+  setSelectedRowIndexCountries,
+} from "src/store/slices/world/worldSlice";
 import {
   fetchCountriesList,
   updateCountry,
@@ -84,6 +88,11 @@ const UserCountryDetail = () => {
     );
   };
 
+  const cancelFun = () => {
+    dispatch(setSelectedRowIndexCountries(null));
+    dispatch(setSelectedCountry(null));
+  };
+
   return (
     <>
       {country ? (
@@ -96,6 +105,7 @@ const UserCountryDetail = () => {
             updateField={updateFieldFun}
             updateFn={updateFun}
             deleteFn={deleteFun}
+            cancelFn={cancelFun}
             shouldUpdate={shouldUpdate}
           />
         </div>

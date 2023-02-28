@@ -17,6 +17,7 @@ export default function Details({
   updateField = () => {},
   updateFn = () => {},
   deleteFn = () => {},
+  cancelFn = () => {},
   updateImageField = () => {},
 }) {
   const language = useSelector((state: RootState) => state.language.language);
@@ -62,14 +63,19 @@ export default function Details({
             ? getDisplayText(language, dict.common.update)
             : getDisplayText(language, dict.common.add)}
         </button>
-        <button
-          className="button"
-          onClick={deleteFunction}
-          style={{ flow: "right" }}
-        >
-          {tribe === "update"
-            ? getDisplayText(language, dict.common.delete)
-            : getDisplayText(language, dict.common.cancel)}
+        {tribe === "update" ? (
+          <button
+            className="button"
+            onClick={deleteFunction}
+            style={{ flow: "right" }}
+          >
+            {getDisplayText(language, dict.common.delete)}
+          </button>
+        ) : (
+          <></>
+        )}
+        <button className="button" onClick={cancelFn} style={{ flow: "right" }}>
+          {getDisplayText(language, dict.common.cancel)}
         </button>
       </div>
       <ModalWindow

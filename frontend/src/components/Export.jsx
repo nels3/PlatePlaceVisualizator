@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import Details from "src/components/common/Details";
 import { LoadingState } from "src/utils/constants";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 

@@ -134,7 +134,7 @@ export default function PlateDetails() {
           title={getDisplayText(language, dict.plateDetails.newTitle)}
           updateField={updateFieldFun}
           updateFn={addPlateFun}
-          deleteFn={cancelPlateFun}
+          cancelFn={cancelPlateFun}
           shouldUpdate={shouldUpdate}
         />
       </div>
