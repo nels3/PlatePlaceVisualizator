@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 
-import "src/static/table.css";
-import "bootstrap/dist/css/bootstrap.css";
-
 export default function FilterSelect({
   options,
   optionValue,
@@ -12,6 +9,12 @@ export default function FilterSelect({
   value,
 }) {
   const [selected, setSelected] = useState([]);
+
+  useEffect(() => {
+    if (value === "") {
+      setSelected([]);
+    }
+  }, [value]);
 
   const getOptionList = () => {
     let ret = [];
@@ -29,24 +32,16 @@ export default function FilterSelect({
     return ret;
   };
 
-  const optionsList = getOptionList();
-
   const onChangeFun = (e) => {
     setSelected(setSelected(e));
     onChange(e);
   };
 
-  useEffect(() => {
-    if (value === "") {
-      setSelected([]);
-    }
-  }, [value]);
-
   return (
     <>
       <Select
         className="select column"
-        options={optionsList}
+        options={getOptionList()}
         onChange={(e) => onChangeFun(e)}
         value={selected}
         isSearchable

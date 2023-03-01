@@ -1,31 +1,24 @@
 import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Container, Row, Col } from "react-grid";
 
 import FilterSelect from "src/components/common/FilterSelect";
-import FilterCheckbox from "src/components/common/FilterCheckbox";
 import Label from "src/components/common/Label";
 
-import { useSelector, useDispatch } from "react-redux";
-import Detail from "src/components/common/detail/Detail";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
-import ModalWindow from "src/components/common/modal/ModalWindow";
 import { updateNewPlate } from "src/store/slices/plates/platesSlice";
 import "src/static/form.css";
 
-import { openModal, setText } from "src/store/slices/common/commonSlice";
 import {
   fetchCountriesList,
   fetchCitiesList,
 } from "src/store/slices/world/worldThunk";
 
-export default function NewPlateHelper({}) {
+export default function NewPlateHelper() {
   const language = useSelector((state) => state.language.language);
 
   const countriesList = useSelector((state) => state.world.countries);
   const citiesList = useSelector((state) => state.world.cities);
-
-  const selectedCountry = useSelector((state) => state.plates.selectedCountry);
-  const selectedCity = useSelector((state) => state.plates.selectedCity);
 
   const dispatch = useDispatch();
 
@@ -36,7 +29,7 @@ export default function NewPlateHelper({}) {
     if (citiesList.length === 0) {
       dispatch(fetchCitiesList());
     }
-  }, []);
+  }, [countriesList, citiesList]);
 
   const changeCountry = (e) => {
     let targetCountry = {};
@@ -105,11 +98,6 @@ export default function NewPlateHelper({}) {
               language,
               dict.plateDetails.countryLabel
             )}
-            value={
-              selectedCountry && selectedCountry.name
-                ? selectedCountry.name
-                : ""
-            }
             onChange={changeCountry}
           />
         </Col>
@@ -121,7 +109,6 @@ export default function NewPlateHelper({}) {
             options={citiesList}
             optionValue={"name"}
             optionLabel={getDisplayText(language, dict.plateDetails.cityLabel)}
-            value={selectedCity && selectedCity.name ? selectedCity.name : ""}
             onChange={changeCity}
           />
         </Col>

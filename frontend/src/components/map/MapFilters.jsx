@@ -17,39 +17,31 @@ import {
   setSelectedContinent,
   setSelectedCountry,
   setSelectedWorld,
-  setContinentsList,
-  setCountriesList,
-  setWorldList,
-  setMapGeoUrl,
+  setWorldGeoConfig,
+  setContinentsGeoConfig,
+  setCountriesGeoConfig,
+  setSelectedMapGeo,
 } from "src/store/slices/map/mapSlice";
 
 import "src/static/filter.css";
 
 export default function MapFilters() {
-  const language = useSelector((state: RootState) => state.language.language);
-  const selectedMapGeo = useSelector((state: RootState) => state.map.mapGeoUrl);
-  const world = useSelector((state: RootState) => state.map.worldList);
-  const countries = useSelector((state: RootState) => state.map.countriesList);
-  const continents = useSelector(
-    (state: RootState) => state.map.continentsList
-  );
-  const selectedWorld = useSelector(
-    (state: RootState) => state.map.selectedWorldTribe
-  );
-  const selectedContinent = useSelector(
-    (state: RootState) => state.map.selectedContinent
-  );
-  const selectedCountry = useSelector(
-    (state: RootState) => state.map.selectedCountry
-  );
+  const language = useSelector((state) => state.language.language);
+  const selectedMapGeo = useSelector((state) => state.map.selectedMapGeo);
+  const world = useSelector((state) => state.map.worldGeoConfig);
+  const countries = useSelector((state) => state.map.countriesGeoConfig);
+  const continents = useSelector((state) => state.map.continentsGeoConfig);
+  const selectedWorld = useSelector((state) => state.map.selectedWorldTribe);
+  const selectedContinent = useSelector((state) => state.map.selectedContinent);
+  const selectedCountry = useSelector((state) => state.map.selectedCountry);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (countries.length === 0 || continents.length === 0) {
-      dispatch(setCountriesList(mapGeoConfig.countries));
-      dispatch(setContinentsList(mapGeoConfig.continents));
-      dispatch(setWorldList(mapGeoConfig.world));
+      dispatch(setCountriesGeoConfig(mapGeoConfig.countries));
+      dispatch(setContinentsGeoConfig(mapGeoConfig.continents));
+      dispatch(setWorldGeoConfig(mapGeoConfig.world));
     }
   }, []);
 
@@ -58,7 +50,7 @@ export default function MapFilters() {
     dispatch(setSelectedWorld());
     let target = { ...world };
     target.tribe = "world";
-    dispatch(setMapGeoUrl(target));
+    dispatch(setSelectedMapGeo(target));
   };
 
   // method executed when changing selected continent
@@ -78,7 +70,7 @@ export default function MapFilters() {
     dispatch(setSelectedContinent(targetContinent));
     let target = { ...targetContinent };
     target.tribe = "continent";
-    dispatch(setMapGeoUrl(target));
+    dispatch(setSelectedMapGeo(target));
   };
 
   // method executed when changing selected country
@@ -98,7 +90,7 @@ export default function MapFilters() {
     dispatch(setSelectedCountry(targetCountry));
     let target = { ...targetCountry };
     target.tribe = "country";
-    dispatch(setMapGeoUrl(target));
+    dispatch(setSelectedMapGeo(target));
   };
 
   return (

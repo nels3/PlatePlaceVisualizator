@@ -13,20 +13,16 @@ import {
 import { fetchCountriesList } from "src/store/slices/world/worldThunk";
 
 const UserCountries = () => {
-  const language = useSelector((state: RootState) => state.language.language);
+  const language = useSelector((state) => state.language.language);
 
-  const countriesList = useSelector(
-    (state: RootState) => state.world.countries
-  );
+  const countriesList = useSelector((state) => state.world.countries);
   const showAddNewCountry = useSelector(
-    (state: RootState) => state.world.showAddNewCountry
+    (state) => state.world.showAddNewCountry
   );
   const selectedRowIndex = useSelector(
-    (state: RootState) => state.world.selectedRowIndexCountry
+    (state) => state.world.selectedRowIndexCountry
   );
-  const loadingState = useSelector(
-    (state: RootState) => state.world.loadingCountries
-  );
+  const loadingState = useSelector((state) => state.world.loadingCountries);
 
   const dispatch = useDispatch();
 

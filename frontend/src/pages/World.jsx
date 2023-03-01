@@ -21,12 +21,12 @@ export default function World() {
   const showAddNewCountry = useSelector(
     (state) => state.world.showAddNewCountry
   );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     document.title = `World`;
   }, []);
 
-  const dispatch = useDispatch();
   const openAddNewCity = () => {
     dispatch(setShowAddNewCity(true));
     dispatch(resetAllChecks());

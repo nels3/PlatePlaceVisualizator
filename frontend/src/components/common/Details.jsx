@@ -23,6 +23,7 @@ export default function Details({
   const language = useSelector((state: RootState) => state.language.language);
 
   const dispatch = useDispatch();
+
   const confirmDelete = () => {
     dispatch(openModal("confirm-delete"));
     dispatch(

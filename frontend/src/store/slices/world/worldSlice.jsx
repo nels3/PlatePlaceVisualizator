@@ -13,20 +13,20 @@ import {
 } from "./worldThunk";
 
 export interface WorldSlice {
-  countries: [];
-  selectedCountry: {};
-  loadingCountries: LoadingState;
-  selectedRowIndexCountry: Integer;
-  shouldUpdateCountry: Boolean;
-  cities: [];
-  selectedCity: {};
-  loadingCities: LoadingState;
-  selectedRowIndexCity: Integer;
-  shouldUpdateCity: Boolean;
-  newCity: {};
-  showAddNewCity: Boolean;
-  newCountry: {};
-  showAddNewCountry: Boolean;
+  countries: []; // list of all countries currently saved in database
+  selectedCountry: {}; // selected country that will be shown in details
+  loadingCountries: LoadingState; // loading state of fetching countries from backend
+  selectedRowIndexCountry: Integer; // selected row index from countries list
+  shouldUpdateCountry: Boolean; // flag that enables updating country button, activated after any field change in country details
+  cities: []; // list of all cities currently saved in database
+  selectedCity: {}; // selected city that will be shown in details
+  loadingCities: LoadingState; // loading state of fetching cities from backend
+  selectedRowIndexCity: Integer; // selected row index from cities list
+  shouldUpdateCity: Boolean; // flag that enables updating city button, activated after any field change in country details
+  newCity: {}; // dictionary with entered data for new city
+  showAddNewCity: Boolean; // flag that enables showing new city component
+  newCountry: {}; // dictionary with entered data for new country
+  showAddNewCountry: Boolean; // flag that enables showing new country component
 }
 
 const initialState: WorldSlice = {
@@ -50,6 +50,7 @@ export const worldSlice = createSlice({
   name: "world",
   initialState,
   reducers: {
+    // COUNTRIES
     setCountries(state, action) {
       state.countries = action.payload;
       state.loadingCountries = LoadingState.pending;
@@ -73,6 +74,23 @@ export const worldSlice = createSlice({
       state.selectedRowIndexCountry = action.payload;
       return state;
     },
+    updateNewCountryField(state, action) {
+      state.newCountry[action.payload.field] = action.payload.value;
+      state.shouldUpdateCountry = true;
+      return state;
+    },
+    cancelAddCountry(state, action) {
+      state.showAddNewCountry = false;
+      state.newCountry = {};
+      return state;
+    },
+    setShowAddNewCountry(state, action) {
+      state.showAddNewCountry = true;
+      state.newCountry = {};
+      return state;
+    },
+
+    // CITIES
     setCities(state, action) {
       state.cities = action.payload;
       state.loadingCities = LoadingState.pending;
@@ -84,10 +102,6 @@ export const worldSlice = createSlice({
     },
     setNewCity(state, action) {
       state.newCity = action.payload;
-      return state;
-    },
-    setNewCityTmp(state, action) {
-      state.newCityTmp = action.payload;
       return state;
     },
     updateSelectedCityField(state, action) {
@@ -114,34 +128,11 @@ export const worldSlice = createSlice({
       state.newCity = {};
       return state;
     },
-    updateNewCountryField(state, action) {
-      state.newCountry[action.payload.field] = action.payload.value;
-      state.shouldUpdateCountry = true;
-      return state;
-    },
-    cancelAddCountry(state, action) {
-      state.showAddNewCountry = false;
-      state.newCountry = {};
-      return state;
-    },
-    setShowAddNewCountry(state, action) {
-      state.showAddNewCountry = true;
-      state.newCountry = {};
-      return state;
-    },
-    setSelectedRowIndexCitiesResults(state, action) {
-      state.selectedRowIndexCityResults = action.payload;
-      return state;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCountriesList.fulfilled, (state, action) => {
       state.countries = action.payload;
       state.loadingCountries = LoadingState.fulfilled;
-    });
-    builder.addCase(fetchCitiesList.fulfilled, (state, action) => {
-      state.cities = action.payload;
-      state.loadingCities = LoadingState.fulfilled;
     });
     builder.addCase(updateCountry.fulfilled, (state, action) => {
       state.loadingCountries = LoadingState.pending;
@@ -158,6 +149,10 @@ export const worldSlice = createSlice({
       state.loadingCountries = LoadingState.pending;
       state.selectedCountry = null;
       state.selectedRowIndexCountry = null;
+    });
+    builder.addCase(fetchCitiesList.fulfilled, (state, action) => {
+      state.cities = action.payload;
+      state.loadingCities = LoadingState.fulfilled;
     });
     builder.addCase(updateCity.fulfilled, (state, action) => {
       state.loadingCities = LoadingState.pending;
@@ -185,6 +180,9 @@ export const {
   setSelectedCountry,
   setNewCountry,
   updateSelectedCountryField,
+  cancelAddCountry,
+  updateNewCountryField,
+  setShowAddNewCountry,
   setCities,
   setSelectedRowIndexCities,
   setSelectedCity,
@@ -193,9 +191,6 @@ export const {
   cancelAddCity,
   updateNewCityField,
   setShowAddNewCity,
-  cancelAddCountry,
-  updateNewCountryField,
-  setShowAddNewCountry,
 } = worldSlice.actions;
 
 export default worldSlice.reducer;

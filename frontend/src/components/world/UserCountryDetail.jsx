@@ -16,17 +16,11 @@ import {
 } from "src/store/slices/world/worldThunk";
 
 const UserCountryDetail = () => {
-  const language = useSelector((state: RootState) => state.language.language);
+  const language = useSelector((state) => state.language.language);
 
-  const country = useSelector(
-    (state: RootState) => state.world.selectedCountry
-  );
-  const shouldUpdate = useSelector(
-    (state: RootState) => state.world.shouldUpdateCountry
-  );
-  const loadingDetail = useSelector(
-    (state: RootState) => state.world.loadingCountries
-  );
+  const country = useSelector((state) => state.world.selectedCountry);
+  const shouldUpdate = useSelector((state) => state.world.shouldUpdateCountry);
+  const loadingDetail = useSelector((state) => state.world.loadingCountries);
 
   const dispatch = useDispatch();
   const fields = [

@@ -13,19 +13,15 @@ import {
 import { fetchCitiesList } from "src/store/slices/world/worldThunk";
 
 const UserCities = () => {
-  const language = useSelector((state: RootState) => state.language.language);
+  const language = useSelector((state) => state.language.language);
 
-  const citiesList = useSelector((state: RootState) => state.world.cities);
-  const showAddNewCity = useSelector(
-    (state: RootState) => state.world.showAddNewCity
-  );
+  const citiesList = useSelector((state) => state.world.cities);
+  const showAddNewCity = useSelector((state) => state.world.showAddNewCity);
   const selectedRowIndex = useSelector(
-    (state: RootState) => state.world.selectedRowIndexCity
+    (state) => state.world.selectedRowIndexCity
   );
 
-  const loadingState = useSelector(
-    (state: RootState) => state.world.loadingCities
-  );
+  const loadingState = useSelector((state) => state.world.loadingCities);
 
   const dispatch = useDispatch();
 

@@ -11,15 +11,15 @@ import {
 } from "./galleryThunk";
 
 export interface GallerySlice {
-  selectedCountry: String;
-  selectedRegion: String;
-  countries: [];
-  regions: [];
-  plates: [];
-  photos: {};
-  allPhotos: [];
-  chosen: String;
-  photosLoading: LoadingState;
+  selectedCountry: String; // country select value
+  selectedRegion: String; // region select value
+  countries: []; // available countries for select
+  regions: []; // available regions for select
+  plates: []; // plates that match selected values for country or region
+  photos: {}; // photos that matches plates
+  allPhotos: []; // all plates' photos with external information (export purposes)
+  chosen: String; // chosen region or plate for gallery
+  photosLoading: LoadingState; // loading state of fetching photos for gallery
 }
 
 const initialState: GallerySlice = {

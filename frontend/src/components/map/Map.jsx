@@ -14,7 +14,7 @@ import MapFilters from "src/components/map/MapFilters";
 import PlateDetails from "src/components/PlateDetails";
 
 export default function Map() {
-  const selectedMapGeo = useSelector((state: RootState) => state.map.mapGeoUrl);
+  const selectedMapGeo = useSelector((state) => state.map.selectedMapGeo);
   const [position, setPosition] = useState({ coordinates: [0, 0], zoom: 1 });
 
   function handleZoomIn() {

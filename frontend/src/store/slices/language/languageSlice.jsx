@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 export interface LanguageSlice {
   language: String;
 }

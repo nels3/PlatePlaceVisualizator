@@ -8,10 +8,10 @@ import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 import { fetchStatistics } from "src/store/slices/plates/platesThunk";
 
 export default function StatisticsList() {
+  const language = useSelector((state) => state.language.language);
   const statisticsList = useSelector((state) => state.plates.statistics);
   const loadingState = useSelector((state) => state.plates.loadingStatistics);
 
-  const language = useSelector((state) => state.language.language);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function StatisticsList() {
 
   useEffect(() => {
     dispatch(fetchStatistics(language));
-  }, [language]);
+  }, [language]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const columns = [
     {

@@ -3,29 +3,27 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LoadingState } from "src/utils/constants";
 
 export interface MapSlice {
-  markersList: [];
-  worldList: [];
-  continentsList: [];
-  countriesList: [];
-  mapGeoUrl: {};
-  selectedWorldTribe: Boolean;
-  selectedContinent: String;
-  selectedCountry: String;
-  selectedRowIndex: Integer;
-  selectedMarker: {};
-  loadingMarkers: LoadingState;
+  markersList: []; // list of markers created from plates
+  worldGeoConfig: {}; // dictionary with geo config for world map
+  continentsGeoConfig: []; // list with geo configs for continent maps
+  countriesGeoConfig: []; // list with geo configs for countries maps
+  selectedMapGeo: {}; // selected url for map
+  selectedWorldTribe: Boolean; // world checkbox value
+  selectedContinent: String; // continent select value
+  selectedCountry: String; // country select value
+  selectedMarker: {}; // selected marker on map
+  loadingMarkers: LoadingState; // loading state of creating markers
 }
 
 const initialState: MapSlice = {
   markersList: [],
-  worldList: [],
-  continentsList: [],
-  countriesList: [],
-  mapGeoUrl: {},
+  worldGeoConfig: [],
+  continentsGeoConfig: [],
+  countriesGeoConfig: [],
+  selectedMapGeo: {},
   selectedWorldTribe: true,
   selectedContinent: null,
   selectedCountry: null,
-  selectedRowIndex: null,
   selectedMarker: null,
   loadingMarkers: LoadingState.pending,
 };
@@ -34,8 +32,12 @@ export const mapSlice = createSlice({
   name: "map",
   initialState,
   reducers: {
-    setMapGeoUrl(state, action) {
-      state.mapGeoUrl = action.payload;
+    setMarkersList(state, action) {
+      state.markersList = action.payload;
+      return state;
+    },
+    setSelectedMapGeo(state, action) {
+      state.selectedMapGeo = action.payload;
       return state;
     },
     setSelectedWorld(state, action) {
@@ -56,29 +58,21 @@ export const mapSlice = createSlice({
       state.selectedCountry = action.payload;
       return state;
     },
-    setMarkersList(state, action) {
-      state.markersList = action.payload;
+    setContinentsGeoConfig(state, action) {
+      state.continentsGeoConfig = action.payload;
       return state;
     },
-    setContinentsList(state, action) {
-      state.continentsList = action.payload;
+    setCountriesGeoConfig(state, action) {
+      state.countriesGeoConfig = action.payload;
       return state;
     },
-    setCountriesList(state, action) {
-      state.countriesList = action.payload;
-      return state;
-    },
-    setWorldList(state, action) {
-      state.worldList = action.payload;
+    setWorldGeoConfig(state, action) {
+      state.worldGeoConfig = action.payload;
       state.selectedWorldTribe = true;
       state.selectedContinent = "";
       state.selectedCountry = "";
       state.mapGeoUrl = action.payload;
       state.mapGeoUrl["tribe"] = "world";
-      return state;
-    },
-    setSelectedRowIndex(state, action) {
-      state.selectedRowIndex = action.payload;
       return state;
     },
     setLoadingMarkers(state, action) {
@@ -90,16 +84,15 @@ export const mapSlice = createSlice({
 });
 
 export const {
+  setMarkersList,
+  setSelectedMapGeo,
   setSelectedWorld,
   setSelectedContinent,
   setSelectedCountry,
-  setMarkersList,
-  setContinentsList,
-  setCountriesList,
-  setSelectedRowIndex,
+  setWorldGeoConfig,
+  setContinentsGeoConfig,
+  setCountriesGeoConfig,
   setLoadingMarkers,
-  setMapGeoUrl,
-  setWorldList,
 } = mapSlice.actions;
 
 export default mapSlice.reducer;

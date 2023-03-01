@@ -1,6 +1,3 @@
-import FilterSelect from "src/components/common/FilterSelect";
-import Label from "src/components/common/Label";
-
 import PhotoAlbum from "react-photo-album";
 
 export default function StartGallery() {

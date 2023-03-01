@@ -1,8 +1,5 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
-import { LoadingState } from "src/utils/constants";
-import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 import { fetchPlatesList } from "src/store/slices/plates/platesThunk";
 import { getAllStatistics } from "src/store/slices/home/homeThunk";

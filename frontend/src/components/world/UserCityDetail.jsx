@@ -16,16 +16,11 @@ import {
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 const UserCityDetail = () => {
-  const language = useSelector((state: RootState) => state.language.language);
+  const language = useSelector((state) => state.language.language);
 
-  const city = useSelector((state: RootState) => state.world.selectedCity);
-  const shouldUpdate = useSelector(
-    (state: RootState) => state.world.shouldUpdateCity
-  );
-
-  const loadingDetail = useSelector(
-    (state: RootState) => state.world.loadingCities
-  );
+  const city = useSelector((state) => state.world.selectedCity);
+  const shouldUpdate = useSelector((state) => state.world.shouldUpdateCity);
+  const loadingDetail = useSelector((state) => state.world.loadingCities);
 
   const dispatch = useDispatch();
 

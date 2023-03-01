@@ -4,15 +4,15 @@ import { LoadingState, CheckState } from "src/utils/constants";
 import { getCountryByName, getCityByName } from "./checkerThunk";
 
 export interface CheckerSlice {
-  newCountryCheck: {};
-  newCountryTmp: {};
+  newCountryCheck: {}; // country checker field state
+  newCountryTmp: {}; // selected value for country from checker
 
-  newCityCheck: {};
-  newCityTmp: null;
-  cityCheckResults: [];
-  cityShowResults: Boolean;
-  citySelectedRowIndexResults: String;
-  cityLoadingResults: LoadingState;
+  newCityCheck: {}; // city checker field state
+  newCityTmp: null; // selected value for city from checker
+  cityCheckResults: []; // list of results for city from checker
+  cityShowResults: Boolean; // flag that indicated showing modal with checker results
+  citySelectedRowIndexResults: String; // selected row index for city results
+  cityLoadingResults: LoadingState; // loading state of fetching checker results
 }
 
 const initialState: CheckerSlice = {

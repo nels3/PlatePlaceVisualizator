@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { backendPath } from "src/utils/utils";
 
+// fetching all countries from backend
 export const fetchCountriesList = createAsyncThunk(
   "world/fetchCountriesList",
   async (args, thunkAPI) => {
@@ -11,15 +12,7 @@ export const fetchCountriesList = createAsyncThunk(
   }
 );
 
-export const fetchCitiesList = createAsyncThunk(
-  "world/fetchCitiesList",
-  async (args, thunkAPI) => {
-    return await axios.get(backendPath + "city/list", {}).then((res) => {
-      return res.data;
-    });
-  }
-);
-
+// updating existing country
 export const updateCountry = createAsyncThunk(
   "plates/updateCountry",
   async (args, thunkAPI) => {
@@ -43,6 +36,7 @@ export const updateCountry = createAsyncThunk(
   }
 );
 
+// saving new country
 export const addNewCountry = createAsyncThunk(
   "plates/addNewCountry",
   async (args, thunkAPI) => {
@@ -65,6 +59,7 @@ export const addNewCountry = createAsyncThunk(
   }
 );
 
+// deleting existing country
 export const deleteCountry = createAsyncThunk(
   "plates/deleteCountry",
   async (args, thunkAPI) => {
@@ -74,6 +69,17 @@ export const deleteCountry = createAsyncThunk(
   }
 );
 
+// fetching all cities from backend
+export const fetchCitiesList = createAsyncThunk(
+  "world/fetchCitiesList",
+  async (args, thunkAPI) => {
+    return await axios.get(backendPath + "city/list", {}).then((res) => {
+      return res.data;
+    });
+  }
+);
+
+// updating existing city
 export const updateCity = createAsyncThunk(
   "plates/updateCity",
   async (args, thunkAPI) => {
@@ -98,6 +104,7 @@ export const updateCity = createAsyncThunk(
   }
 );
 
+// saving new city
 export const addNewCity = createAsyncThunk(
   "plates/addNewCity",
   async (args, thunkAPI) => {
@@ -121,6 +128,7 @@ export const addNewCity = createAsyncThunk(
   }
 );
 
+// deleting existing city
 export const deleteCity = createAsyncThunk(
   "plates/deleteCity",
   async (args, thunkAPI) => {

@@ -11,19 +11,17 @@ import {
 import { LoadingState } from "src/utils/constants";
 
 export interface PlatesSlice {
-  list: [];
-  selectedRowIndex: Integer;
-  selectedPlate: {};
-  loadingImage: LoadingState;
-  loadingDetail: LoadingState;
-  loadingList: LoadingState;
-  shouldUpdate: Boolean;
-  loadingStatistics: LoadingState;
-  statistics: [];
-  showNewPlate: Boolean;
-  newPlate: {};
-  selectedCountry: String;
-  selectedCity: String;
+  list: []; // all plates
+  selectedRowIndex: Integer; // selected row index in plates list
+  selectedPlate: {}; // selected plate data that will be displayed in details
+  loadingImage: LoadingState; // loading state of fetching image from database for currently selected plate
+  loadingDetail: LoadingState; // loading state of fetching data for currently selected plate
+  loadingList: LoadingState; // loading state of fetching plates list
+  shouldUpdate: Boolean; // flag that enables update plate button in details
+  loadingStatistics: LoadingState; // loading state of fetching statistics for plates
+  statistics: []; // statistics data
+  showNewPlate: Boolean; // flag that enables showing new plate component
+  newPlate: {}; // dictionary with entered data for new plate
 }
 
 const initialState: PlatesSlice = {

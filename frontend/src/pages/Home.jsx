@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import StartGallery from "src/components/gallery/StartGallery";
 
-import { BiMessageSquareAdd } from "react-icons/bi";
+import StartGallery from "src/components/gallery/StartGallery";
+import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 import { getAllStatistics } from "src/store/slices/home/homeThunk";
-import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 export default function Home() {
   const language = useSelector((state) => state.language.language);
@@ -17,7 +16,7 @@ export default function Home() {
   useEffect(() => {
     document.title = `Home`;
     dispatch(getAllStatistics());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div style={{ padding: "5px" }}>

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { LoadingState } from "src/utils/constants";
 
+import { LoadingState } from "src/utils/constants";
 import Table from "src/components/common/Table";
 import PlateDetails from "src/components/PlateDetails";
 import NewPlateDetails from "src/components/NewPlateDetails";
@@ -34,13 +34,14 @@ export default function PlatesList() {
     if (platesList.length === 0) {
       dispatch(fetchPlatesList());
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // executes when any plate was modified / new plate was added
   useEffect(() => {
     if (loadingState === LoadingState.pending) {
       dispatch(fetchPlatesList());
     }
-  }, [loadingState]);
+  }, [loadingState]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const columns = [
     {

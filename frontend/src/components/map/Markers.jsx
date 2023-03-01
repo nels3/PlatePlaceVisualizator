@@ -16,7 +16,7 @@ export default function Markers() {
   const selectedPlate = useSelector((state) => state.plates.selectedPlate);
   const platesList = useSelector((state) => state.plates.list);
   const markersList = useSelector((state) => state.map.markersList);
-  const tribe = useSelector((state) => state.map.mapGeoUrl.tribe);
+  const tribe = useSelector((state) => state.map.selectedMapGeo.tribe);
 
   const language = useSelector((state) => state.language.language);
 

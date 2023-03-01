@@ -18,6 +18,21 @@ export const getCountries = createAsyncThunk(
     });
   }
 );
+
+export const fetchPlateImage = createAsyncThunk(
+  "gallery/fetchPlateImage",
+  async (args, thunkAPI) => {
+    return await axios
+      .get(backendPath + "plate/image", {
+        params: { id: args },
+        responseType: "blob",
+      })
+      .then((res) => {
+        return URL.createObjectURL(res.data);
+      });
+  }
+);
+
 export const fetchAllPhotosDataForMap = createAsyncThunk(
   "gallery/fetchAllPhotosDataForMap",
   async (args, thunkAPI) => {
@@ -45,20 +60,6 @@ export const getPlatesByRegion = createAsyncThunk(
       .get(backendPath + "plate/region", { params: { region: args } })
       .then((res) => {
         return { data: res.data, accessor: args };
-      });
-  }
-);
-
-export const fetchPlateImage = createAsyncThunk(
-  "gallery/fetchPlateImage",
-  async (args, thunkAPI) => {
-    return await axios
-      .get(backendPath + "plate/image", {
-        params: { id: args },
-        responseType: "blob",
-      })
-      .then((res) => {
-        return URL.createObjectURL(res.data);
       });
   }
 );

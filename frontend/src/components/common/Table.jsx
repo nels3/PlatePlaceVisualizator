@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import { useTable, useSortBy, useFilters } from "react-table";
 import { useSelector } from "react-redux";
+
 import { ColumnFilter } from "src/components/common/ColumnFilter";
 import { LoadingState } from "src/utils/constants";
 

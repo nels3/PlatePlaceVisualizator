@@ -3,22 +3,22 @@ import { useSelector, useDispatch } from "react-redux";
 
 import GalleryFilters from "src/components/gallery/GalleryFilters";
 
-import { LoadingState } from "src/utils/constants";
 import PhotoAlbum from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
+
+import { LoadingState } from "src/utils/constants";
 
 import { fetchPlateImage } from "src/store/slices/gallery/galleryThunk";
 import {
   setPhotosLoading,
   clearChosen,
 } from "src/store/slices/gallery/gallerySlice";
-
-import "yet-another-react-lightbox/styles.css";
-import "yet-another-react-lightbox/plugins/thumbnails.css";
-import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
-import Slideshow from "yet-another-react-lightbox/plugins/slideshow";
-import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
-import Zoom from "yet-another-react-lightbox/plugins/zoom";
 
 const breakpoints = [4320, 2160, 1080, 640, 384, 256, 128];
 
@@ -34,7 +34,7 @@ export default function PhotoGallery() {
   useEffect(() => {
     document.title = `Gallery`;
     dispatch(clearChosen());
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (loadingStatus === LoadingState.pending) {
@@ -42,7 +42,7 @@ export default function PhotoGallery() {
         if (plate.image_present === "x") dispatch(fetchPlateImage(plate.id));
       });
     }
-  }, [loadingStatus, platesList]);
+  }, [loadingStatus, platesList]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (photosList && platesList) {
@@ -53,7 +53,7 @@ export default function PhotoGallery() {
         dispatch(setPhotosLoading(LoadingState.fulfilled));
       }
     }
-  }, [platesList, photosList]);
+  }, [platesList, photosList]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const createImagesList = () => {
     let images = [];
