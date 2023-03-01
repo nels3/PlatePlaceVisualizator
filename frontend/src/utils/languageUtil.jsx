@@ -46,6 +46,7 @@ export const dictionary = {
     country: { en: "Country:", pl: "Kraj:" },
     countryLabel: { en: "name", pl: "namePl" },
     selected: { en: "Selected:", pl: "Wybrane:" },
+    hideNames: { en: "Hide name", pl: "Ukryj nazwy" },
   },
   gallery: {
     filters: { en: "Filters", pl: "Filtry" },

@@ -17,6 +17,7 @@ export default function Markers() {
   const platesList = useSelector((state) => state.plates.list);
   const markersList = useSelector((state) => state.map.markersList);
   const tribe = useSelector((state) => state.map.selectedMapGeo.tribe);
+  const hideNames = useSelector((state) => state.map.hideNames);
 
   const language = useSelector((state) => state.language.language);
 
@@ -26,13 +27,16 @@ export default function Markers() {
   const computeParams = () => {
     if (tribe === "world") {
       setCircleR(1);
-      setFontSize(0);
+      if (hideNames) setFontSize(0);
+      else setFontSize(3);
     } else if (tribe === "continent") {
       setCircleR(2);
-      setFontSize(6);
+      if (hideNames) setFontSize(0);
+      else setFontSize(6);
     } else if (tribe === "country") {
       setCircleR(3);
-      setFontSize(8);
+      if (hideNames) setFontSize(0);
+      else setFontSize(8);
     }
   };
 
@@ -74,7 +78,7 @@ export default function Markers() {
 
   useEffect(() => {
     computeParams();
-  }, [tribe]);
+  }, [tribe, hideNames]);
 
   // method executed when marker was clicked on
   const onMarkerClickEvent = (e, plate) => {

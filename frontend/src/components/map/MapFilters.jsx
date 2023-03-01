@@ -17,10 +17,12 @@ import {
   setSelectedContinent,
   setSelectedCountry,
   setSelectedWorld,
+  setWorld,
   setWorldGeoConfig,
   setContinentsGeoConfig,
   setCountriesGeoConfig,
   setSelectedMapGeo,
+  setHideNames,
 } from "src/store/slices/map/mapSlice";
 
 import "src/static/filter.css";
@@ -34,6 +36,7 @@ export default function MapFilters() {
   const selectedWorld = useSelector((state) => state.map.selectedWorldTribe);
   const selectedContinent = useSelector((state) => state.map.selectedContinent);
   const selectedCountry = useSelector((state) => state.map.selectedCountry);
+  const hideNames = useSelector((state) => state.map.hideNames);
 
   const dispatch = useDispatch();
 
@@ -43,6 +46,10 @@ export default function MapFilters() {
       dispatch(setContinentsGeoConfig(mapGeoConfig.continents));
       dispatch(setWorldGeoConfig(mapGeoConfig.world));
     }
+    dispatch(setWorld());
+    let target = { ...mapGeoConfig.world };
+    target.tribe = "world";
+    dispatch(setSelectedMapGeo(target));
   }, []);
 
   // method executed when changing state of world checkbox
@@ -91,6 +98,10 @@ export default function MapFilters() {
     let target = { ...targetCountry };
     target.tribe = "country";
     dispatch(setSelectedMapGeo(target));
+  };
+
+  const hideNamesFun = (e) => {
+    dispatch(setHideNames());
   };
 
   return (
@@ -142,8 +153,14 @@ export default function MapFilters() {
               onChange={changeCountry}
             />
           </Col>
+          <Col>
+            <Label title={getDisplayText(language, dict.map.hideNames)} />
+          </Col>
+          <Col>
+            <FilterCheckbox value={hideNames} onChange={hideNamesFun} />
+          </Col>
         </Row>
-        <Row>
+        <Row style={{ paddingBottom: "0.8em" }}>
           <Col>
             <Label title={getDisplayText(language, dict.map.selected)} />
           </Col>
@@ -160,6 +177,8 @@ export default function MapFilters() {
               }
             />
           </Col>
+          <Col></Col>
+          <Col></Col>
           <Col></Col>
           <Col></Col>
           <Col></Col>

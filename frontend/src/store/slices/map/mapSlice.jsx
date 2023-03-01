@@ -13,6 +13,7 @@ export interface MapSlice {
   selectedCountry: String; // country select value
   selectedMarker: {}; // selected marker on map
   loadingMarkers: LoadingState; // loading state of creating markers
+  hideNames: Boolean; // flag that forces hiding name of city/country on map
 }
 
 const initialState: MapSlice = {
@@ -21,11 +22,12 @@ const initialState: MapSlice = {
   continentsGeoConfig: [],
   countriesGeoConfig: [],
   selectedMapGeo: {},
-  selectedWorldTribe: true,
+  selectedWorldTribe: false,
   selectedContinent: null,
   selectedCountry: null,
   selectedMarker: null,
   loadingMarkers: LoadingState.pending,
+  hideNames: true,
 };
 
 export const mapSlice = createSlice({
@@ -44,18 +46,28 @@ export const mapSlice = createSlice({
       state.selectedWorldTribe = !state.selectedWorldTribe;
       state.selectedContinent = "";
       state.selectedCountry = "";
+      state.hideNames = true;
+      return state;
+    },
+    setWorld(state, action) {
+      state.selectedWorldTribe = true;
+      state.selectedContinent = "";
+      state.selectedCountry = "";
+      state.hideNames = true;
       return state;
     },
     setSelectedContinent(state, action) {
       state.selectedWorldTribe = false;
       state.selectedContinent = action.payload;
       state.selectedCountry = "";
+      state.hideNames = true;
       return state;
     },
     setSelectedCountry(state, action) {
       state.selectedWorldTribe = false;
       state.selectedContinent = "";
       state.selectedCountry = action.payload;
+      state.hideNames = false;
       return state;
     },
     setContinentsGeoConfig(state, action) {
@@ -79,6 +91,10 @@ export const mapSlice = createSlice({
       state.loadingMarkers = action.payload;
       return state;
     },
+    setHideNames(state, action) {
+      state.hideNames = !state.hideNames;
+      return state;
+    },
   },
   extraReducers: (builder) => {},
 });
@@ -87,12 +103,14 @@ export const {
   setMarkersList,
   setSelectedMapGeo,
   setSelectedWorld,
+  setWorld,
   setSelectedContinent,
   setSelectedCountry,
   setWorldGeoConfig,
   setContinentsGeoConfig,
   setCountriesGeoConfig,
   setLoadingMarkers,
+  setHideNames,
 } = mapSlice.actions;
 
 export default mapSlice.reducer;
