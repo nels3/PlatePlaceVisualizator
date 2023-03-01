@@ -83,7 +83,7 @@ const NewUserCountryDetail = () => {
 
   useEffect(() => {
     if (loadingDetail === LoadingState.pending) {
-      dispatch(fetchCountriesList());
+      dispatch(fetchCountriesList(language));
     }
   }, [loadingDetail]);
 

@@ -6,9 +6,11 @@ import { backendPath } from "src/utils/utils";
 export const fetchCountriesList = createAsyncThunk(
   "world/fetchCountriesList",
   async (args, thunkAPI) => {
-    return await axios.get(backendPath + "country/list", {}).then((res) => {
-      return res.data;
-    });
+    return await axios
+      .get(backendPath + "country/list", { params: { language: args } })
+      .then((res) => {
+        return res.data;
+      });
   }
 );
 
@@ -73,9 +75,11 @@ export const deleteCountry = createAsyncThunk(
 export const fetchCitiesList = createAsyncThunk(
   "world/fetchCitiesList",
   async (args, thunkAPI) => {
-    return await axios.get(backendPath + "city/list", {}).then((res) => {
-      return res.data;
-    });
+    return await axios
+      .get(backendPath + "city/list", { params: { language: args } })
+      .then((res) => {
+        return res.data;
+      });
   }
 );
 

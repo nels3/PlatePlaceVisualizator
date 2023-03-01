@@ -28,7 +28,7 @@ const UserCountries = () => {
 
   useEffect(() => {
     if (countriesList.length === 0) {
-      dispatch(fetchCountriesList());
+      dispatch(fetchCountriesList(language));
     }
   }, []);
 

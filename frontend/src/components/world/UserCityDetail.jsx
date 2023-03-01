@@ -69,7 +69,7 @@ const UserCityDetail = () => {
 
   useEffect(() => {
     if (loadingDetail === LoadingState.pending) {
-      dispatch(fetchCitiesList());
+      dispatch(fetchCitiesList(language));
     }
   }, [loadingDetail]);
 

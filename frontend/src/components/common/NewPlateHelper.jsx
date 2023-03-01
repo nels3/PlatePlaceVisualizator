@@ -24,10 +24,10 @@ export default function NewPlateHelper() {
 
   useEffect(() => {
     if (countriesList.length === 0) {
-      dispatch(fetchCountriesList());
+      dispatch(fetchCountriesList(language));
     }
     if (citiesList.length === 0) {
-      dispatch(fetchCitiesList());
+      dispatch(fetchCitiesList(language));
     }
   }, [countriesList, citiesList]);
 

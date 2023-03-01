@@ -27,7 +27,7 @@ const UserCities = () => {
 
   useEffect(() => {
     if (citiesList.length === 0) {
-      dispatch(fetchCitiesList());
+      dispatch(fetchCitiesList(language));
     }
   }, []);
 
