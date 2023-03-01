@@ -50,6 +50,7 @@ export const dictionary = {
   },
   gallery: {
     filters: { en: "Filters", pl: "Filtry" },
+    all: { en: "All", pl: "Wszystkie:" },
     country: { en: "Country:", pl: "Kraj:" },
     countryLabel: { en: "name", pl: "name" },
     region: { en: "Region:", pl: "Region:" },

@@ -15,6 +15,7 @@ urlpatterns = [
     path('plate/countries', views.plate_countries, name='plate_countries'),
     path('plate/region', views.plate_region, name='plate_region'),
     path('plate/country', views.plate_country, name='plate_country'),
+    path('plate/all', views.plate_all, name='plate_all'),
     path('country/list', views.country_list, name='country_list'),
     path('country/', views.country_selector, name='country_selector'),
     path('country/check', views.country_selector_check, name='country_selector_check'),

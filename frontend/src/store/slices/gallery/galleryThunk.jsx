@@ -63,3 +63,14 @@ export const getPlatesByRegion = createAsyncThunk(
       });
   }
 );
+
+export const getAllPlates = createAsyncThunk(
+  "gallery/getAllPlates",
+  async (args, thunkAPI) => {
+    return await axios
+      .get(backendPath + "plate/all", { params: { region: args } })
+      .then((res) => {
+        return { data: res.data, accessor: "all" };
+      });
+  }
+);

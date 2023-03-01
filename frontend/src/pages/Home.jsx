@@ -20,7 +20,7 @@ export default function Home() {
 
   return (
     <div style={{ padding: "5px" }}>
-      <h9 style={{ fontSize: "20px" }}>
+      <h9 style={{ fontSize: "25px" }}>
         {getDisplayText(language, dict.home.welcome)}
       </h9>
       <h6 style={{ fontSize: "16px" }}>

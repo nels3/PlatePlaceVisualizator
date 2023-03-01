@@ -83,7 +83,7 @@ export const mapSlice = createSlice({
       state.selectedWorldTribe = true;
       state.selectedContinent = "";
       state.selectedCountry = "";
-      state.mapGeoUrl = action.payload;
+      state.mapGeoUrl = { ...action.payload };
       state.mapGeoUrl["tribe"] = "world";
       return state;
     },

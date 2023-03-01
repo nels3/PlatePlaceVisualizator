@@ -96,6 +96,11 @@ class PlateUtils:
         return plates
 
     @staticmethod
+    def get_all_plates():
+        plates = Plate.objects.all()
+        return plates
+
+    @staticmethod
     def save_plate(data):
         if not Plate.objects.filter(id=data.get("id", None)).exists():
             raise NotFoundError()

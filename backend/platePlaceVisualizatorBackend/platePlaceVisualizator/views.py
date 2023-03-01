@@ -159,6 +159,14 @@ def plate_country(request):
 
 
 @api_view(['GET'])
+def plate_all(request):
+    if request.method == 'GET':
+        plates = PlateUtils.get_all_plates()
+        serializer = PlateSerializer(plates, many=True)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
+
+
+@api_view(['GET'])
 def country_list(request):
     if request.method == 'GET':
         language = request.query_params.get('language', 'en')

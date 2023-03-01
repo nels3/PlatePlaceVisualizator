@@ -8,11 +8,13 @@ import {
   getPlatesByRegion,
   fetchPlateImage,
   fetchAllPhotosDataForMap,
+  getAllPlates,
 } from "./galleryThunk";
 
 export interface GallerySlice {
   selectedCountry: String; // country select value
   selectedRegion: String; // region select value
+  selectedAll: Boolean; // selected all plates
   countries: []; // available countries for select
   regions: []; // available regions for select
   plates: []; // plates that match selected values for country or region
@@ -25,6 +27,7 @@ export interface GallerySlice {
 const initialState: GallerySlice = {
   selectedCountry: null,
   selectedRegion: null,
+  selectedAll: false,
   countries: [],
   regions: [],
   plates: [],
@@ -41,11 +44,19 @@ export const gallerySlice = createSlice({
     setSelectedRegion(state, action) {
       state.selectedCountry = null;
       state.selectedRegion = { name: action.payload };
+      state.selectedAll = false;
       return state;
     },
     setSelectedCountry(state, action) {
       state.selectedCountry = { name: action.payload };
       state.selectedRegion = null;
+      state.selectedAll = false;
+      return state;
+    },
+    setSelectedAll(state, action) {
+      state.selectedCountry = null;
+      state.selectedRegion = null;
+      state.selectedAll = !state.selectedAll;
       return state;
     },
     setPhotosLoading(state, action) {
@@ -81,6 +92,14 @@ export const gallerySlice = createSlice({
       state.photos = photosTmp;
       state.photosLoading = LoadingState.pending;
     });
+    builder.addCase(getAllPlates.fulfilled, (state, action) => {
+      state.plates = action.payload.data;
+      state.chosen = "all";
+      let photosTmp = { ...state.photos };
+      photosTmp["all"] = [];
+      state.photos = photosTmp;
+      state.photosLoading = LoadingState.pending;
+    });
     builder.addCase(fetchPlateImage.fulfilled, (state, action) => {
       state.photos[state.chosen].push(action.payload);
     });
@@ -93,6 +112,7 @@ export const gallerySlice = createSlice({
 export const {
   setSelectedRegion,
   setSelectedCountry,
+  setSelectedAll,
   setPhotosLoading,
   clearChosen,
 } = gallerySlice.actions;
