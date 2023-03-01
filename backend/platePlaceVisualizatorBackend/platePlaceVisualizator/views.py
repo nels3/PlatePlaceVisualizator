@@ -161,7 +161,12 @@ def plate_country(request):
 @api_view(['GET'])
 def country_list(request):
     if request.method == 'GET':
-        countries = Country.objects.all().order_by('name')
+        language = request.query_params.get('language', 'en')
+        if language == 'en':
+            countries = Country.objects.all().order_by('name')
+        else:
+            countries = Country.objects.all().order_by('name_pl')
+
         serializer = CountrySerializer(countries, many=True)
         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
@@ -234,7 +239,12 @@ def country_selector_check(request):
 @api_view(['GET'])
 def city_list(request):
     if request.method == 'GET':
-        cities = City.objects.all().order_by('country', 'name')
+        language = request.query_params.get('language', 'en')
+        if language == 'en':
+            cities = City.objects.all().order_by('country', 'name')
+        else:
+            cities = City.objects.all().order_by('country_pl', 'name_pl')
+
         serializer = CitySerializer(cities, many=True)
         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 

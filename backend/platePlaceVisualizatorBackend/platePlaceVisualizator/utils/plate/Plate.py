@@ -144,8 +144,9 @@ class PlateUtils:
     @staticmethod
     def delete_plate(id):
         if Plate.objects.filter(id=id).exists():
-            Plate.objects.get(id=id).delete()
-            logging.info(f"Deleted plate from database with id: {id}")
+            plate = Plate.objects.get(id=id)
+            plate.delete()
+            logging.info(f"Deleted plate from database with id: {id} from {plate.city}/{plate.country}")
 
     @staticmethod
     def delete_plate_image(id):
