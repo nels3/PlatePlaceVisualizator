@@ -1,12 +1,12 @@
 # PlatePlaceVisualizator
 
-Repository consists of website project that shows information about Plate Collection. Every plate can have such values as: photo, country, city and they are shown in various ways: in list, on maps, in staatistics.
+Repository consists of website project that shows information about Plate Collection. Every plate can have such values as: photo, country, city and they are shown in various ways: in list, on maps, in statistics.
 
 Technologies used:
 React, Redux, Django, Rest API
 
 Languages:
-Javascript, Python
+Javascript (frontend), Python (backend)
 
 ## Pages 
 
@@ -90,3 +90,18 @@ And add it using button.
 
 #### Modify/delete existing country
 Click on the country in countries list, modify fields and use update/delete button.
+
+#### Add new city
+Click plus icon below cities list.
+
+Add all data or
+
+Add city name and optionally country name and click question mark on the right:
+![obraz](https://user-images.githubusercontent.com/32846285/222407608-681d6309-a7f2-4397-bbf6-3ababd38f30f.png)
+
+![obraz](https://user-images.githubusercontent.com/32846285/222408081-1e70c0b1-73e0-40fe-870f-26fc4ac5e7e3.png)
+Choose which result is the one you want to use. You will see five results sorted from the one with the biggest number of population. There is Rest Api used in the backend that is fetching data about cities.
+![obraz](https://user-images.githubusercontent.com/32846285/222408351-efa2a9ee-786b-48af-81b7-b14c45b99306.png)
+![obraz](https://user-images.githubusercontent.com/32846285/222408411-d2235564-6b67-4f76-9c07-5e3e601b9d8c.png)
+
+Warning: If you will enter already exisiting city, information already in database will be retrieved. If you want other way, just delete city first. It will not delete any plate associated with this city.
