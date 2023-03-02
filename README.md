@@ -8,6 +8,11 @@ React, Redux, Django, Rest API
 Languages:
 Javascript (frontend), Python (backend)
 
+If you want to see some of the features, there is another repository called Collector, that is static version of this project. It is readonly and is fetching data from this version of project (Look at Exports in Statistics page). There could be some new features in this version that are not implemented in static version.
+
+Link:
+https://nels3.github.io/Collector/
+
 ## Pages 
 
 ### Home page
