@@ -62,6 +62,10 @@ class CountryUtils:
         :param data: dictionary with all necessary parameters
         :return:
         """
+
+        if Country.objects.filter(name=data.get("name", None)).exists():
+            raise AlreadyExistError()
+
         country = Country(name=data.get("name", None),
                           name_pl=data.get("name_pl", None),
                           capital=data.get("capital", None),

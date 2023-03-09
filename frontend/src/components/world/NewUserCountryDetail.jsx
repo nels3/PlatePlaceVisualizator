@@ -9,7 +9,6 @@ import {
   updateNewCountryField,
   cancelAddCountry,
   setNewCountry,
-  setNewCountryCheck,
 } from "src/store/slices/world/worldSlice";
 import {
   fetchCountriesList,

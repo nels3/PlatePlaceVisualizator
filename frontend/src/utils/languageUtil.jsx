@@ -22,6 +22,24 @@ export const dictionary = {
       en: "Confirm",
       pl: "Potwierdzam",
     },
+    confirmExitButtonLabel: {
+      en: "Ok",
+      pl: "Ok",
+    },
+    error: {
+      en: "Operation did not succeed. Fix your data.",
+      pl: "Operacja nie udała się. Popraw dane.",
+    },
+    errorMsg: {
+      country: {
+        en: "Cannot update/save country with this data. Maybe you are trying to add same country second time?",
+        pl: "Nie można aktualizować/zapisać państwa z tymi danymi. Może dodajesz drugi raz te samo państwo?",
+      },
+      city: {
+        en: "Cannot update/save city with this data. Maybe you are trying to add same city second time?",
+        pl: "Nie można aktualizować/zapisać miasta z tymi danymi. Może dodajesz drugi raz te samo miasto?",
+      },
+    },
   },
   navbar: {
     home: { en: "Home", pl: "Start" },

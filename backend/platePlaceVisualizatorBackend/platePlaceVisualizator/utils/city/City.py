@@ -133,6 +133,9 @@ class CityUtils:
                     longitude=data.get("longitude", None),
                     latitude=data.get("latitude", None))
 
+        if City.objects.filter(name=data.get("name", None)).exists():
+            raise AlreadyExistError()
+
         country = CountryUtils.save_country_by_name(data.get("country"))
         if city.country_pl is None or city.country_pl == "":
             city.country_pl = country.name_pl

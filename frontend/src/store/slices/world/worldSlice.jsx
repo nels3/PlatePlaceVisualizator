@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { LoadingState } from "src/utils/constants";
+import { LoadingState, ErrorState } from "src/utils/constants";
 import {
   fetchCountriesList,
   fetchCitiesList,
@@ -27,6 +27,8 @@ export interface WorldSlice {
   showAddNewCity: Boolean; // flag that enables showing new city component
   newCountry: {}; // dictionary with entered data for new country
   showAddNewCountry: Boolean; // flag that enables showing new country component
+  countryError: ErrorState; // state of country details update/creation
+  cityError: ErrorState; // state of city details update/creation
 }
 
 const initialState: WorldSlice = {
@@ -44,6 +46,8 @@ const initialState: WorldSlice = {
   showAddNewCity: false,
   newCountry: null,
   showAddNewCountry: false,
+  countryError: ErrorState.correct,
+  cityError: ErrorState.correct,
 };
 
 export const worldSlice = createSlice({
@@ -89,6 +93,10 @@ export const worldSlice = createSlice({
       state.newCountry = {};
       return state;
     },
+    setCountryError(state, action) {
+      state.countryError = action.payload;
+      return state;
+    },
 
     // CITIES
     setCities(state, action) {
@@ -128,6 +136,10 @@ export const worldSlice = createSlice({
       state.newCity = {};
       return state;
     },
+    setCityError(state, action) {
+      state.cityError = action.payload;
+      return state;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCountriesList.fulfilled, (state, action) => {
@@ -138,12 +150,20 @@ export const worldSlice = createSlice({
       state.loadingCountries = LoadingState.pending;
       state.selectedCountry = null;
       state.selectedRowIndexCountry = null;
+      state.countryError = ErrorState.correct;
+    });
+    builder.addCase(updateCountry.rejected, (state, action) => {
+      state.countryError = ErrorState.error;
     });
     builder.addCase(addNewCountry.fulfilled, (state, action) => {
       state.loadingCountries = LoadingState.pending;
       state.selectedCountry = null;
       state.selectedRowIndexCountry = null;
       state.showAddNewCountry = false;
+      state.countryError = ErrorState.correct;
+    });
+    builder.addCase(addNewCountry.rejected, (state, action) => {
+      state.countryError = ErrorState.error;
     });
     builder.addCase(deleteCountry.fulfilled, (state, action) => {
       state.loadingCountries = LoadingState.pending;
@@ -158,6 +178,10 @@ export const worldSlice = createSlice({
       state.loadingCities = LoadingState.pending;
       state.selectedCity = null;
       state.selectedRowIndexCity = null;
+      state.cityError = ErrorState.correct;
+    });
+    builder.addCase(updateCity.rejected, (state, action) => {
+      state.cityError = ErrorState.error;
     });
     builder.addCase(addNewCity.fulfilled, (state, action) => {
       state.loadingCities = LoadingState.pending;
@@ -165,6 +189,10 @@ export const worldSlice = createSlice({
       state.selectedCity = null;
       state.selectedRowIndexCity = null;
       state.showAddNewCity = false;
+      state.cityError = ErrorState.correct;
+    });
+    builder.addCase(addNewCity.rejected, (state, action) => {
+      state.cityError = ErrorState.error;
     });
     builder.addCase(deleteCity.fulfilled, (state, action) => {
       state.loadingCities = LoadingState.pending;
@@ -183,6 +211,7 @@ export const {
   cancelAddCountry,
   updateNewCountryField,
   setShowAddNewCountry,
+  setCountryError,
   setCities,
   setSelectedRowIndexCities,
   setSelectedCity,
@@ -191,6 +220,7 @@ export const {
   cancelAddCity,
   updateNewCityField,
   setShowAddNewCity,
+  setCityError,
 } = worldSlice.actions;
 
 export default worldSlice.reducer;

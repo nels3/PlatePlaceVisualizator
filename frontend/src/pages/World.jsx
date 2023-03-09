@@ -7,20 +7,31 @@ import UserCities from "src/components/world/UserCities";
 import UserCityDetail from "src/components/world/UserCityDetail";
 import NewUserCityDetail from "src/components/world/NewUserCityDetail";
 import NewUserCountryDetail from "src/components/world/NewUserCountryDetail";
+import ErrorHandler from "src/components/common/modal/ErrorHandler";
 
 import { BiMessageSquareAdd } from "react-icons/bi";
 
+import {
+  setCountryError,
+  setCityError,
+} from "src/store/slices/world/worldSlice";
 import {
   setShowAddNewCity,
   setShowAddNewCountry,
 } from "src/store/slices/world/worldSlice";
 import { resetAllChecks } from "src/store/slices/checker/checkerSlice";
+import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
 
 export default function World() {
+  const language = useSelector((state) => state.language.language);
   const showAddNewCity = useSelector((state) => state.world.showAddNewCity);
   const showAddNewCountry = useSelector(
     (state) => state.world.showAddNewCountry
   );
+
+  const countryError = useSelector((state) => state.world.countryError);
+  const cityError = useSelector((state) => state.world.cityError);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -59,6 +70,18 @@ export default function World() {
         <></>
       )}
       {showAddNewCity ? <NewUserCityDetail /> : <></>}
+      <ErrorHandler
+        status={countryError}
+        setStatus={setCountryError}
+        modalId="country-error"
+        modalText={getDisplayText(language, dict.common.errorMsg.country)}
+      />
+      <ErrorHandler
+        status={cityError}
+        setStatus={setCityError}
+        modalId="city-error"
+        modalText={getDisplayText(language, dict.common.errorMsg.city)}
+      />
     </div>
   );
 }
