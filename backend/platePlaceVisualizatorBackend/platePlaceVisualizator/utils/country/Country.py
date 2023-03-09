@@ -26,9 +26,9 @@ class CountryUtils:
             raise NoConfiguredLanguage()
 
         if language == 'eng' and Country.objects.filter(name=name).exists():
-            return Country.objects.get(name=name)
+            return Country.objects.filter(name=name)
         elif language == 'pl' and Country.objects.filter(name_pl=name).exists():
-            return Country.objects.get(name_pl=name)
+            return Country.objects.filter(name_pl=name)
         else:
             name_en = name
             if language == 'pl':
@@ -41,17 +41,20 @@ class CountryUtils:
             response = requests.get(url)
 
             if response.status_code == 200:
-                country = Country(name=name_en,
-                                  name_pl=response.json()[0]['translations']['pol']['common'],
-                                  capital=response.json()[0]['capital'][0],
-                                  region=response.json()[0]['region'],
-                                  subregion=response.json()[0]['subregion'],
-                                  latitude=response.json()[0]['capitalInfo']['latlng'][0],
-                                  longitude=response.json()[0]['capitalInfo']['latlng'][1])
-                if save_if_found:
-                    country.save()
-                logging.info(f"Saving new country: {name}")
-                return country
+                ret = []
+                for elem in response.json():
+                    country = Country(name=name_en,
+                                      name_pl=elem['translations']['pol']['common'],
+                                      capital=elem['capital'][0] if 'capital' in elem else "",
+                                      region=elem['region'],
+                                      subregion=elem['subregion'] if 'subregion' in elem else "",
+                                      latitude=elem['capitalInfo']['latlng'][0] if 'capital' in elem else "",
+                                      longitude=elem['capitalInfo']['latlng'][1] if 'capital' in elem else "")
+                    if save_if_found:
+                        country.save()
+                        logging.info(f"Saving new country: {name}")
+                    ret.append(country)
+                return ret
             else:
                 raise NotFoundError()
 

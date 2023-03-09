@@ -6,6 +6,10 @@ import { getCountryByName, getCityByName } from "./checkerThunk";
 export interface CheckerSlice {
   newCountryCheck: {}; // country checker field state
   newCountryTmp: {}; // selected value for country from checker
+  countryCheckResults: []; // list of results for country from checker
+  countryShowResults: Boolean; // flag that indicated showing modal with checker results
+  countrySelectedRowIndexResults: String; // selected row index for country results
+  countryLoadingResults: LoadingState; // loading state of fetching checker results
 
   newCityCheck: {}; // city checker field state
   newCityTmp: null; // selected value for city from checker
@@ -18,6 +22,10 @@ export interface CheckerSlice {
 const initialState: CheckerSlice = {
   newCountryCheck: {},
   newCountryTmp: {},
+  countryCheckResults: [],
+  countryShowResults: false,
+  countrySelectedRowIndexResults: null,
+  countryLoadingResults: LoadingState.idle,
 
   newCityCheck: {},
   newCityTmp: null,
@@ -35,11 +43,16 @@ export const checkerSlice = createSlice({
       state.newCountryCheck = {};
       state.newCityCheck = {};
       state.cityShowResults = false;
+      state.countryShowResults = false;
       return state;
     },
 
     setNewCountryCheck(state, action) {
       state.newCountryCheck[action.payload.field] = action.payload.value;
+      return state;
+    },
+    setCountrySelectedRowIndexResults(state, action) {
+      state.countrySelectedRowIndexResults = action.payload;
       return state;
     },
 
@@ -66,6 +79,13 @@ export const checkerSlice = createSlice({
       state.cityLoadingResults = LoadingState.idle;
       return state;
     },
+    clearCountryResults(state, action) {
+      state.countryCheckResults = [];
+      state.countryShowResults = false;
+      state.countrySelectedRowIndexResults = null;
+      state.countryLoadingResults = LoadingState.idle;
+      return state;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getCountryByName.fulfilled, (state, action) => {
@@ -75,7 +95,14 @@ export const checkerSlice = createSlice({
         let check = {};
         check[action.payload.field] = CheckState.correct;
         state.newCountryCheck = check;
-        state.newCountryTmp = action.payload.data;
+        if (action.payload.data.length === 1) {
+          state.newCountryTmp = action.payload.data[0];
+        } else {
+          state.newCountryTmp = action.payload.data;
+          state.countryCheckResults = action.payload.data;
+          state.countryShowResults = true;
+          state.countryLoadingResults = LoadingState.fulfilled;
+        }
       }
     });
     builder.addCase(getCityByName.fulfilled, (state, action) => {
@@ -97,7 +124,9 @@ export const {
   setNewCountryCheck,
   setNewCityCheck,
   setNewCityTmp,
+  setCountrySelectedRowIndexResults,
   setCitySelectedRowIndexResults,
+  clearCountryResults,
   clearCityResults,
   resetAllChecks,
   setNewCountryTmp,

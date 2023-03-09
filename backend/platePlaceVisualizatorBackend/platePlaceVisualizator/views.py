@@ -186,7 +186,7 @@ def country_selector(request):
         language = request.query_params.get('language', None)
         try:
             country = CountryUtils().get_country(name, language)
-            serializer = CountrySerializer(country, many=False)
+            serializer = CountrySerializer(country, many=True)
             return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
         except NoConfiguredLanguage:
             logging.error(f"Not configured language: {language}")
@@ -234,7 +234,7 @@ def country_selector_check(request):
         language = request.query_params.get('language', None)
         try:
             country = CountryUtils().get_country(name, language, save_if_found=False)
-            serializer = CountrySerializer(country, many=False)
+            serializer = CountrySerializer(country, many=True)
             return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
         except NoConfiguredLanguage:
             logging.error(f"Not configured language: {language}")

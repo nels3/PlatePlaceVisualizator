@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { LoadingState } from "src/utils/constants";
 import Details from "src/components/common/Details";
+import ModalResultsWindow from "src/components/common/modal/ModalResultsWindow";
 import { CheckState } from "src/utils/constants";
 import { getDisplayText, dictionary as dict } from "src/utils/languageUtil";
+import { openModal, closeModal } from "src/store/slices/common/commonSlice";
 import {
   updateNewCountryField,
   cancelAddCountry,
@@ -14,7 +16,11 @@ import {
   fetchCountriesList,
   addNewCountry,
 } from "src/store/slices/world/worldThunk";
-import { setNewCountryTmp } from "src/store/slices/checker/checkerSlice";
+import {
+  setCountrySelectedRowIndexResults,
+  setNewCountryTmp,
+  clearCountryResults,
+} from "src/store/slices/checker/checkerSlice";
 import { getCountryByName } from "src/store/slices/checker/checkerThunk";
 
 const NewUserCountryDetail = () => {
@@ -23,6 +29,14 @@ const NewUserCountryDetail = () => {
   const country = useSelector((state) => state.world.newCountry);
   const countryTmp = useSelector((state) => state.checker.newCountryTmp);
   const loadingDetail = useSelector((state) => state.world.loadingCountries);
+  const selectedRowIndex = useSelector(
+    (state) => state.checker.countrySelectedRowIndexResults
+  );
+  const results = useSelector((state) => state.checker.countryCheckResults);
+  const loadingState = useSelector(
+    (state) => state.checker.countryLoadingResults
+  );
+  const showResults = useSelector((state) => state.checker.countryShowResults);
 
   const checkState = useSelector((state) => state.checker.newCountryCheck);
 
@@ -87,6 +101,12 @@ const NewUserCountryDetail = () => {
   }, [loadingDetail]);
 
   useEffect(() => {
+    if (showResults) {
+      dispatch(openModal("country-results"));
+    }
+  }, [showResults, results]);
+
+  useEffect(() => {
     dispatch(setNewCountry(countryTmp));
   }, [countryTmp]);
 
@@ -120,25 +140,80 @@ const NewUserCountryDetail = () => {
 
   let shouldUpdate = useMemo(() => checkIfCanAdd(), [country]);
 
+  const chooseFn = () => {
+    dispatch(setNewCountry(countryTmp));
+    dispatch(clearCountryResults());
+    dispatch(closeModal("country-results"));
+  };
+
+  const columns = [
+    {
+      Header: getDisplayText(language, dict.world.countriesDetails.countryEn),
+      accessor: "name",
+    },
+    {
+      Header: getDisplayText(language, dict.world.countriesDetails.countryPl),
+      accessor: "name_pl",
+    },
+    {
+      Header: getDisplayText(language, dict.world.countriesDetails.capital),
+      accessor: "capital",
+    },
+    {
+      Header: getDisplayText(language, dict.world.countriesDetails.region),
+      accessor: "region",
+    },
+    {
+      Header: getDisplayText(language, dict.world.countriesDetails.subregion),
+      accessor: "subregion",
+    },
+    {
+      Header: getDisplayText(language, dict.world.countriesDetails.longitude),
+      accessor: "longitude",
+    },
+    {
+      Header: getDisplayText(language, dict.world.countriesDetails.latitude),
+      accessor: "latitude",
+    },
+  ];
+
+  const onRowClickAction = (rowDetails, rowIndex) => {
+    dispatch(setCountrySelectedRowIndexResults(rowIndex));
+    dispatch(setNewCountryTmp(rowDetails));
+  };
+
   return (
     <>
       {country ? (
-        <div style={{ padding: "5px" }}>
-          <Details
-            tribe="add"
-            id="country_details"
-            data={country}
-            fields={fields}
-            title={getDisplayText(
-              language,
-              dict.world.countriesDetails.newTitle
-            )}
-            updateField={updateFieldFun}
-            updateFn={updateFun}
-            cancelFn={cancelFun}
-            shouldUpdate={shouldUpdate}
+        <>
+          <div style={{ padding: "5px" }}>
+            <Details
+              tribe="add"
+              id="country_details"
+              data={country}
+              fields={fields}
+              title={getDisplayText(
+                language,
+                dict.world.countriesDetails.newTitle
+              )}
+              updateField={updateFieldFun}
+              updateFn={updateFun}
+              cancelFn={cancelFun}
+              shouldUpdate={shouldUpdate}
+            />
+          </div>
+          <ModalResultsWindow
+            id="country-results"
+            buttonLabel={getDisplayText(language, dict.common.choose)}
+            title={getDisplayText(language, dict.common.choose)}
+            buttonFn={chooseFn}
+            columns={columns}
+            data={results}
+            onRowClickAction={onRowClickAction}
+            selectedRowIndex={selectedRowIndex}
+            loadingState={loadingState}
           />
-        </div>
+        </>
       ) : (
         <></>
       )}
