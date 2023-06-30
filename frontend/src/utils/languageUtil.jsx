@@ -54,7 +54,7 @@ export const dictionary = {
     have: { en: "You have: ", pl: "Masz: " },
     plates: { en: " plates, from ", pl: " talerzyków, z " },
     countries: { en: " countries, from ", pl: " krajów, z " },
-    cities: { en: " cities. Congrats!", pl: " miast. Gratulacje!" },
+    cities: { en: " places. Congrats!", pl: " miejsc. Gratulacje!" },
   },
   map: {
     filters: { en: "Filters", pl: "Filtry" },
